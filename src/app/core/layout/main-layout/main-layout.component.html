@@ -1,0 +1,18 @@
+<div class="layout-container">
+
+    <app-sidebar [isOpen]="isSidebarOpen">
+    </app-sidebar>
+
+    <div class="content-area" [class.sidebar-closed]="!isSidebarOpen">
+
+        <app-navbar (toggleSidebar)="toggleSidebar()">
+        </app-navbar>
+
+        <main class="page-content">
+            <div class="coming-soon">
+                Em breve.
+            </div>
+        </main>
+
+    </div>
+</div>
