@@ -67,19 +67,28 @@
 }
 
 .menu-item {
-  height: 48px;
-  border-radius: 12px;
-
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 
-  padding: 0 14px;
+  padding: 12px;
+  border-radius: 12px;
 
-  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+
   transition: 0.2s;
 
-  color: #334155;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  i {
+    text-decoration: none;
+    font-size: 1.2rem;
+  }
 }
 
 .menu-item:hover {
@@ -90,6 +99,11 @@
 .menu-item i {
   font-size: 20px;
   display: flex;
+}
+
+.menu-item.active {
+  background: #b9c7ff;
+  font-weight: 600;
 }
 
 .logout-area {

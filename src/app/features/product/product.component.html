@@ -1,0 +1,17 @@
+<div class="container-fluid">
+
+  <div class="d-flex justify-content-end align-items-center mb-4">
+    <button class="btn btn-primary" (click)="onCreate()">
+      <i class="bi bi-plus-lg me-2"></i>Novo
+    </button>
+  </div>
+
+  <app-data-table
+    [columns]="columns"
+    [data]="products"
+    (edit)="onEdit($event)"
+    (remove)="onDelete($event)"
+    (view)="onView($event)">
+  </app-data-table>
+
+</div>
