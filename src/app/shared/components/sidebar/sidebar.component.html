@@ -9,25 +9,21 @@
       </div>
 
       <span class="system-name" *ngIf="isOpen">
-          GestãoPro
+        GestãoPro
       </span>
 
     </div>
 
     <nav class="menu">
 
-      <a
-        class="menu-item"
-        *ngFor="let item of menuItems"
-        [routerLink]="item.link"
-        routerLinkActive="active"
+      <a class="menu-item" *ngFor="let item of menuItems" [routerLink]="item.link" routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }">
 
         <i [class]="'bi bi-' + item.icon"></i>
 
         <span *ngIf="isOpen">
-      {{ item.label }}
-    </span>
+          {{ item.label }}
+        </span>
 
       </a>
 
@@ -37,14 +33,11 @@
 
   <div class="logout-area">
 
-    <div class="menu-item logout">
-
+    <div class="menu-item logout" (click)="logout()">
       <i class="bi bi-box-arrow-right"></i>
-
       <span *ngIf="isOpen">
-                Sair
-            </span>
-
+        Sair
+      </span>
     </div>
 
   </div>

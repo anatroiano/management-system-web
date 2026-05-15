@@ -1,7 +1,10 @@
-import {Component, Input} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {MatIconModule} from '@angular/material/icon';
-import {RouterLink, RouterLinkActive} from '@angular/router';
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
+import { Router } from '@angular/router';
+import { TokenService } from '../../../core/services/token.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,6 +16,12 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
 export class SidebarComponent {
 
   @Input() isOpen = true;
+
+  constructor(
+    private tokenService: TokenService,
+    private router: Router
+  ) {
+  }
 
   menuItems = [
     {
@@ -41,4 +50,9 @@ export class SidebarComponent {
       link: ''
     }
   ];
+
+  logout(): void {
+    this.tokenService.removeToken();
+    this.router.navigate(['/login']);
+  }
 }

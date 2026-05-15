@@ -1,16 +1,24 @@
-import {Routes} from '@angular/router';
-import {ProductComponent} from "./features/product/product.component";
-import {MainLayoutComponent} from './core/layout/main-layout/main-layout.component';
+import { Routes } from '@angular/router';
+import { ProductComponent } from "./features/product/product.component";
+import { MainLayoutComponent } from './core/layout/main-layout/main-layout.component';
+import { LoginComponent } from './features/login/login.component';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
     path: '',
     component: MainLayoutComponent,
+    canActivate: [authGuard],
     children: [
 
       {
         path: 'products',
-        component: ProductComponent
+        component: ProductComponent,
+        canActivate: [authGuard]
       }
 
     ]
