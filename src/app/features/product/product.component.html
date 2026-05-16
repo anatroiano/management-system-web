@@ -1,9 +1,21 @@
 <div class="container-fluid">
 
-  <div class="d-flex justify-content-end align-items-center mb-4">
-    <button class="btn btn-primary" (click)="onCreate()">
-      <i class="bi bi-plus-lg me-2"></i>Novo
+  <div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+      <h5 class="mb-0">
+        Total de produtos: {{ totalElements }}
+      </h5>
+    </div>
+
+    <button
+      class="btn btn-primary"
+      (click)="onCreate()">
+
+      <i class="bi bi-plus-lg me-2"></i>
+      Novo
     </button>
+
   </div>
 
   <app-data-table
@@ -13,5 +25,11 @@
     (remove)="onDelete($event)"
     (view)="onView($event)">
   </app-data-table>
+
+  <app-pagination
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    (pageChange)="onPageChange($event)">
+  </app-pagination>
 
 </div>
