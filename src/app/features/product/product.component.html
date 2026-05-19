@@ -10,7 +10,7 @@
 
     <button
       class="btn btn-primary"
-      (click)="onCreate()">
+      (click)="goToNew()">
 
       <i class="bi bi-plus-lg me-2"></i>
       Novo
@@ -21,9 +21,9 @@
   <app-data-table
     [columns]="columns"
     [data]="products"
-    (edit)="onEdit($event)"
+    (edit)="goToEdit($event)"
     (remove)="onDelete($event)"
-    (view)="onView($event)">
+    (view)="goToDetails($event)">
   </app-data-table>
 
   <app-pagination

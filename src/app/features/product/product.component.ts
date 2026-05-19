@@ -4,6 +4,7 @@ import { NavbarService } from '../../core/services/navbar.service';
 import { ProductService } from '../../core/services/product.service';
 import { ProductResponseDTO } from '../../shared/models/product-response.dto';
 import { PaginationComponent } from "../../shared/components/pagination/pagination.component";
+import { ProductNavigationService } from './navigation.service';
 
 @Component({
   selector: 'app-product',
@@ -12,7 +13,7 @@ import { PaginationComponent } from "../../shared/components/pagination/paginati
   imports: [
     DataTableComponent,
     PaginationComponent
-]
+  ]
 })
 export class ProductComponent implements OnInit {
 
@@ -34,7 +35,8 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private navbarService: NavbarService,
-    private productService: ProductService
+    private productService: ProductService,
+    private navigation: ProductNavigationService
   ) { }
 
   ngOnInit(): void {
@@ -86,20 +88,19 @@ export class ProductComponent implements OnInit {
     this.loadProducts();
   }
 
-
-  onCreate(): void {
-    console.log('Novo produto');
+  goToNew(): void {
+    this.navigation.goToNew();
   }
 
-  onEdit(product: ProductResponseDTO): void {
-    console.log('Editar', product);
+  goToEdit(product: ProductResponseDTO): void {
+    this.navigation.goToEdit(product.id);
   }
 
   onDelete(product: ProductResponseDTO): void {
     console.log('Excluir', product);
   }
 
-  onView(product: ProductResponseDTO): void {
-    console.log('Visualizar', product);
+  goToDetails(product: ProductResponseDTO): void {
+    this.navigation.goToDetails(product.id);
   }
 }
