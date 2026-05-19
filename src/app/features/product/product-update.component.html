@@ -1,0 +1,93 @@
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="mb-0 fw-semibold">
+                {{ isEditMode
+                ? 'Editar Produto'
+                : 'Novo Produto' }}
+            </h4>
+
+            <small class="text-muted">
+                {{ isEditMode
+                ? 'Atualize as informações do produto'
+                : 'Preencha os dados do produto' }}
+            </small>
+        </div>
+
+        <button class="btn btn-outline-secondary" (click)="goToList()">
+            <i class="bi bi-arrow-left me-2"></i>
+            Voltar
+        </button>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <label class="form-label">
+                            Código
+                        </label>
+
+                        <input type="text" class="form-control" formControlName="code">
+
+                        <div class="text-danger small mt-1"
+                            *ngIf="form.get('code')?.touched && form.get('code')?.invalid">
+                            Código obrigatório
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <label class="form-label">
+                            Nome
+                        </label>
+                        <input type="text" class="form-control" formControlName="name">
+
+                        <div class="text-danger small mt-1"
+                            *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
+                            Nome obrigatório
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">
+                            Preço
+                        </label>
+
+                        <input type="text" class="form-control" formControlName="price" mask="separator.2"
+                            thousandSeparator="." decimalMarker=",">
+
+                        <div class="text-danger small mt-1"
+                            *ngIf="form.get('price')?.touched && form.get('price')?.invalid">
+                            Preço obrigatório
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">
+                            Descrição
+                        </label>
+                        <textarea rows="4" class="form-control" formControlName="description"></textarea>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    <button type="button" class="btn btn-outline-secondary" (click)="goToList()">
+                        <i class="bi bi-x-lg me-2"></i>
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="btn btn-primary" [disabled]="form.invalid || loading">
+                        <i class="bi bi-check-lg me-2"></i>
+
+                        {{ isEditMode
+                        ? 'Salvar alterações'
+                        : 'Criar produto' }}
+
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
