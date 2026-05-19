@@ -3,6 +3,8 @@ import { ProductComponent } from "./features/product/product.component";
 import { MainLayoutComponent } from './core/layout/main-layout/main-layout.component';
 import { LoginComponent } from './features/login/login.component';
 import { authGuard } from './core/guards/auth.guard';
+import { ProductDetailComponent } from './features/product/product-detail.component';
+import { ProductUpdateComponent } from './features/product/product-update.component';
 
 export const routes: Routes = [
   {
@@ -18,6 +20,21 @@ export const routes: Routes = [
       {
         path: 'products',
         component: ProductComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'products/:id/view',
+        component: ProductDetailComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'products/new',
+        component: ProductUpdateComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'products/edit/:id',
+        component: ProductUpdateComponent,
         canActivate: [authGuard]
       }
 
