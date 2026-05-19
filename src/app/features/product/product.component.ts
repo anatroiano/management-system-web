@@ -5,6 +5,7 @@ import { ProductService } from '../../core/services/product.service';
 import { ProductResponseDTO } from '../../shared/models/product-response.dto';
 import { PaginationComponent } from "../../shared/components/pagination/pagination.component";
 import { ProductNavigationService } from './navigation.service';
+import { ConfirmModalComponent } from '../../shared/components/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-product',
@@ -12,7 +13,8 @@ import { ProductNavigationService } from './navigation.service';
   templateUrl: './product.component.html',
   imports: [
     DataTableComponent,
-    PaginationComponent
+    PaginationComponent,
+    ConfirmModalComponent
   ]
 })
 export class ProductComponent implements OnInit {
@@ -24,6 +26,9 @@ export class ProductComponent implements OnInit {
   ];
 
   products: ProductResponseDTO[] = [];
+
+  isDeleteModalOpen = false;
+  selectedProduct?: ProductResponseDTO;
 
   currentPage = 0;
   pageSize = 10;
@@ -96,11 +101,35 @@ export class ProductComponent implements OnInit {
     this.navigation.goToEdit(product.id);
   }
 
-  onDelete(product: ProductResponseDTO): void {
-    console.log('Excluir', product);
-  }
-
   goToDetails(product: ProductResponseDTO): void {
     this.navigation.goToDetails(product.id);
+  }
+
+  onDelete(product: ProductResponseDTO): void {
+    this.selectedProduct = product;
+    this.isDeleteModalOpen = true;
+  }
+
+  closeDeleteModal(): void {
+    this.isDeleteModalOpen = false;
+    this.selectedProduct = undefined;
+  }
+
+  confirmDelete(): void {
+    if (!this.selectedProduct) {
+      return;
+    }
+
+    this.productService.disable(this.selectedProduct.id)
+      .subscribe({
+        next: () => {
+          this.closeDeleteModal();
+          this.loadProducts();
+        },
+        error: (error) => {
+          console.error('Erro ao excluir produto', error);
+        }
+      });
+
   }
 }

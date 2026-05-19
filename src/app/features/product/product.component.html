@@ -32,4 +32,15 @@
     (pageChange)="onPageChange($event)">
   </app-pagination>
 
+  <app-confirm-modal
+  [isOpen]="isDeleteModalOpen"
+  title="Excluir produto"
+  [message]="'Tem certeza que deseja excluir o produto ' + selectedProduct?.name + '?'"
+  confirmText="Excluir"
+  cancelText="Cancelar"
+  confirmButtonClass="btn-danger"
+  (confirm)="confirmDelete()"
+  (close)="closeDeleteModal()">
+</app-confirm-modal>
+
 </div>
