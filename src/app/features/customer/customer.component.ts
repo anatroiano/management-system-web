@@ -1,34 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { DataTableComponent } from '../../shared/components/data-table/data-table.component';
 import { NavbarService } from '../../core/services/navbar.service';
-import { ProductService } from '../../core/services/product.service';
-import { ProductResponseDTO } from '../../shared/models/product-response.dto';
 import { PaginationComponent } from "../../shared/components/pagination/pagination.component";
-import { ProductNavigationService } from './product-navigation.service';
+import { CustomerNavigationService } from './customer-navigation.service';
 import { ConfirmModalComponent } from '../../shared/components/confirm-modal/confirm-modal.component';
+import { CustomerResponseDTO } from '../../shared/models/customer-response.dto';
+import { CustomerService } from '../../core/services/customer.service';
 
 @Component({
-  selector: 'app-product',
+  selector: 'app-customer',
   standalone: true,
-  templateUrl: './product.component.html',
+  templateUrl: './customer.component.html',
   imports: [
     DataTableComponent,
     PaginationComponent,
     ConfirmModalComponent
   ]
 })
-export class ProductComponent implements OnInit {
+export class CustomerComponent implements OnInit {
 
   columns = [
     { field: 'id', label: 'ID' },
-    { field: 'code', label: 'Código' },
-    { field: 'name', label: 'Nome' }
+    { field: 'name', label: 'Nome' },
+    { field: 'email', label: 'E-mail' }
   ];
 
-  products: ProductResponseDTO[] = [];
+  customers: CustomerResponseDTO[] = [];
 
   isDeleteModalOpen = false;
-  selectedProduct?: ProductResponseDTO;
+  selectedCustomer?: CustomerResponseDTO;
 
   currentPage = 0;
   pageSize = 10;
@@ -40,35 +40,34 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private navbarService: NavbarService,
-    private productService: ProductService,
-    private navigation: ProductNavigationService
+    private customerService: CustomerService,
+    private navigation: CustomerNavigationService
   ) { }
 
   ngOnInit(): void {
     this.navbarService.setConfig({
-      icon: 'box-seam',
+      icon: 'people',
       showFilter: false,
-      title: 'Produtos'
+      title: 'Clientes'
     });
 
-    this.loadProducts();
+    this.loadCustomers();
   }
 
-  loadProducts(): void {
-
+  loadCustomers(): void {
     this.loading = true;
 
-    this.productService
+    this.customerService
       .findAll(this.currentPage, this.pageSize)
       .subscribe({
         next: (response: any) => {
-          this.products = response.content;
+          this.customers = response.content;
           this.totalPages = response.totalPages;
           this.totalElements = response.totalElements;
           this.loading = false;
         },
         error: (error: any) => {
-          console.error('Erro ao carregar produtos', error);
+          console.error('Erro ao carregar clientes', error);
           this.loading = false;
         }
       });
@@ -77,57 +76,57 @@ export class ProductComponent implements OnInit {
   nextPage(): void {
     if (this.currentPage < this.totalPages - 1) {
       this.currentPage++;
-      this.loadProducts();
+      this.loadCustomers();
     }
   }
 
   previousPage(): void {
     if (this.currentPage > 0) {
       this.currentPage--;
-      this.loadProducts();
+      this.loadCustomers();
     }
   }
 
   onPageChange(page: number): void {
     this.currentPage = page;
-    this.loadProducts();
+    this.loadCustomers();
   }
 
   goToNew(): void {
     this.navigation.goToNew();
   }
 
-  goToEdit(product: ProductResponseDTO): void {
-    this.navigation.goToEdit(product.id);
+  goToEdit(customer: CustomerResponseDTO): void {
+    this.navigation.goToEdit(customer.id);
   }
 
-  goToDetails(product: ProductResponseDTO): void {
-    this.navigation.goToDetails(product.id);
+  goToDetails(customer: CustomerResponseDTO): void {
+    this.navigation.goToDetails(customer.id);
   }
 
-  onDelete(product: ProductResponseDTO): void {
-    this.selectedProduct = product;
+  onDelete(customer: CustomerResponseDTO): void {
+    this.selectedCustomer = customer;
     this.isDeleteModalOpen = true;
   }
 
   closeDeleteModal(): void {
     this.isDeleteModalOpen = false;
-    this.selectedProduct = undefined;
+    this.selectedCustomer = undefined;
   }
 
   confirmDelete(): void {
-    if (!this.selectedProduct) {
+    if (!this.selectedCustomer) {
       return;
     }
 
-    this.productService.disable(this.selectedProduct.id)
+    this.customerService.disable(this.selectedCustomer.id)
       .subscribe({
         next: () => {
           this.closeDeleteModal();
-          this.loadProducts();
+          this.loadCustomers();
         },
         error: (error) => {
-          console.error('Erro ao excluir produto', error);
+          console.error('Erro ao excluir cliente', error);
         }
       });
 

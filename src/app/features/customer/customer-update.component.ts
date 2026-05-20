@@ -8,35 +8,35 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ProductService } from '../../core/services/product.service';
-import { ProductRequestDTO } from '../../shared/models/product-request.dto';
-import { ProductNavigationService } from './product-navigation.service';
+import { CustomerNavigationService } from './customer-navigation.service';
+import { CustomerService } from '../../core/services/customer.service';
+import { CustomerRequestDTO } from '../../shared/models/customer-request.dto';
+import { documentValidator } from '../../shared/utils/document.validator';
 import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
-    selector: 'app-product-update',
+    selector: 'app-customer-update',
     standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule,
         NgxMaskDirective
     ],
-    templateUrl: './product-update.component.html'
+    templateUrl: './customer-update.component.html'
 })
-export class ProductUpdateComponent implements OnInit {
+export class CustomerUpdateComponent implements OnInit {
 
     form!: FormGroup;
 
-    productId?: number;
+    customerId?: number;
 
     loading = false;
 
     constructor(
         private fb: FormBuilder,
-        private router: Router,
         private route: ActivatedRoute,
-        private productService: ProductService,
-        private navigation: ProductNavigationService
+        private customerService: CustomerService,
+        private navigation: CustomerNavigationService
     ) { }
 
     ngOnInit(): void {
@@ -44,32 +44,31 @@ export class ProductUpdateComponent implements OnInit {
         const id = this.route.snapshot.paramMap.get('id');
 
         if (id) {
-            this.productId = Number(id);
-            this.loadProduct(this.productId);
+            this.customerId = Number(id);
+            this.loadCustomer(this.customerId);
         }
     }
 
     createForm(): void {
         this.form = this.fb.group({
-            code: ['', [Validators.required, Validators.maxLength(20)]],
             name: ['', [Validators.required, Validators.maxLength(100)]],
-            description: ['', [Validators.maxLength(255)]],
-            price: [null, [Validators.required, Validators.min(0)]]
+            email: ['', [Validators.required, Validators.email]],
+            phone: ['', [Validators.minLength(10), Validators.maxLength(11)]],
+            document: ['', [documentValidator()]]
         });
     }
 
-    loadProduct(id: number): void {
+    loadCustomer(id: number): void {
         this.loading = true;
 
-        this.productService.findOne(id)
+        this.customerService.findOne(id)
             .subscribe({
-                next: (product) => {
-
+                next: (customer) => {
                     this.form.patchValue({
-                        code: product.code,
-                        name: product.name,
-                        description: product.description,
-                        price: product.price
+                        name: customer.name,
+                        email: customer.email,
+                        phone: customer.phone,
+                        document: customer.document
                     });
 
                     this.loading = false;
@@ -87,15 +86,15 @@ export class ProductUpdateComponent implements OnInit {
             return;
         }
 
-        const payload: ProductRequestDTO = this.form.value;
+        const payload: CustomerRequestDTO = this.form.value;
 
         this.loading = true;
 
-        if (this.productId) {
-            this.productService.update(this.productId, payload)
+        if (this.customerId) {
+            this.customerService.update(this.customerId, payload)
                 .subscribe({
-                    next: (product) => {
-                        this.navigation.goToDetails(product.id);
+                    next: (customer) => {
+                        this.navigation.goToDetails(customer.id);
                     },
                     error: () => {
                         this.loading = false;
@@ -104,10 +103,10 @@ export class ProductUpdateComponent implements OnInit {
             return;
         }
 
-        this.productService.create(payload)
+        this.customerService.create(payload)
             .subscribe({
-                next: (product) => {
-                    this.navigation.goToDetails(product.id);
+                next: (customer) => {
+                    this.navigation.goToDetails(customer.id);
                 },
                 error: () => {
                     this.loading = false;
@@ -120,7 +119,7 @@ export class ProductUpdateComponent implements OnInit {
     }
 
     get isEditMode(): boolean {
-        return !!this.productId;
+        return !!this.customerId;
     }
 
 }

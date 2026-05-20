@@ -4,7 +4,7 @@ import { ProductResponseDTO } from "../../shared/models/product-response.dto";
 import { CurrencyUtil } from "../../shared/utils/current.util";
 import { ProductService } from "../../core/services/product.service";
 import { CommonModule } from "@angular/common";
-import { ProductNavigationService } from "./navigation.service";
+import { ProductNavigationService } from "./product-navigation.service";
 import { NavbarService } from "../../core/services/navbar.service";
 
 @Component({
