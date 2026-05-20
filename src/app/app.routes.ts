@@ -5,6 +5,9 @@ import { LoginComponent } from './features/login/login.component';
 import { authGuard } from './core/guards/auth.guard';
 import { ProductDetailComponent } from './features/product/product-detail.component';
 import { ProductUpdateComponent } from './features/product/product-update.component';
+import { CustomerUpdateComponent } from './features/customer/customer-update.component';
+import { CustomerDetailComponent } from './features/customer/customer-detail.component';
+import { CustomerComponent } from './features/customer/customer.component';
 
 export const routes: Routes = [
   {
@@ -16,7 +19,6 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     canActivate: [authGuard],
     children: [
-
       {
         path: 'products',
         component: ProductComponent,
@@ -36,8 +38,27 @@ export const routes: Routes = [
         path: 'products/edit/:id',
         component: ProductUpdateComponent,
         canActivate: [authGuard]
+      },
+      {
+        path: 'customers',
+        component: CustomerComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'customers/:id/view',
+        component: CustomerDetailComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'customers/new',
+        component: CustomerUpdateComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'customers/edit/:id',
+        component: CustomerUpdateComponent,
+        canActivate: [authGuard]
       }
-
     ]
   }
 ];
