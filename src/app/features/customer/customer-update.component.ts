@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { CustomerNavigationService } from './customer-navigation.service';
 import { CustomerService } from '../../core/services/customer.service';
-import { CustomerRequestDTO } from '../../shared/models/customer-request.dto';
+import { CustomerRequestDTO } from '../../shared/models/customer/customer-request.dto';
 import { documentValidator } from '../../shared/utils/document.validator';
 import { NgxMaskDirective } from 'ngx-mask';
 

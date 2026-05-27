@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../../../enviroments/enviroment";
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { ProductResponseDTO } from "../../shared/models/product-response.dto";
+import { ProductResponseDTO } from "../../shared/models/product/product-response.dto";
 import { Observable } from "rxjs";
-import { ProductRequestDTO } from "../../shared/models/product-request.dto";
+import { ProductRequestDTO } from "../../shared/models/product/product-request.dto";
 import { PageResponse } from "../../shared/models/page-response.model";
 
 @Injectable({
