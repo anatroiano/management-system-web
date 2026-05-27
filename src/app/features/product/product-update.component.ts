@@ -9,7 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ProductService } from '../../core/services/product.service';
-import { ProductRequestDTO } from '../../shared/models/product-request.dto';
+import { ProductRequestDTO } from '../../shared/models/product/product-request.dto';
 import { ProductNavigationService } from './product-navigation.service';
 import { NgxMaskDirective } from 'ngx-mask';
 

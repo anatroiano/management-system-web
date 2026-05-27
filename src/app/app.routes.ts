@@ -8,6 +8,8 @@ import { ProductUpdateComponent } from './features/product/product-update.compon
 import { CustomerUpdateComponent } from './features/customer/customer-update.component';
 import { CustomerDetailComponent } from './features/customer/customer-detail.component';
 import { CustomerComponent } from './features/customer/customer.component';
+import { StockComponent } from './features/stock/stock.component';
+import { StockDetailComponent } from './features/stock/stock-detail.component';
 
 export const routes: Routes = [
   {
@@ -58,7 +60,17 @@ export const routes: Routes = [
         path: 'customers/edit/:id',
         component: CustomerUpdateComponent,
         canActivate: [authGuard]
-      }
+      },
+      {
+        path: 'stocks',
+        component: StockComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'stocks/:id/view',
+        component: StockDetailComponent,
+        canActivate: [authGuard]
+      },
     ]
   }
 ];

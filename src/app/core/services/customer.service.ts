@@ -3,8 +3,8 @@ import { environment } from "../../../enviroments/enviroment";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { PageResponse } from "../../shared/models/page-response.model";
-import { CustomerRequestDTO } from "../../shared/models/customer-request.dto";
-import { CustomerResponseDTO } from "../../shared/models/customer-response.dto";
+import { CustomerRequestDTO } from "../../shared/models/customer/customer-request.dto";
+import { CustomerResponseDTO } from "../../shared/models/customer/customer-response.dto";
 
 @Injectable({
   providedIn: 'root'

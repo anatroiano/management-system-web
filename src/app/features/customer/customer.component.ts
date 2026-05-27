@@ -4,7 +4,7 @@ import { NavbarService } from '../../core/services/navbar.service';
 import { PaginationComponent } from "../../shared/components/pagination/pagination.component";
 import { CustomerNavigationService } from './customer-navigation.service';
 import { ConfirmModalComponent } from '../../shared/components/confirm-modal/confirm-modal.component';
-import { CustomerResponseDTO } from '../../shared/models/customer-response.dto';
+import { CustomerResponseDTO } from '../../shared/models/customer/customer-response.dto';
 import { CustomerService } from '../../core/services/customer.service';
 
 @Component({

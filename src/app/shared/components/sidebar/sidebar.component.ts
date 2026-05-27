@@ -40,13 +40,13 @@ export class SidebarComponent {
       link: '/customers'
     },
     {
-      icon: 'cart',
-      label: 'Vendas',
-      link: ''
-    },
-    {
       icon: 'boxes',
       label: 'Estoque',
+      link: '/stocks'
+    },
+    {
+      icon: 'cart',
+      label: 'Vendas',
       link: ''
     }
   ];
