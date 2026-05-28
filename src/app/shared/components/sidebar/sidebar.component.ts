@@ -47,7 +47,7 @@ export class SidebarComponent {
     {
       icon: 'cart',
       label: 'Vendas',
-      link: ''
+      link: '/sales'
     }
   ];
 
