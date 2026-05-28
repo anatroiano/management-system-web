@@ -10,6 +10,9 @@ import { CustomerDetailComponent } from './features/customer/customer-detail.com
 import { CustomerComponent } from './features/customer/customer.component';
 import { StockComponent } from './features/stock/stock.component';
 import { StockDetailComponent } from './features/stock/stock-detail.component';
+import { SaleComponent } from './features/sale/sale.component';
+import { SaleDetailComponent } from './features/sale/sale-detail.component';
+import { SaleUpdateComponent } from './features/sale/sale-update.component';
 
 export const routes: Routes = [
   {
@@ -69,6 +72,21 @@ export const routes: Routes = [
       {
         path: 'stocks/:id/view',
         component: StockDetailComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'sales',
+        component: SaleComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'sales/:id/view',
+        component: SaleDetailComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'sales/new',
+        component: SaleUpdateComponent,
         canActivate: [authGuard]
       },
     ]

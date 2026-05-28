@@ -1,0 +1,108 @@
+<div class="container-fluid py-4">
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 rounded-4 h-100">
+                <div class="card-body">
+                    <p class="text-secondary mb-2">Vendas</p>
+                    <h2 class="fw-bold">0</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 rounded-4 h-100">
+                <div class="card-body">
+                    <p class="text-secondary mb-2">Faturamento</p>
+                    <h2 class="fw-bold">R$ 0,00</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 rounded-4 h-100">
+                <div class="card-body">
+                    <p class="text-secondary mb-2">Ticket médio</p>
+                    <h2 class="fw-bold">R$ 0,00</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h4 class="fw-bold mb-0">Histórico de vendas</h4>
+                    <span class="text-secondary">
+                        {{ 0 }} venda(s) registrada(s)
+                    </span>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button class="btn btn-dark px-4" (click)="goToNew()">
+                        Nova venda
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>ID</th>
+                            <th>Itens</th>
+                            <th>Status</th>
+                            <th>Total</th>
+                            <th class="text-end">Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let sale of sales">
+                            <td>
+                                {{ sale.createdAt | date:'dd/MM/yyyy, HH:mm' }}
+                            </td>
+
+                            <td>#{{ sale.id }}</td>
+
+                            <td>
+                                {{ sale.items.length }} item(ns)
+                            </td>
+
+                            <td>
+                                <span class="badge bg-secondary">
+                                    {{ sale.status }}
+                                </span>
+                            </td>
+
+                            <td class="fw-semibold">
+                                {{ sale.totalAmount | currency:'BRL' }}
+                            </td>
+
+                            <td class="text-end">
+                                <div class="d-flex justify-content-end gap-3">
+
+                                    <button class="btn btn-sm btn-outline-dark" (click)="goToDetails(sale)">
+                                        Ver
+                                    </button>
+
+                                    <button class="btn btn-sm btn-outline-danger" (click)="cancelSale(sale.id)">
+                                        Cancelar
+                                    </button>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="onPageChange($event)">
+            </app-pagination>
+
+        </div>
+    </div>
+
+</div>
