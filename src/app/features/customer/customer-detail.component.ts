@@ -41,7 +41,7 @@ export class CustomerDetailComponent implements OnInit {
             this.navbarService.setConfig({
               icon: 'people',
               showFilter: false,
-              title: 'Visualizar cliente'
+              title: 'Clientes'
             });
 
           },

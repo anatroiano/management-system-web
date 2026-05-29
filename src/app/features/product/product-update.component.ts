@@ -6,12 +6,13 @@ import {
     ReactiveFormsModule,
     Validators
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { ProductService } from '../../core/services/product.service';
 import { ProductRequestDTO } from '../../shared/models/product/product-request.dto';
 import { ProductNavigationService } from './product-navigation.service';
 import { NgxMaskDirective } from 'ngx-mask';
+import { NavbarService } from '../../core/services/navbar.service';
 
 @Component({
     selector: 'app-product-update',
@@ -33,7 +34,7 @@ export class ProductUpdateComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private router: Router,
+        private navbarService: NavbarService,
         private route: ActivatedRoute,
         private productService: ProductService,
         private navigation: ProductNavigationService
@@ -47,6 +48,12 @@ export class ProductUpdateComponent implements OnInit {
             this.productId = Number(id);
             this.loadProduct(this.productId);
         }
+
+        this.navbarService.setConfig({
+              icon: 'box-seam',
+              showFilter: false,
+              title: 'Produtos'
+        }); 
     }
 
     createForm(): void {

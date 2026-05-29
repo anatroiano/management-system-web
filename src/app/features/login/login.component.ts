@@ -36,7 +36,6 @@ export class LoginComponent {
     private tokenService: TokenService,
     private router: Router
   ) {
-
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -44,7 +43,6 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
-
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
@@ -54,13 +52,10 @@ export class LoginComponent {
     this.errorMessage = '';
 
     const { email, password } = this.loginForm.value;
-
     this.authService.login(email, password)
       .subscribe({
         next: (response: any) => {
-
           this.tokenService.setToken(response.token);
-
           this.router.navigate(['/products']);
         },
 

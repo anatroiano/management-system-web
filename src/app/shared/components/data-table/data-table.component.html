@@ -1,55 +1,41 @@
-<div class="card border-0 shadow-sm">
-  <div class="card-body">
-
-    <div class="table-responsive">
-      <table class="table align-middle table-hover">
-
-        <thead>
+<div class="table-card">
+  <div class="table-responsive">
+    <table class="table table-hover custom-table align-middle mb-0">
+      <thead>
         <tr>
           <th *ngFor="let column of columns">
             {{ column.label }}
           </th>
 
-          <th class="text-end">Ações</th>
+          <th class="text-end actions-column">
+            Ações
+          </th>
         </tr>
-        </thead>
+      </thead>
 
-        <tbody>
-
+      <tbody>
         <tr *ngFor="let item of data">
-
           <td *ngFor="let column of columns">
             {{ item[column.field] }}
           </td>
 
           <td class="text-end">
+            <div class="table-actions">
+              <button class="action-btn view-btn" (click)="onView(item)">
+                <i class="bi bi-eye"></i>
+              </button>
 
-            <button
-              class="btn btn-sm btn-outline-secondary me-2"
-              (click)="onView(item)">
-              <i class="bi bi-eye"></i>
-            </button>
+              <button class="action-btn edit-btn" (click)="onEdit(item)">
+                <i class="bi bi-pencil"></i>
+              </button>
 
-            <button
-              class="btn btn-sm btn-outline-primary me-2"
-              (click)="onEdit(item)">
-              <i class="bi bi-pencil"></i>
-            </button>
-
-            <button
-              class="btn btn-sm btn-outline-danger"
-              (click)="onDelete(item)">
-              <i class="bi bi-trash"></i>
-            </button>
-
+              <button class="action-btn delete-btn" (click)="onDelete(item)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
           </td>
-
         </tr>
-
-        </tbody>
-
-      </table>
-    </div>
-
+      </tbody>
+    </table>
   </div>
 </div>

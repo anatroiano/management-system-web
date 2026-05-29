@@ -1,46 +1,28 @@
-<div class="container-fluid">
-
-  <div class="d-flex justify-content-between align-items-center mb-4">
-
+<div class="page">
+  <div class="page-header">
     <div>
-      <h5 class="mb-0">
-        Total de produtos: {{ totalElements }}
-      </h5>
+      <h4 class="page-title">
+        Consulta de produtos
+      </h4>
     </div>
 
-    <button
-      class="btn btn-primary"
-      (click)="goToNew()">
+    <button class="btn new-button" (click)="goToNew()">
 
-      <i class="bi bi-plus-lg me-2"></i>
+      <i class="bi bi-plus-lg"></i>
       Novo
     </button>
-
   </div>
 
-  <app-data-table
-    [columns]="columns"
-    [data]="products"
-    (edit)="goToEdit($event)"
-    (remove)="onDelete($event)"
+  <app-data-table [columns]="columns" [data]="products" (edit)="goToEdit($event)" (remove)="onDelete($event)"
     (view)="goToDetails($event)">
   </app-data-table>
 
-  <app-pagination
-    [currentPage]="currentPage"
-    [totalPages]="totalPages"
-    (pageChange)="onPageChange($event)">
+  <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="onPageChange($event)">
   </app-pagination>
 
-  <app-confirm-modal
-  [isOpen]="isDeleteModalOpen"
-  title="Excluir produto"
-  [message]="'Tem certeza que deseja excluir o produto ' + selectedProduct?.name + '?'"
-  confirmText="Excluir"
-  cancelText="Cancelar"
-  confirmButtonClass="btn-danger"
-  (confirm)="confirmDelete()"
-  (close)="closeDeleteModal()">
-</app-confirm-modal>
+  <app-confirm-modal [isOpen]="isDeleteModalOpen" title="Excluir produto"
+    [message]="'Tem certeza que deseja excluir o produto ' + selectedProduct?.name + '?'" confirmText="Excluir"
+    cancelText="Cancelar" variant="danger" (confirm)="confirmDelete()" (close)="closeDeleteModal()">
+  </app-confirm-modal>
 
 </div>
