@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SaleService } from '../../core/services/sale.service';
 import { SaleResponseDTO } from '../../shared/models/sale/sale-response.dto';
 import { NavbarService } from '../../core/services/navbar.service';
+import { SaleNavigationService } from './sale-navigation.service';
 
 @Component({
     selector: 'app-sale-detail',
@@ -22,7 +23,8 @@ export class SaleDetailComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private saleService: SaleService,
-        private navbarService: NavbarService
+        private navbarService: NavbarService,
+        private navigation: SaleNavigationService,
     ) { }
 
     ngOnInit(): void {
@@ -39,5 +41,9 @@ export class SaleDetailComponent implements OnInit {
                 });
             }
         });
+    }
+
+    goToList(): void {
+        this.navigation.goToList();
     }
 }

@@ -178,7 +178,6 @@ export class SaleUpdateComponent implements OnInit {
     }
 
     save(): void {
-
         if (!this.selectedCustomer) {
             return;
         }
@@ -196,5 +195,9 @@ export class SaleUpdateComponent implements OnInit {
                 this.navigation.goToList();
             }
         });
+    }
+
+    goToList(): void {
+        this.navigation.goToList();
     }
 }

@@ -1,107 +1,93 @@
-<div class="container-fluid py-3">
-    <div class="card border-0 shadow-sm rounded-4">
-        <div class="card-body p-4">
+<div class="details-page">
+    <div class="details-card">
 
-            <div class="mb-3">
-                <h3 class="fw-bold mb-0">
-                    Nova venda
-                </h3>
+        <div class="details-header">
+            <div class="details-title-area">
+                <div>
+                    <h2 class="details-title">
+                        Nova venda
+                    </h2>
 
-                <span class="text-secondary">
-                    Selecione os itens da venda.
-                </span>
+                    <p class="details-subtitle">
+                        Selecione os itens da venda
+                    </p>
+                </div>
             </div>
 
-            <div class="row g-2 mb-3">
+            <div class="details-actions">
+                <button type="button" class="btn secondary-btn" (click)="goToList()">
+                    <i class="bi bi-arrow-left"></i>
+                    Voltar
+                </button>
+            </div>
+        </div>
 
-                <div class="col-md-6">
-                    <label class="form-label mb-1">
+        <div class="details-content">
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <label class="custom-label">
                         Cliente
                     </label>
 
-                    <select
-                        class="form-select"
-                        [(ngModel)]="selectedCustomer"
-                        (scroll)="onCustomerScroll($event)"
-                        style="max-height: 200px"
-                    >
-                        <option
-                            *ngFor="let customer of customers"
-                            [ngValue]="customer"
-                        >
+                    <select class="form-select custom-input" [(ngModel)]="selectedCustomer"
+                        (scroll)="onCustomerScroll($event)">
+                        <option *ngFor="let customer of customers" [ngValue]="customer">
                             {{ customer.name }}
                         </option>
                     </select>
                 </div>
-
             </div>
 
-            <div class="border rounded-4 p-3">
+            <div class="mt-4">
+                <div>
+                    <h5 class="details-title" style="font-size: 1.2rem;">
+                        Itens da venda
+                    </h5>
+                </div>
 
-                <div class="row g-2 align-items-end mb-3">
-
-                    <div class="col-md-6">
-                        <label class="form-label mb-1">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="custom-label">
                             Produto
                         </label>
 
-                        <select
-                            class="form-select"
-                            [(ngModel)]="selectedProduct"
-                            (ngModelChange)="onProductChange()"
-                            (scroll)="onProductScroll($event)"
-                            style="max-height: 200px"
-                        >
-                            <option
-                                *ngFor="let product of products"
-                                [ngValue]="product"
-                            >
+                        <select class="form-select custom-input" [(ngModel)]="selectedProduct"
+                            (ngModelChange)="onProductChange()" (scroll)="onProductScroll($event)">
+                            <option *ngFor="let product of products" [ngValue]="product">
                                 {{ product.name }}
                             </option>
                         </select>
                     </div>
 
-                    <div class="col-md-3">
-                        <label class="form-label mb-1">
-                            Qtd
+                    <div class="form-group">
+                        <label class="custom-label">
+                            Quantidade
                         </label>
 
-                        <input
-                            type="number"
-                            class="form-control"
-                            [(ngModel)]="quantity"
-                        >
+                        <input type="number" class="form-control custom-input" [(ngModel)]="quantity">
                     </div>
 
-                    <div class="col-md-3">
-                        <label class="form-label mb-1">
-                            Preço
+                    <div class="form-group">
+                        <label class="custom-label">
+                            Preço unitário
                         </label>
 
-                        <input
-                            type="number"
-                            class="form-control"
-                            [(ngModel)]="unitPrice"
-                        >
+                        <input type="number" class="form-control custom-input" [(ngModel)]="unitPrice">
                     </div>
-
                 </div>
 
-                <div class="d-flex justify-content-end mb-3">
-                    <button
-                        class="btn btn-dark px-4"
-                        (click)="addItem()"
-                    >
-                        Adicionar
+                <div class="d-flex justify-content-end mt-3 mb-4">
+                    <button type="button" class="btn primary-btn" (click)="addItem()">
+                        <i class="bi bi-plus-lg"></i>
+                        Adicionar item
                     </button>
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table align-middle mb-0">
-
+                    <table class="table table-hover align-middle">
                         <thead>
                             <tr>
-                                <th>Item</th>
+                                <th>Produto</th>
                                 <th>Qtd</th>
                                 <th>Valor unitário</th>
                                 <th>Subtotal</th>
@@ -111,7 +97,6 @@
 
                         <tbody>
                             <tr *ngFor="let item of items; let i = index">
-
                                 <td>
                                     {{ item.productName }}
                                 </td>
@@ -129,54 +114,40 @@
                                 </td>
 
                                 <td class="text-end">
-
-                                    <button
-                                        class="btn btn-sm btn-outline-danger"
-                                        (click)="removeItem(i)"
-                                    >
-                                        Remover
+                                    <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeItem(i)">
+                                        <i class="bi bi-trash"></i>
                                     </button>
-
                                 </td>
-
                             </tr>
                         </tbody>
-
                     </table>
                 </div>
 
-                <div class="d-flex justify-content-end mt-3">
+                <div class="d-flex justify-content-end mt-4">
                     <div class="text-end">
-                        <p class="text-secondary mb-0">
-                            Total
-                        </p>
+                        <span class="text-secondary d-block">
+                            Total da venda
+                        </span>
 
-                        <h4 class="fw-bold mb-0">
+                        <h3 class="fw-bold mb-0">
                             {{ total | currency:'BRL' }}
-                        </h4>
+                        </h3>
                     </div>
                 </div>
-
             </div>
 
-            <div class="d-flex justify-content-end gap-2 mt-3">
+            <div class="form-actions">
 
-                <button
-                    class="btn btn-outline-secondary px-4"
-                    routerLink="/sales"
-                >
+                <button type="button" class="btn secondary-btn" (click)="goToList()">
+                    <i class="bi bi-x-lg"></i>
                     Cancelar
                 </button>
 
-                <button
-                    class="btn btn-dark px-4"
-                    (click)="save()"
-                >
+                <button type="button" class="btn primary-btn" (click)="save()">
+                    <i class="bi bi-check-lg"></i>
                     Registrar venda
                 </button>
-
             </div>
-
         </div>
     </div>
 </div>
