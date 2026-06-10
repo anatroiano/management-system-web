@@ -30,11 +30,11 @@
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="form-grid">
           <div class="form-group">
-            <label class="custom-label">
+            <label class="custom-label required">
               Código
             </label>
 
-            <input type="text" class="form-control custom-input" formControlName="code">
+            <input type="text" class="form-control custom-input" formControlName="code" minlength="1" maxlength="100">
 
             <div class="custom-error" *ngIf="form.get('code')?.touched && form.get('code')?.invalid">
               Campo obrigatório
@@ -42,11 +42,11 @@
           </div>
 
           <div class="form-group">
-            <label class="custom-label">
+            <label class="custom-label required">
               Nome
             </label>
 
-            <input type="text" class="form-control custom-input" formControlName="name">
+            <input type="text" class="form-control custom-input" formControlName="name" minlength="1" maxlength="255">
 
             <div class="custom-error" *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
               Campo obrigatório
@@ -54,7 +54,7 @@
           </div>
 
           <div class="form-group">
-            <label class="custom-label">
+            <label class="custom-label required">
               Preço
             </label>
 
@@ -71,7 +71,8 @@
               Descrição
             </label>
 
-            <textarea rows="4" class="form-control custom-input custom-textarea" formControlName="description">
+            <textarea rows="6" class="form-control custom-input custom-textarea" formControlName="description"
+              maxlength="1000">
             </textarea>
           </div>
         </div>

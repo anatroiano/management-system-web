@@ -462,6 +462,12 @@
   }
 }
 
+.required::after {
+  content: ' *';
+  color: #dc3545;
+  font-weight: 700;
+}
+
 @media (max-width: 768px) {
   .form-grid {
     grid-template-columns: 1fr;
@@ -479,7 +485,7 @@
   .form-actions {
     flex-direction: column;
   }
-    
+
   .summary {
     grid-template-columns: 1fr;
   }
