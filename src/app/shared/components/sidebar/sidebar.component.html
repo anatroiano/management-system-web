@@ -11,8 +11,7 @@
     </div>
 
     <nav class="menu">
-      <a class="menu-item" *ngFor="let item of menuItems" [routerLink]="item.link" routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }">
+      <a class="menu-item" *ngFor="let item of menuItems" [routerLink]="item.link" routerLinkActive="active">
         <i [class]="'bi bi-' + item.icon"></i>
 
         <span *ngIf="isOpen">
