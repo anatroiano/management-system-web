@@ -1,0 +1,246 @@
+.custom-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: fadeIn 0.18s ease;
+}
+
+.custom-modal-card {
+  width: 100%;
+  max-width: 460px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 26px;
+  backdrop-filter: blur(14px);
+  overflow: hidden;
+  box-shadow:
+    0 24px 60px rgba(15, 23, 42, 0.18),
+    0 8px 24px rgba(15, 23, 42, 0.08);
+  animation: modalIn 0.2s ease;
+}
+
+.custom-modal-header {
+  padding: 24px 24px 18px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.custom-modal-title-area {
+  display: flex;
+  gap: 16px;
+}
+
+.custom-modal-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  i {
+    font-size: 1.2rem;
+  }
+
+  &.danger {
+    background: rgba(239, 68, 68, 0.12);
+
+    i {
+      color: #dc2626;
+    }
+  }
+
+  &.success {
+    background: rgba(16, 185, 129, 0.12);
+
+    i {
+      color: #059669;
+    }
+  }
+
+  &.primary {
+    background: rgba(21, 84, 192, 0.12);
+
+    i {
+      color: var(--primary-light);
+    }
+  }
+
+  &.warning {
+    background: rgba(245, 158, 11, 0.12);
+
+    i {
+      color: #d97706;
+    }
+  }
+}
+
+.custom-modal-title {
+  margin: 0 0 4px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.custom-modal-subtitle {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-medium);
+}
+
+.custom-close-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    background 0.2s,
+    color 0.2s;
+
+  &:hover {
+    background: rgba(15, 23, 42, 0.05);
+    color: var(--text-dark);
+  }
+}
+
+.custom-modal-body {
+  padding: 0 24px 24px;
+}
+
+.custom-modal-message {
+  margin: 0;
+  color: var(--text-medium);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.custom-modal-footer {
+  padding: 20px 24px 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-confirm-btn {
+  height: 42px;
+  border: none !important;
+  border-radius: 12px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white !important;
+
+  transition:
+    opacity 0.2s,
+    transform 0.15s,
+    box-shadow 0.2s;
+
+  &:hover {
+    opacity: 0.96;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &.danger {
+    background: linear-gradient(
+      135deg,
+      #ef4444,
+      #dc2626
+    );
+    box-shadow: 0 8px 18px rgba(239, 68, 68, 0.22);
+  }
+
+  &.success {
+    background: linear-gradient(
+      135deg,
+      #10b981,
+      #059669
+    );
+    box-shadow: 0 8px 18px rgba(16, 185, 129, 0.22);
+  }
+
+  &.primary {
+    background: var(--brand-gradient);
+    box-shadow: 0 8px 18px rgba(21, 84, 192, 0.22);
+  }
+
+  &.warning {
+    background: linear-gradient(
+      135deg,
+      #f59e0b,
+      #d97706
+    );
+    box-shadow: 0 8px 18px rgba(245, 158, 11, 0.22);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 576px) {
+  .custom-modal {
+    padding: 16px;
+  }
+
+  .custom-modal-card {
+    border-radius: 22px;
+  }
+
+  .custom-modal-header {
+    padding: 20px 20px 16px;
+  }
+
+  .custom-modal-body {
+    padding: 0 20px 20px;
+  }
+
+  .custom-modal-footer {
+    padding: 16px 20px 20px;
+    flex-direction: column;
+  }
+
+  .modal-confirm-btn,
+  .secondary-btn {
+    width: 100%;
+  }
+}

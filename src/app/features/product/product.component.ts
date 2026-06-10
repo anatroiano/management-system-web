@@ -55,11 +55,9 @@ export class ProductComponent implements OnInit {
   }
 
   loadProducts(): void {
-
     this.loading = true;
-
     this.productService
-      .findAll(this.currentPage, this.pageSize)
+      .findAll(this.currentPage, this.pageSize, 'id,asc')
       .subscribe({
         next: (response: any) => {
           this.products = response.content;

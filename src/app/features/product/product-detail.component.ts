@@ -38,7 +38,7 @@ export class ProductDetailComponent implements OnInit {
             this.navbarService.setConfig({
               icon: 'box-seam',
               showFilter: false,
-              title: 'Visualizar produto'
+              title: 'Produtos'
             });
 
           },

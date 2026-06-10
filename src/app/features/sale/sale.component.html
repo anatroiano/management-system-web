@@ -1,108 +1,107 @@
-<div class="container-fluid py-4">
-    <div class="row g-4 mb-4">
-        <div class="col-md-4">
-            <div class="card shadow-sm border-0 rounded-4 h-100">
-                <div class="card-body">
-                    <p class="text-secondary mb-2">Vendas</p>
-                    <h2 class="fw-bold">0</h2>
-                </div>
-            </div>
+<div class="page">
+
+    <div class="page-header">
+        <div>
+            <h4 class="page-title">
+                Controle de vendas
+            </h4>
         </div>
 
-        <div class="col-md-4">
-            <div class="card shadow-sm border-0 rounded-4 h-100">
-                <div class="card-body">
-                    <p class="text-secondary mb-2">Faturamento</p>
-                    <h2 class="fw-bold">R$ 0,00</h2>
-                </div>
-            </div>
-        </div>
+        <button class="btn new-button" (click)="goToNew()">
 
-        <div class="col-md-4">
-            <div class="card shadow-sm border-0 rounded-4 h-100">
-                <div class="card-body">
-                    <p class="text-secondary mb-2">Ticket médio</p>
-                    <h2 class="fw-bold">R$ 0,00</h2>
-                </div>
-            </div>
+            <i class="bi bi-plus-lg"></i>
+            Nova venda
+        </button>
+    </div>
+
+    <div class="summary">
+        <div class="summary-card">
+            <span class="summary-label">
+                Vendas
+            </span>
+
+            <span class="summary-value">
+                R$ {{ 0 }}
+            </span>
+        </div>
+        <div class="summary-card">
+            <span class="summary-label">
+                Faturamento
+            </span>
+
+            <span class="summary-value">
+                R$ {{ 0 }}
+            </span>
+        </div>
+        <div class="summary-card">
+            <span class="summary-label">
+                Ticket médio
+            </span>
+
+            <span class="summary-value">
+                R$ {{ 0 }}
+            </span>
         </div>
     </div>
 
-    <div class="card border-0 shadow-sm rounded-4">
-        <div class="card-body">
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="table table-hover custom-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Data</th>
+                        <th>Itens</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th class="actions-column text-end">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let sale of sales">
+                        <td>{{ sale.id }}</td>
 
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                    <h4 class="fw-bold mb-0">Histórico de vendas</h4>
-                    <span class="text-secondary">
-                        {{ 0 }} venda(s) registrada(s)
-                    </span>
-                </div>
+                        <td>
+                            {{ sale.createdAt | date:'dd/MM/yyyy, HH:mm' }}
+                        </td>
 
-                <div class="d-flex gap-2">
-                    <button class="btn btn-dark px-4" (click)="goToNew()">
-                        Nova venda
-                    </button>
-                </div>
-            </div>
+                        <td>
+                            {{ sale.items.length }}
+                        </td>
 
-            <div class="table-responsive">
-                <table class="table align-middle">
-                    <thead>
-                        <tr>
-                            <th>Data</th>
-                            <th>ID</th>
-                            <th>Itens</th>
-                            <th>Status</th>
-                            <th>Total</th>
-                            <th class="text-end">Ações</th>
-                        </tr>
-                    </thead>
+                        <td>
+                            <span class="badge" [class]="'badge bg-' + getSaleStatusBadge(sale.status)">
+                                {{ getSaleStatusName(sale.status) }}
+                            </span>
+                        </td>
 
-                    <tbody>
-                        <tr *ngFor="let sale of sales">
-                            <td>
-                                {{ sale.createdAt | date:'dd/MM/yyyy, HH:mm' }}
-                            </td>
+                        <td class="fw-semibold">
+                            {{ sale.totalAmount | currency:'BRL' }}
+                        </td>
 
-                            <td>#{{ sale.id }}</td>
+                        <td>
+                            <div class="table-actions">
+                                <button class="action-btn view-btn" (click)="goToDetails(sale)">
+                                    <i class="bi bi-eye"></i>
+                                </button>
 
-                            <td>
-                                {{ sale.items.length }} item(ns)
-                            </td>
+                                <button class="action-btn delete-btn" (click)="openCancelModal(sale)">
+                                    <i class="bi bi-x"></i>
 
-                            <td>
-                                <span class="badge bg-secondary">
-                                    {{ sale.status }}
-                                </span>
-                            </td>
-
-                            <td class="fw-semibold">
-                                {{ sale.totalAmount | currency:'BRL' }}
-                            </td>
-
-                            <td class="text-end">
-                                <div class="d-flex justify-content-end gap-3">
-
-                                    <button class="btn btn-sm btn-outline-dark" (click)="goToDetails(sale)">
-                                        Ver
-                                    </button>
-
-                                    <button class="btn btn-sm btn-outline-danger" (click)="cancelSale(sale.id)">
-                                        Cancelar
-                                    </button>
-
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="onPageChange($event)">
-            </app-pagination>
-
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+
+        <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="onPageChange($event)">
+        </app-pagination>
     </div>
 
+    <app-confirm-modal [isOpen]="isCancelModalOpen" title="Cancelar venda"
+        [message]="'Tem certeza que deseja cancelar a venda ' + selectedSale?.id + '?'" confirmText="Confirmar"
+        variant="danger" (confirm)="confirmCancelSale()" (close)="closeCancelModal()">
+    </app-confirm-modal>
 </div>

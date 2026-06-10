@@ -1,84 +1,73 @@
-<div class="container-fluid" *ngIf="product">
+<div class="details-page" *ngIf="product">
+  <div class="details-card">
+    <div class="details-header">
+      <div class="details-title-area">
+        <div>
+          <h2 class="details-title">
+            {{ product.name }}
+          </h2>
 
-  <div class="d-flex justify-content-between align-items-center mb-4">
+          <p class="details-subtitle">
+            ID: {{ product.id }}
+          </p>
+        </div>
+      </div>
 
-    <div>
-      <h4 class="mb-0 fw-semibold">
-        {{ product.name }}
-      </h4>
+      <div class="details-actions">
+        <button class="btn secondary-btn" (click)="goToList()">
+          <i class="bi bi-arrow-left"></i>
+          Voltar
+        </button>
 
-      <small class="text-muted">
-        Código: {{ product.code }}
-      </small>
+        <button class="btn primary-btn" (click)="goToEdit()">
+          <i class="bi bi-pencil-square"></i>
+          Editar
+        </button>
+      </div>
     </div>
 
-    <div class="d-flex gap-2">
+    <div class="details-content">
+      <div class="details-grid">
+        <div class="details-info-card">
+          <span class="details-label">
+            Código
+          </span>
 
-      <button class="btn btn-outline-secondary" (click)="goToList()">
-
-        <i class="bi bi-arrow-left me-2"></i>
-        Voltar
-      </button>
-
-      <button class="btn btn-primary" (click)="goToEdit()">
-
-        <i class="bi bi-pencil-square me-2"></i>
-        Editar
-      </button>
-
-    </div>
-
-  </div>
-
-  <div class="card shadow-sm border-0 product-details">
-    <div class="card-body">
-
-      <div class="row g-4">
-
-        <div class="col-md-6">
-          <label class="label">
-            ID
-          </label>
-
-          <div class="value">
-            {{ product.id }}
+          <div class="details-value">
+            #{{ product.code }}
           </div>
         </div>
 
-        <div class="col-md-6">
-          <label class="label">
+        <div class="details-info-card">
+          <span class="details-label">
             Preço
-          </label>
+          </span>
 
-          <div class="value price">
+          <div class="details-value details-price">
             {{ CurrencyUtil.formatBRL(product.price) }}
           </div>
         </div>
 
-        <div class="col-md-12">
-          <label class="label">
-            Descrição
-          </label>
-
-          <div class="value">
-            {{ product.description }}
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <label class="label">
+        <div class="details-info-card">
+          <span class="details-label">
             Data de criação
-          </label>
+          </span>
 
-          <div class="value">
+          <div class="details-value">
             {{ product.createdAt | date:'dd/MM/yyyy HH:mm' }}
           </div>
         </div>
 
+        <div class="details-info-card details-full-width">
+          <span class="details-label">
+            Descrição
+          </span>
+
+          <div class="details-value details-description">
+            {{ product.description }}
+          </div>
+        </div>
       </div>
-
     </div>
-
   </div>
-
 </div>

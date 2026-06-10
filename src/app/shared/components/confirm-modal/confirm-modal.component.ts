@@ -5,7 +5,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   selector: 'app-confirm-modal',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './confirm-modal.component.html'
+  templateUrl: './confirm-modal.component.html',
+  styleUrl: './confirm-modal.component.scss'
 })
 export class ConfirmModalComponent {
 
@@ -19,7 +20,7 @@ export class ConfirmModalComponent {
 
   @Input() cancelText = 'Cancelar';
 
-  @Input() confirmButtonClass = 'btn-danger';
+  @Input() variant: 'danger' | 'success' | 'primary' | 'warning' = 'primary';
 
   @Output() confirm = new EventEmitter<void>();
 
