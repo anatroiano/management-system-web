@@ -6,20 +6,16 @@ import {
     ReactiveFormsModule,
     Validators
 } from '@angular/forms';
-
 import { StockService } from '../../core/services/stock.service';
-
 import { StockResponseDTO } from '../../shared/models/stock/stock-response.dto';
-
 import { StockEntryRequestDTO } from '../../shared/models/stock/stock-entry-request.dto';
 import { StockExitRequestDTO } from '../../shared/models/stock/stock-exit-request.dto';
-
 import { MovementType } from '../../shared/enums/movement-type.enum';
 import { PaginationComponent } from "../../shared/components/pagination/pagination.component";
 import { NavbarService } from '../../core/services/navbar.service';
-import * as bootstrap from 'bootstrap';
 import { Modal } from 'bootstrap';
 import { StockNavigationService } from './stock-navigation.service';
+import { MovementModalComponent } from './movement/movement-modal.component';
 
 @Component({
     selector: 'app-stock',
@@ -27,9 +23,11 @@ import { StockNavigationService } from './stock-navigation.service';
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        PaginationComponent
+        PaginationComponent,
+        MovementModalComponent
     ],
-    templateUrl: './stock.component.html'
+    templateUrl: './stock.component.html',
+    styleUrl: './stock.component.scss',
 })
 export class StockComponent implements OnInit {
 
@@ -37,6 +35,7 @@ export class StockComponent implements OnInit {
 
     loading = false;
 
+    isMovementModalOpen = false;
     selectedStock?: StockResponseDTO;
 
     movementType!: MovementType;
@@ -113,51 +112,23 @@ export class StockComponent implements OnInit {
     }
 
     openEntryModal(stock: StockResponseDTO): void {
-
-        this.selectedStock = stock;
-
         this.movementType = MovementType.ENTRY;
-
-        this.movementForm.reset();
-
-        const modal =
-            new bootstrap.Modal(
-                document.getElementById('movementModal')!
-            );
-
-        modal.show();
+        this.openMovementModal(stock);
     }
 
     openExitModal(stock: StockResponseDTO): void {
-
-        this.selectedStock = stock;
-
         this.movementType = MovementType.MANUAL_EXIT;
-
-        this.movementForm.reset();
-
-        const modal =
-            new bootstrap.Modal(
-                document.getElementById('movementModal')!
-            );
-
-        modal.show();
+        this.openMovementModal(stock);
     }
 
-    submitMovement(): void {
+    submitMovement(payload: {
+        quantity: number;
+        reason: string;
+    }): void {
 
-        if (
-            this.movementForm.invalid ||
-            !this.selectedStock
-        ) {
-
-            this.movementForm.markAllAsTouched();
-
+        if (!this.selectedStock) {
             return;
         }
-
-        const payload =
-            this.movementForm.value;
 
         const request =
             this.movementType === MovementType.ENTRY
@@ -240,5 +211,21 @@ export class StockComponent implements OnInit {
 
     goToView(stock: StockResponseDTO): void {
         this.navigation.goToDetails(stock.productId);
+    }
+
+    openMovementModal(stock: StockResponseDTO): void {
+        this.selectedStock = stock;
+        this.isMovementModalOpen = true;
+    }
+
+    confirmMovement(): void {
+        this.isMovementModalOpen = false;
+        this.selectedStock = undefined;
+        this.loadStocks();
+    }
+
+    closeMovementModal(): void {
+        this.isMovementModalOpen = false;
+        this.selectedStock = undefined;
     }
 }

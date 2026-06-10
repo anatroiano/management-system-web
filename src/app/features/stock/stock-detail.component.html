@@ -1,92 +1,56 @@
-<div
-    class="container-fluid"
-    *ngIf="stock">
+<div class="details-page" *ngIf="stock">
+    <div class="details-card">
+        <div class="details-header">
+            <div class="details-title-area">
+                <div>
+                    <h2 class="details-title">
+                        {{ stock.productName }}
+                    </h2>
 
-    <div
-        class="d-flex justify-content-between align-items-center mb-4">
+                    <p class="details-subtitle">
+                        Código: {{ stock.productCode }}
+                    </p>
+                </div>
+            </div>
 
-        <div>
-
-            <h4 class="mb-0 fw-semibold">
-
-                {{ stock.productName }}
-
-            </h4>
-
-            <small class="text-muted">
-
-                Código:
-                {{ stock.productCode }}
-
-            </small>
-
+            <div class="details-actions">
+                <button class="btn secondary-btn" (click)="goToList()">
+                    <i class="bi bi-arrow-left"></i>
+                    Voltar
+                </button>
+            </div>
         </div>
 
-        <div class="d-flex gap-2">
+        <div class="details-content">
+            <div class="details-grid">
 
-            <button
-                class="btn btn-outline-secondary"
-                (click)="goToList()">
+                <div class="details-info-card">
+                    <span class="details-label">
+                        Quantidade atual
+                    </span>
 
-                <i class="bi bi-arrow-left me-2"></i>
-
-                Voltar
-
-            </button>
-
-        </div>
-
-    </div>
-
-    <div
-        class="card border-0 shadow-sm mb-4">
-
-        <div class="card-body">
-
-            <div class="row g-4">
-
-                <div class="col-md-4">
-
-                    <label class="text-muted small">
-                        Quantidade Atual
-                    </label>
-
-                    <div class="fs-2 fw-bold">
-
+                    <div class="details-value">
                         {{ stock.quantity }}
-
                     </div>
-
                 </div>
 
-                <div class="col-md-4">
+                <div class="details-info-card">
+                    <span class="details-label">
+                        Última atualização
+                    </span>
 
-                    <label class="text-muted small">
-                        Última Atualização
-                    </label>
-
-                    <div class="fw-semibold">
-
-                        {{
-                            stock.updatedAt
-                                | date:'dd/MM/yyyy HH:mm'
-                        }}
-
+                    <div class="details-value">
+                        {{ stock.updatedAt | date:'dd/MM/yyyy HH:mm' }}
                     </div>
-
                 </div>
 
-                <div class="col-md-4">
-
-                    <label class="text-muted small">
+                <div class="details-info-card">
+                    <span class="details-label">
                         Status
-                    </label>
+                    </span>
 
-                    <div>
-
-                        <span
-                            class="badge fs-6"
-                            [ngClass]="
+                    <div class="details-value">
+                        <span class="badge fs-6" [ngClass]="
                                 stock.quantity <= 0
                                     ? 'bg-danger'
                                     : stock.quantity <= 10
@@ -95,157 +59,118 @@
                             ">
 
                             {{
-                                stock.quantity <= 0
-                                    ? 'Sem estoque'
-                                    : stock.quantity <= 10
-                                        ? 'Baixo'
-                                        : 'Disponível'
-                            }}
+                            stock.quantity <= 0 ? 'Sem estoque' : stock.quantity <=10 ? 'Baixo' : 'Disponível' }}
+                                </span>
+                    </div>
+                </div>
 
-                        </span>
+                <div class="details-info-card details-full-width">
+                    <span class="details-label">
+                        Itens da venda
+                    </span>
+
+                    <div *ngIf="loading" class="text-center py-5">
+
+                        <div class="spinner-border"></div>
 
                     </div>
 
-                </div>
+                    <div *ngIf="!loading" class="table-responsive">
 
-            </div>
+                        <table class="table table-hover align-middle">
 
-        </div>
+                            <thead>
 
-    </div>
+                                <tr>
 
-    <div
-        class="card border-0 shadow-sm">
+                                    <th>Tipo</th>
 
-        <div
-            class="card-header bg-white border-0 py-3">
+                                    <th>Quantidade</th>
 
-            <h5 class="mb-0 fw-semibold">
+                                    <th>Motivo</th>
 
-                Histórico de Movimentações
+                                    <th>Data</th>
 
-            </h5>
+                                </tr>
 
-        </div>
+                            </thead>
 
-        <div class="card-body">
+                            <tbody>
 
-            <div
-                *ngIf="loading"
-                class="text-center py-5">
-
-                <div class="spinner-border"></div>
-
-            </div>
-
-            <div
-                *ngIf="!loading"
-                class="table-responsive">
-
-                <table
-                    class="table table-hover align-middle">
-
-                    <thead>
-
-                    <tr>
-
-                        <th>Tipo</th>
-
-                        <th>Quantidade</th>
-
-                        <th>Motivo</th>
-
-                        <th>Data</th>
-
-                    </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                    <tr
-                        *ngFor="
+                                <tr *ngFor="
                             let movement of movements
                         ">
 
-                        <td>
+                                    <td>
 
-                            <span
-                                class="badge"
-                                [ngClass]="
+                                        <span class="badge" [ngClass]="
                                     getBadgeClass(
                                         movement.type
                                     )
                                 ">
 
-                                {{
-                                    getMovementLabel(
-                                        movement!.type
-                                    )
-                                }}
+                                            {{
+                                            getMovementLabel(
+                                            movement!.type
+                                            )
+                                            }}
 
-                            </span>
+                                        </span>
 
-                        </td>
+                                    </td>
 
-                        <td>
+                                    <td>
 
-                            <span
-                                class="fw-semibold">
+                                        <span class="fw-semibold">
 
-                                {{ movement.quantity }}
+                                            {{ movement.quantity }}
 
-                            </span>
+                                        </span>
 
-                        </td>
+                                    </td>
 
-                        <td>
+                                    <td>
 
-                            {{ movement.reason }}
+                                        {{ movement.reason }}
 
-                        </td>
+                                    </td>
 
-                        <td>
+                                    <td>
 
-                            {{
-                                movement.createdAt
-                                    | date:'dd/MM/yyyy HH:mm'
-                            }}
+                                        {{
+                                        movement.createdAt
+                                        | date:'dd/MM/yyyy HH:mm'
+                                        }}
 
-                        </td>
+                                    </td>
 
-                    </tr>
+                                </tr>
 
-                    <tr
-                        *ngIf="
+                                <tr *ngIf="
                             movements.length === 0
                         ">
 
-                        <td
-                            colspan="4"
-                            class="text-center py-5 text-muted">
+                                    <td colspan="4" class="text-center py-5 text-muted">
 
-                            Nenhuma movimentação encontrada
+                                        Nenhuma movimentação encontrada
 
-                        </td>
+                                    </td>
 
-                    </tr>
+                                </tr>
 
-                    </tbody>
+                            </tbody>
 
-                </table>
+                        </table>
+
+                    </div>
+
+                    <app-pagination [currentPage]="currentPage" [totalPages]="totalPages"
+                        (pageChange)="onPageChange($event)">
+
+                    </app-pagination>
+                </div>
 
             </div>
-
-            <app-pagination
-                [currentPage]="currentPage"
-                [totalPages]="totalPages"
-                (pageChange)="onPageChange($event)">
-
-            </app-pagination>
-
         </div>
-
     </div>
-
 </div>

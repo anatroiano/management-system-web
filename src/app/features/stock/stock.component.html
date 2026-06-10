@@ -1,177 +1,131 @@
-<div class="container-fluid py-2">
-    <div class="row mb-4">
-        <div class="col-md-4 mb-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <h6 class="text-muted">
-                        Total Estoques
-                    </h6>
-                    <h3 class="fw-bold mb-0">
-                        {{ stocks.length }}
-                    </h3>
-                </div>
-            </div>
-        </div>
+<div class="page">
 
-        <div class="col-md-4 mb-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <h6 class="text-muted">
-                        Estoque Baixo
-                    </h6>
-                    <h3 class="fw-bold text-warning mb-0">
-                        <!-- TODO -->
-                        {{ 0 }}
-                    </h3>
-                </div>
-            </div>
-        </div>
+    <div class="page-header">
+        <div>
+            <h4 class="page-title">
+                Controle de Estoque
+            </h4>
 
-        <div class="col-md-4 mb-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <h6 class="text-muted">
-                        Sem Estoque
-                    </h6>
-
-                    <h3 class="fw-bold text-danger mb-0">
-                        <!-- TODO -->
-                        {{ 0 }}
-                    </h3>
-                </div>
-            </div>
+            <p class="page-subtitle">
+                Gerencie entradas, saídas e acompanhe os níveis de estoque
+            </p>
         </div>
     </div>
 
-    <div class="card border-0 shadow-sm">
-        <div class="card-body">
-            <div *ngIf="loading" class="text-center py-5">
-                <div class="spinner-border"></div>
-            </div>
-            <div *ngIf="!loading" class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead>
-                        <tr>
-                            <th>Produto</th>
-                            <th>Quantidade</th>
-                            <th>Status</th>
-                            <th>Atualizado em</th>
-                            <th class="text-end">
-                                Ações
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let stock of stocks">
-                            <td>
-                                {{ stock.productName + ' | ' + stock.productCode }}
-                            </td>
-                            <td>
-                                <span class="fw-bold">
-                                    {{ stock.quantity }}
-                                </span>
-                            </td>
-                            <td>
-                                <span class="badge" [ngClass]="getBadgeClass(stock.quantity)">
-                                    {{ getStockStatus(stock.quantity) }}
-                                </span>
-                            </td>
-                            <td>
-                                {{ stock.updatedAt | date:'dd/MM/yyyy HH:mm'}}
-                            </td>
-                            <td class="text-end">
-                                <div class="d-flex gap-2 justify-content-end">
-                                    <button class="btn btn-sm btn-success" (click)="openEntryModal(stock)">
-                                        <i class="bi bi-plus"></i>
-                                    </button>
+    <div class="summary">
+        <div class="summary-card">
+            <span class="summary-label">
+                Total Estoques
+            </span>
 
-                                    <button class="btn btn-sm btn-danger" (click)="openExitModal(stock)">
-                                        <i class="bi bi-box-arrow-right"></i>
-                                    </button>
+            <span class="summary-value">
+                {{ stocks.length }}
+            </span>
+        </div>
 
-                                    <button class="btn btn-sm btn-outline-secondary" (click)="goToView(stock)">
-                                        <i class="bi bi-clock-history"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+        <div class="summary-card">
+            <span class="summary-label">
+                Estoque Baixo
+            </span>
 
-                        <tr *ngIf="stocks.length === 0">
-                            <td colspan="5" class="text-center py-5 text-muted">
-                                Nenhum estoque encontrado
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <span class="summary-value warning">
+                {{ 0 }}
+            </span>
+        </div>
 
-            <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="onPageChange($event)">
-            </app-pagination>
+        <div class="summary-card">
+            <span class="summary-label">
+                Sem Estoque
+            </span>
+
+            <span class="summary-value danger">
+                {{ 0 }}
+            </span>
         </div>
     </div>
-</div>
 
-<div class="modal fade" id="movementModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content border-0">
-            <div class="modal-header">
-                <h5 class="modal-title">
-                    {{movementType === MovementType.ENTRY ? 'Nova Entrada' : 'Nova Saída'}}
-                </h5>
+    <div class="table-card">
 
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <form [formGroup]="movementForm">
-                <div class="modal-body">
-                    <div *ngIf="selectedStock" class="alert alert-light border">
-                        <strong>
-                            {{ selectedStock.productName }}
-                        </strong>
-
-                        <div class="small text-muted">
-                            Estoque atual: {{ selectedStock.quantity }}
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">
-                            Quantidade
-                        </label>
-
-                        <input type="number" class="form-control" formControlName="quantity">
-
-                        <div class="text-danger small mt-1" *ngIf="movementForm.get('quantity')?.invalid 
-                            && movementForm.get('quantity')?.touched">
-                            Informe uma quantidade válida
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">
-                            Motivo
-                        </label>
-
-                        <textarea rows="3" class="form-control" formControlName="reason">
-                        </textarea>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-                        Cancelar
-                    </button>
-
-                    <button type="button" class="btn" [ngClass]="
-                            movementType === MovementType.ENTRY
-                                ? 'btn-success'
-                                : 'btn-danger'
-                        " (click)="submitMovement()">
-
-                        {{ movementType === MovementType.ENTRY ? 'Confirmar Entrada' : 'Confirmar Saída'}}
-                    </button>
-                </div>
-            </form>
+        <div *ngIf="loading" class="text-center py-5">
+            <div class="spinner-border"></div>
         </div>
+
+        <div *ngIf="!loading" class="table-responsive">
+            <table class="table custom-table">
+
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                        <th>Status</th>
+                        <th>Atualizado em</th>
+                        <th class="actions-column text-end">
+                            Ações
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let stock of stocks">
+
+                        <td>
+                            {{ stock.productCode }} - {{ stock.productName }}
+                        </td>
+
+                        <td>
+                            <strong>
+                                {{ stock.quantity }}
+                            </strong>
+                        </td>
+
+                        <td>
+                            <span class="stock-badge" [ngClass]="getBadgeClass(stock.quantity)">
+                                {{ getStockStatus(stock.quantity) }}
+                            </span>
+                        </td>
+
+                        <td>
+                            {{ stock.updatedAt | date:'dd/MM/yyyy HH:mm' }}
+                        </td>
+
+                        <td>
+                            <div class="table-actions">
+
+                                <button class="action-btn entry-btn" (click)="openEntryModal(stock)">
+                                    <i class="bi bi-plus-lg"></i>
+                                </button>
+
+                                <button class="action-btn exit-btn" (click)="openExitModal(stock)">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                </button>
+
+                                <button class="action-btn view-btn" (click)="goToView(stock)">
+                                    <i class="bi bi-clock-history"></i>
+                                </button>
+
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    <tr *ngIf="stocks.length === 0">
+                        <td colspan="5" class="text-center py-5 text-muted">
+                            Nenhum estoque encontrado
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+    <div class="pagination-wrapper">
+        <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="onPageChange($event)">
+        </app-pagination>
     </div>
 </div>
+
+<app-movement-modal *ngIf="selectedStock" [isOpen]="isMovementModalOpen" [movementType]="movementType"
+    [stock]="selectedStock" (confirm)="confirmMovement()" (close)="closeMovementModal()">
+</app-movement-modal>
