@@ -96,4 +96,8 @@ export class MovementModalComponent {
     this.close.emit();
   }
 
+  isInvalidAndTouched(field: string) {
+    return this.form.get(field)?.touched && this.form.get(field)?.invalid;
+  }
+
 }

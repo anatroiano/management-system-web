@@ -122,4 +122,8 @@ export class CustomerUpdateComponent implements OnInit {
         return !!this.customerId;
     }
 
+    isInvalidAndTouched(field: string) {
+        return this.form.get(field)?.touched && this.form.get(field)?.invalid;
+    }
+
 }

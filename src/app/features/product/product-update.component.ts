@@ -58,9 +58,9 @@ export class ProductUpdateComponent implements OnInit {
 
     createForm(): void {
         this.form = this.fb.group({
-            code: ['', [Validators.required, Validators.maxLength(20)]],
-            name: ['', [Validators.required, Validators.maxLength(100)]],
-            description: ['', [Validators.maxLength(255)]],
+            code: ['', [Validators.required, Validators.maxLength(100)]],
+            name: ['', [Validators.required, Validators.maxLength(255)]],
+            description: ['', [Validators.maxLength(1000)]],
             price: [null, [Validators.required, Validators.min(0)]]
         });
     }
@@ -128,6 +128,10 @@ export class ProductUpdateComponent implements OnInit {
 
     get isEditMode(): boolean {
         return !!this.productId;
+    }
+
+    isInvalidAndTouched(field: string) {
+        return this.form.get(field)?.touched && this.form.get(field)?.invalid;
     }
 
 }

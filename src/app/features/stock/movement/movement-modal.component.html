@@ -43,17 +43,14 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label">
+          <label class="form-label required">
             Quantidade
           </label>
 
-          <input type="number" class="form-control" formControlName="quantity">
+          <input type="number" class="form-control" [class.is-invalid]="isInvalidAndTouched('quantity')"
+            formControlName="quantity">
 
-          <div class="text-danger small mt-1" *ngIf="
-                form.get('quantity')?.invalid &&
-                form.get('quantity')?.touched
-              ">
-
+          <div class="text-danger small mt-1" *ngIf="isInvalidAndTouched('quantity')">
             Informe uma quantidade válida
           </div>
         </div>
@@ -63,8 +60,7 @@
             Motivo
           </label>
 
-          <textarea rows="3" class="form-control" formControlName="reason">
-            </textarea>
+          <textarea rows="3" class="form-control" formControlName="reason"></textarea>
 
         </div>
       </form>
