@@ -62,8 +62,7 @@
           </span>
 
           <div class="table-responsive">
-            <table class="table table-hover align-middle">
-
+            <table class="table table-hover custom-table align-middle mb-0" style="--bs-table-bg: transparent;">
               <thead>
                 <tr>
                   <th>Produto</th>
@@ -72,11 +71,8 @@
                   <th>Subtotal</th>
                 </tr>
               </thead>
-
               <tbody>
-
                 <tr *ngFor="let item of sale.items">
-
                   <td>
                     #{{ item.productId }}
                   </td>
@@ -94,9 +90,7 @@
                   </td>
 
                 </tr>
-
               </tbody>
-
             </table>
           </div>
         </div>

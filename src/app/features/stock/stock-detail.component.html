@@ -70,106 +70,53 @@
                     </span>
 
                     <div *ngIf="loading" class="text-center py-5">
-
                         <div class="spinner-border"></div>
-
                     </div>
 
                     <div *ngIf="!loading" class="table-responsive">
-
-                        <table class="table table-hover align-middle">
-
+                        <table class="table table-hover custom-table align-middle mb-0"
+                            style="--bs-table-bg: transparent;">
                             <thead>
-
                                 <tr>
-
                                     <th>Tipo</th>
-
                                     <th>Quantidade</th>
-
                                     <th>Motivo</th>
-
                                     <th>Data</th>
-
                                 </tr>
-
                             </thead>
-
                             <tbody>
-
-                                <tr *ngFor="
-                            let movement of movements
-                        ">
-
+                                <tr *ngFor="let movement of movements">
                                     <td>
-
-                                        <span class="badge" [ngClass]="
-                                    getBadgeClass(
-                                        movement.type
-                                    )
-                                ">
-
-                                            {{
-                                            getMovementLabel(
-                                            movement!.type
-                                            )
-                                            }}
-
+                                        <span [class]="'badge bg-' + getMovementTypeBadge(movement.type)">
+                                            {{ getMovementTypeName(movement!.type) }}
                                         </span>
-
                                     </td>
-
                                     <td>
-
                                         <span class="fw-semibold">
-
                                             {{ movement.quantity }}
-
                                         </span>
-
                                     </td>
-
                                     <td>
-
                                         {{ movement.reason }}
-
                                     </td>
-
                                     <td>
-
-                                        {{
-                                        movement.createdAt
-                                        | date:'dd/MM/yyyy HH:mm'
-                                        }}
-
+                                        {{ movement.createdAt | date:'dd/MM/yyyy HH:mm' }}
                                     </td>
-
                                 </tr>
 
-                                <tr *ngIf="
-                            movements.length === 0
-                        ">
-
+                                <tr *ngIf="movements.length === 0">
                                     <td colspan="4" class="text-center py-5 text-muted">
-
                                         Nenhuma movimentação encontrada
-
                                     </td>
-
                                 </tr>
-
                             </tbody>
-
                         </table>
-
                     </div>
 
                     <app-pagination [currentPage]="currentPage" [totalPages]="totalPages"
                         (pageChange)="onPageChange($event)">
-
                     </app-pagination>
                 </div>
-
             </div>
         </div>
     </div>
