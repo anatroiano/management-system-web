@@ -50,17 +50,9 @@
                     </span>
 
                     <div class="details-value">
-                        <span class="badge fs-6" [ngClass]="
-                                stock.quantity <= 0
-                                    ? 'bg-danger'
-                                    : stock.quantity <= 10
-                                        ? 'bg-warning text-dark'
-                                        : 'bg-success'
-                            ">
-
-                            {{
-                            stock.quantity <= 0 ? 'Sem estoque' : stock.quantity <=10 ? 'Baixo' : 'Disponível' }}
-                                </span>
+                        <span class="badge fs-6" [ngClass]="getStockQuantityClass(stock)">
+                            {{ getStockQuantityLabel(stock)}}
+                        </span>
                     </div>
                 </div>
 

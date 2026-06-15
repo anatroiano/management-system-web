@@ -3,7 +3,7 @@
     <div class="page-header">
         <div>
             <h4 class="page-title">
-                Controle de Estoque
+                Controle de estoque
             </h4>
 
             <p class="page-subtitle">
@@ -79,8 +79,8 @@
                         </td>
 
                         <td>
-                            <span class="stock-badge" [ngClass]="getBadgeClass(stock.quantity)">
-                                {{ getStockStatus(stock.quantity) }}
+                            <span class="badge" [ngClass]="getStockQuantityClass(stock)">
+                                {{ getStockQuantityLabel(stock)}}
                             </span>
                         </td>
 

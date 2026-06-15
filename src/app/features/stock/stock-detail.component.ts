@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StockService } from '../../core/services/stock.service';
-import { StockResponseDTO } from '../../shared/models/stock/stock-response.dto';
+import { getStockQuantityClass, getStockQuantityLabel, StockResponseDTO } from '../../shared/models/stock/stock-response.dto';
 import { StockMovementResponseDTO } from '../../shared/models/stock/stock-movement-response.dto';
 import { MovementType } from '../../shared/enums/movement-type.enum';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
@@ -35,6 +35,8 @@ export class StockDetailComponent implements OnInit {
 
     getMovementTypeName = getMovementTypeName;
     getMovementTypeBadge = getMovementTypeBadge;
+    getStockQuantityClass = getStockQuantityClass;
+    getStockQuantityLabel = getStockQuantityLabel;
 
     constructor(
         private route: ActivatedRoute,
