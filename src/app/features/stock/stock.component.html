@@ -15,31 +15,31 @@
     <div class="summary">
         <div class="summary-card">
             <span class="summary-label">
-                Total Estoques
+                Total de estoques
             </span>
 
             <span class="summary-value">
-                {{ stocks.length }}
+                {{ dashboard?.totalActive }}
             </span>
         </div>
 
         <div class="summary-card">
             <span class="summary-label">
-                Estoque Baixo
+                Estoque baixo
             </span>
 
             <span class="summary-value warning">
-                {{ 0 }}
+                {{ dashboard?.totalLowStock }}
             </span>
         </div>
 
         <div class="summary-card">
             <span class="summary-label">
-                Sem Estoque
+                Sem estoque
             </span>
 
             <span class="summary-value danger">
-                {{ 0 }}
+                 {{ dashboard?.totalOutOfStock }}
             </span>
         </div>
     </div>

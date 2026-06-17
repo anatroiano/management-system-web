@@ -12,6 +12,7 @@ import { StockExitRequestDTO } from '../../shared/models/stock/stock-exit-reques
 import { environment } from '../../../enviroments/enviroment';
 import { CreateStockRequestDTO } from '../../shared/models/stock/crete-stock-request.dto';
 import { PageResponse } from '../../shared/models/page-response.model';
+import { StockDashboardDTO } from '../../shared/models/stock/stock-dashboard.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +20,7 @@ import { PageResponse } from '../../shared/models/page-response.model';
 export class StockService {
 
     private readonly API = `${environment.apiUrl}/stocks`;
-    
+
 
     constructor(
         private http: HttpClient
@@ -81,23 +82,27 @@ export class StockService {
         );
     }
 
-      findAll(
+    findAll(
         page: number = 0,
         size: number = 10,
         sort?: string
-      ): Observable<PageResponse<StockResponseDTO>> {
+    ): Observable<PageResponse<StockResponseDTO>> {
         let params = new HttpParams()
-          .set('page', page)
-          .set('size', size);
-    
+            .set('page', page)
+            .set('size', size);
+
         if (sort) {
-          params = params.set('sort', sort);
+            params = params.set('sort', sort);
         }
-    
+
         return this.http.get<PageResponse<StockResponseDTO>>(
-          this.API,
-          { params }
+            this.API,
+            { params }
         );
-      }
-    
+    }
+
+    getDashboard(): Observable<StockDashboardDTO> {
+        return this.http.get<StockDashboardDTO>(`${this.API}/dashboard`);
+    }
+
 }

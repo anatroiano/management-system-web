@@ -13,6 +13,7 @@ import { PaginationComponent } from "../../shared/components/pagination/paginati
 import { NavbarService } from '../../core/services/navbar.service';
 import { StockNavigationService } from './stock-navigation.service';
 import { MovementModalComponent } from './movement/movement-modal.component';
+import { StockDashboardDTO } from '../../shared/models/stock/stock-dashboard.dto';
 
 @Component({
     selector: 'app-stock',
@@ -46,6 +47,8 @@ export class StockComponent implements OnInit {
 
     totalPages = 0;
 
+    dashboard?: StockDashboardDTO;
+
     constructor(
         private fb: FormBuilder,
         private stockService: StockService,
@@ -63,6 +66,7 @@ export class StockComponent implements OnInit {
 
         this.createForm();
         this.loadStocks();
+        this.loadDashboard();
     }
 
     createForm(): void {
@@ -87,6 +91,14 @@ export class StockComponent implements OnInit {
                 error: () => {
                     this.loading = false;
                 }
+            });
+    }
+
+    loadDashboard(): void {
+        this.stockService.getDashboard()
+            .subscribe({
+                next: (data) => this.dashboard = data,
+                error: () => { }
             });
     }
 
@@ -118,6 +130,7 @@ export class StockComponent implements OnInit {
         this.isMovementModalOpen = false;
         this.selectedStock = undefined;
         this.loadStocks();
+        this.loadDashboard();
     }
 
     closeMovementModal(): void {
