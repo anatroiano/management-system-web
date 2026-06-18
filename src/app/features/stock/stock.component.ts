@@ -34,6 +34,8 @@ export class StockComponent implements OnInit {
     loading = false;
 
     isMovementModalOpen = false;
+    isNewMovementModalOpen = false;
+
     selectedStock?: StockResponseDTO;
 
     movementType!: MovementType;
@@ -136,5 +138,19 @@ export class StockComponent implements OnInit {
     closeMovementModal(): void {
         this.isMovementModalOpen = false;
         this.selectedStock = undefined;
+    }
+
+    openNewMovementModal(): void {
+        this.isNewMovementModalOpen = true;
+    }
+
+    closeNewMovementModal(): void {
+        this.isNewMovementModalOpen = false;
+    }
+
+    confirmNewMovement(): void {
+        this.isNewMovementModalOpen = false;
+        this.loadStocks();
+        this.loadDashboard();
     }
 }

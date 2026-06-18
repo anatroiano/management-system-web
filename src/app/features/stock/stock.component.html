@@ -10,6 +10,11 @@
                 Gerencie entradas, saídas e acompanhe os níveis de estoque
             </p>
         </div>
+
+        <button class="btn primary-btn" (click)="openNewMovementModal()">
+            <i class="bi bi-plus-lg me-2"></i>
+            Novo
+        </button>
     </div>
 
     <div class="summary">
@@ -39,7 +44,7 @@
             </span>
 
             <span class="summary-value danger">
-                 {{ dashboard?.totalOutOfStock }}
+                {{ dashboard?.totalOutOfStock }}
             </span>
         </div>
     </div>
@@ -128,4 +133,8 @@
 
 <app-movement-modal *ngIf="selectedStock" [isOpen]="isMovementModalOpen" [movementType]="movementType"
     [stock]="selectedStock" (confirm)="confirmMovement()" (close)="closeMovementModal()">
+</app-movement-modal>
+
+<app-movement-modal [isOpen]="isNewMovementModalOpen" (confirm)="confirmNewMovement()"
+    (close)="closeNewMovementModal()">
 </app-movement-modal>
