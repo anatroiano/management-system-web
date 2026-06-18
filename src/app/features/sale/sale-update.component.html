@@ -4,13 +4,8 @@
         <div class="details-header">
             <div class="details-title-area">
                 <div>
-                    <h2 class="details-title">
-                        Nova venda
-                    </h2>
-
-                    <p class="details-subtitle">
-                        Selecione os itens da venda
-                    </p>
+                    <h2 class="details-title">Nova venda</h2>
+                    <p class="details-subtitle">Selecione os itens da venda</p>
                 </div>
             </div>
 
@@ -23,68 +18,78 @@
         </div>
 
         <div class="details-content">
-            <div class="form-grid">
-                <div class="form-group full-width">
-                    <label class="custom-label">
-                        Cliente
-                    </label>
 
-                    <select class="form-select custom-input" [(ngModel)]="selectedCustomer"
-                        (scroll)="onCustomerScroll($event)">
-                        <option *ngFor="let customer of customers" [ngValue]="customer">
-                            {{ customer.name }}
-                        </option>
-                    </select>
+            <form [formGroup]="form">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label class="custom-label required">Cliente</label>
+
+                        <ng-select formControlName="customerId" [items]="customers" bindValue="id" bindLabel="name"
+                            placeholder="Selecione um cliente" [loading]="loadingCustomers" class="custom-ng-select"
+                            [class.is-invalid]="isInvalidAndTouched('customerId')" (scrollToEnd)="loadCustomers()">
+                        </ng-select>
+
+                        <div class="custom-error" *ngIf="isInvalidAndTouched('customerId')">
+                            Selecione um cliente
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </form>
 
             <div class="mt-4">
-                <div>
-                    <h5 class="details-title" style="font-size: 1.2rem;">
-                        Itens da venda
-                    </h5>
-                </div>
+                <h5 class="details-title" style="font-size: 1.2rem;">Itens da venda</h5>
 
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label class="custom-label">
-                            Produto
-                        </label>
+                <form [formGroup]="itemForm">
+                    <div class="form-grid">
 
-                        <select class="form-select custom-input" [(ngModel)]="selectedProduct"
-                            (ngModelChange)="onProductChange()" (scroll)="onProductScroll($event)">
-                            <option *ngFor="let product of products" [ngValue]="product">
-                                {{ product.name }}
-                            </option>
-                        </select>
+                        <div class="form-group">
+                            <label class="custom-label required">Produto</label>
+
+                            <ng-select formControlName="product" [items]="products" bindLabel="name"
+                                placeholder="Selecione um produto" [loading]="loadingProducts" class="custom-ng-select"
+                                [class.is-invalid]="isInvalidAndTouched('product', itemForm)"
+                                (scrollToEnd)="loadProducts()">
+                            </ng-select>
+
+                            <div class="custom-error" *ngIf="isInvalidAndTouched('product', itemForm)">
+                                Selecione um produto
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="custom-label required">Quantidade</label>
+
+                            <input type="number" class="form-control custom-input" formControlName="quantity"
+                                [class.is-invalid]="isInvalidAndTouched('quantity', itemForm)">
+
+                            <div class="custom-error" *ngIf="isInvalidAndTouched('quantity', itemForm)">
+                                Informe uma quantidade válida
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="custom-label required">Preço unitário</label>
+
+                            <input type="number" class="form-control custom-input" formControlName="unitPrice"
+                                [class.is-invalid]="isInvalidAndTouched('unitPrice', itemForm)">
+
+                            <div class="custom-error" *ngIf="isInvalidAndTouched('unitPrice', itemForm)">
+                                Informe um preço válido
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div class="form-group">
-                        <label class="custom-label">
-                            Quantidade
-                        </label>
-
-                        <input type="number" class="form-control custom-input" [(ngModel)]="quantity">
+                    <div class="d-flex justify-content-end mt-3 mb-4">
+                        <button type="button" class="btn primary-btn" (click)="addItem()">
+                            <i class="bi bi-plus-lg"></i>
+                            Adicionar item
+                        </button>
                     </div>
-
-                    <div class="form-group">
-                        <label class="custom-label">
-                            Preço unitário
-                        </label>
-
-                        <input type="number" class="form-control custom-input" [(ngModel)]="unitPrice">
-                    </div>
-                </div>
-
-                <div class="d-flex justify-content-end mt-3 mb-4">
-                    <button type="button" class="btn primary-btn" (click)="addItem()">
-                        <i class="bi bi-plus-lg"></i>
-                        Adicionar item
-                    </button>
-                </div>
+                </form>
 
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle">
+                    <table class="table custom-table">
                         <thead>
                             <tr>
                                 <th>Produto</th>
@@ -94,29 +99,22 @@
                                 <th></th>
                             </tr>
                         </thead>
-
                         <tbody>
                             <tr *ngFor="let item of items; let i = index">
-                                <td>
-                                    {{ item.productName }}
-                                </td>
-
-                                <td>
-                                    {{ item.quantity }}
-                                </td>
-
-                                <td>
-                                    {{ item.unitPrice | currency:'BRL' }}
-                                </td>
-
-                                <td class="fw-semibold">
-                                    {{ item.subtotal | currency:'BRL' }}
-                                </td>
-
+                                <td>{{ item.productName }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>{{ item.unitPrice | currency:'BRL' }}</td>
+                                <td class="fw-semibold">{{ item.subtotal | currency:'BRL' }}</td>
                                 <td class="text-end">
                                     <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeItem(i)">
                                         <i class="bi bi-trash"></i>
                                     </button>
+                                </td>
+                            </tr>
+
+                            <tr *ngIf="items.length === 0">
+                                <td colspan="5" class="text-center py-4 text-muted">
+                                    Nenhum item adicionado
                                 </td>
                             </tr>
                         </tbody>
@@ -125,29 +123,25 @@
 
                 <div class="d-flex justify-content-end mt-4">
                     <div class="text-end">
-                        <span class="text-secondary d-block">
-                            Total da venda
-                        </span>
-
-                        <h3 class="fw-bold mb-0">
-                            {{ total | currency:'BRL' }}
-                        </h3>
+                        <span class="text-secondary d-block">Total da venda</span>
+                        <h3 class="fw-bold mb-0">{{ total | currency:'BRL' }}</h3>
                     </div>
                 </div>
             </div>
 
             <div class="form-actions">
-
                 <button type="button" class="btn secondary-btn" (click)="goToList()">
                     <i class="bi bi-x-lg"></i>
                     Cancelar
                 </button>
 
-                <button type="button" class="btn primary-btn" (click)="save()">
+                <button type="button" class="btn primary-btn" [disabled]="form.invalid || items.length === 0 || loading"
+                    (click)="onSubmit()">
                     <i class="bi bi-check-lg"></i>
                     Registrar venda
                 </button>
             </div>
+
         </div>
     </div>
 </div>

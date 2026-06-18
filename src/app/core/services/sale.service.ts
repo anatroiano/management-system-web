@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { PageResponse } from "../../shared/models/page-response.model";
 import { SaleResponseDTO } from "../../shared/models/sale/sale-response.dto";
 import { CreateSaleRequestDTO } from "../../shared/models/sale/create-sale-request.dto";
+import { SaleDashboardDTO } from "../../shared/models/sale/sale-dashboard.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +53,9 @@ export class SaleService {
       `${this.API}/${id}/cancel`,
       {}
     );
+  }
+
+  getDashboard(): Observable<SaleDashboardDTO> {
+    return this.http.get<SaleDashboardDTO>(`${this.API}/dashboard`);
   }
 }

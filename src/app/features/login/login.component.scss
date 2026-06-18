@@ -92,7 +92,6 @@
 
   .form-control {
     border-left: none;
-    border-right: none;
     box-shadow: none !important;
     height: 48px;
 
@@ -102,13 +101,19 @@
   }
 
   .password-btn {
-    border-left: none;
+    border-left: none !important;
     background: white;
-  }
+    box-shadow: none !important;
 
-  &:focus-within {
-    box-shadow: 0 0 0 3px rgba(21, 84, 192, 0.1);
-    border-radius: 12px;
+    &:hover,
+    &:focus,
+    &:active {
+      background: white;
+      color: #6c757d;
+      box-shadow: none !important;
+      outline: none;
+      border-color: var(--border-color);
+    }
   }
 }
 
@@ -122,17 +127,6 @@
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--text-dark);
-}
-
-.forgot-link {
-  font-size: 0.85rem;
-  color: var(--primary-light);
-  cursor: pointer;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
 }
 
 .login-btn {

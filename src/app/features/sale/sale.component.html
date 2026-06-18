@@ -21,7 +21,7 @@
             </span>
 
             <span class="summary-value">
-                R$ {{ 0 }}
+                {{ dashboard?.totalSales }}
             </span>
         </div>
         <div class="summary-card">
@@ -30,7 +30,7 @@
             </span>
 
             <span class="summary-value">
-                R$ {{ 0 }}
+                {{ dashboard?.totalRevenue | currency:'BRL' }}
             </span>
         </div>
         <div class="summary-card">
@@ -39,7 +39,7 @@
             </span>
 
             <span class="summary-value">
-                R$ {{ 0 }}
+             {{ dashboard?.averageTicket | currency:'BRL' }}
             </span>
         </div>
     </div>
@@ -85,7 +85,8 @@
                                     <i class="bi bi-eye"></i>
                                 </button>
 
-                                <button class="action-btn delete-btn" (click)="openCancelModal(sale)">
+                                <button class="action-btn delete-btn" (click)="openCancelModal(sale)"
+                                    *ngIf="sale.status === 'COMPLETED'">
                                     <i class="bi bi-x"></i>
 
                                 </button>

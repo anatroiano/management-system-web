@@ -1,3 +1,5 @@
+@import "@ng-select/ng-select/themes/default.theme.css";
+
 * {
   font-family: 'Inter', sans-serif;
 }
@@ -411,6 +413,40 @@
   resize: vertical;
 }
 
+ng-select.custom-ng-select {
+  .ng-select-container {
+    height: 44px !important;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 0 14px;
+    font-size: 0.92rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+
+    .ng-value-container {
+      padding: 0;
+
+      .ng-placeholder {
+        color: #6c757d;
+      }
+    }
+  }
+
+  &.ng-select-focused .ng-select-container {
+    border-color: rgba(21, 84, 192, 0.35);
+    box-shadow: 0 0 0 4px rgba(21, 84, 192, 0.08);
+  }
+
+  &.is-invalid .ng-select-container {
+    border-color: var(--bs-danger);
+  }
+
+  &.ng-select-focused .ng-select-container:after {
+    display: none;
+  }
+}
+
 .custom-error {
   margin-top: 6px;
   font-size: 0.78rem;
@@ -462,6 +498,12 @@
   }
 }
 
+.required::after {
+  content: ' *';
+  color: #dc3545;
+  font-weight: 700;
+}
+
 @media (max-width: 768px) {
   .form-grid {
     grid-template-columns: 1fr;
@@ -479,7 +521,7 @@
   .form-actions {
     flex-direction: column;
   }
-    
+
   .summary {
     grid-template-columns: 1fr;
   }

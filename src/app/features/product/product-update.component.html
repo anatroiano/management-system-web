@@ -30,38 +30,40 @@
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="form-grid">
           <div class="form-group">
-            <label class="custom-label">
+            <label class="custom-label required">
               Código
             </label>
 
-            <input type="text" class="form-control custom-input" formControlName="code">
+            <input type="text" class="form-control custom-input" [class.is-invalid]="isInvalidAndTouched('code')"
+            formControlName="code" minlength="1" maxlength="100">
 
-            <div class="custom-error" *ngIf="form.get('code')?.touched && form.get('code')?.invalid">
+            <div class="custom-error" *ngIf="isInvalidAndTouched('code')">
               Campo obrigatório
             </div>
           </div>
 
           <div class="form-group">
-            <label class="custom-label">
+            <label class="custom-label required">
               Nome
             </label>
 
-            <input type="text" class="form-control custom-input" formControlName="name">
+            <input type="text" class="form-control custom-input" [class.is-invalid]="isInvalidAndTouched('name')"
+            formControlName="name" minlength="1" maxlength="255">
 
-            <div class="custom-error" *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
+            <div class="custom-error" *ngIf="isInvalidAndTouched('name')">
               Campo obrigatório
             </div>
           </div>
 
           <div class="form-group">
-            <label class="custom-label">
+            <label class="custom-label required">
               Preço
             </label>
 
-            <input type="text" class="form-control custom-input" formControlName="price" mask="separator.2"
-              thousandSeparator="." decimalMarker=",">
+            <input type="text" class="form-control custom-input" [class.is-invalid]="isInvalidAndTouched('price')"
+            formControlName="price" mask="separator.2" thousandSeparator="." decimalMarker=",">
 
-            <div class="custom-error" *ngIf="form.get('price')?.touched && form.get('price')?.invalid">
+            <div class="custom-error" *ngIf="isInvalidAndTouched('price')">
               Campo obrigatório
             </div>
           </div>
@@ -71,7 +73,8 @@
               Descrição
             </label>
 
-            <textarea rows="4" class="form-control custom-input custom-textarea" formControlName="description">
+            <textarea rows="6" class="form-control custom-input custom-textarea" formControlName="description"
+              maxlength="1000">
             </textarea>
           </div>
         </div>

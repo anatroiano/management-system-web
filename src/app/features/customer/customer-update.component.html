@@ -33,7 +33,7 @@
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="form-grid">
           <div class="form-group">
-            <label class="custom-label">
+            <label class="custom-label required">
               Nome
             </label>
 
@@ -41,10 +41,10 @@
               type="text"
               class="form-control custom-input"
               formControlName="name"
-              [class.is-invalid]="form.get('name')?.touched && form.get('name')?.invalid">
+              [class.is-invalid]="isInvalidAndTouched('name')">
             <div
               class="custom-error"
-              *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
+              *ngIf="isInvalidAndTouched('name')">
 
               <span *ngIf="form.get('name')?.errors?.['required']">
                 Campo obrigatório
@@ -57,7 +57,7 @@
           </div>
 
           <div class="form-group">
-            <label class="custom-label">
+            <label class="custom-label required">
               E-mail
             </label>
 
@@ -65,12 +65,11 @@
               type="email"
               class="form-control custom-input"
               formControlName="email"
-              placeholder="cliente@empresa.com"
-              [class.is-invalid]="form.get('email')?.touched && form.get('email')?.invalid">
+              [class.is-invalid]="isInvalidAndTouched('email')">
 
             <div
               class="custom-error"
-              *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
+              *ngIf="isInvalidAndTouched('email')">
 
               <span *ngIf="form.get('email')?.errors?.['required']">
                 Campo obrigatório
@@ -94,11 +93,11 @@
               mask="(00) 00000-0000"
               [dropSpecialCharacters]="true"
               placeholder="(19) 99999-9999"
-              [class.is-invalid]="form.get('phone')?.touched && form.get('phone')?.invalid">
+              [class.is-invalid]="isInvalidAndTouched('phone')">
 
             <div
               class="custom-error"
-              *ngIf="form.get('phone')?.touched && form.get('phone')?.invalid">
+              *ngIf="isInvalidAndTouched('phone')">
               Telefone inválido
             </div>
           </div>
@@ -114,11 +113,11 @@
               formControlName="document"
               mask="000.000.000-00||00.000.000/0000-00"
               placeholder="CPF ou CNPJ"
-              [class.is-invalid]="form.get('document')?.touched && form.get('document')?.invalid">
+              [class.is-invalid]="isInvalidAndTouched('document')">
 
             <div
               class="custom-error"
-              *ngIf="form.get('document')?.touched && form.get('document')?.invalid">
+              *ngIf="isInvalidAndTouched('document')">
 
               <span *ngIf="form.get('document')?.errors?.['invalidDocument']">
                 CPF ou CNPJ inválido

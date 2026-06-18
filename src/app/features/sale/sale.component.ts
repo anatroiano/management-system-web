@@ -9,6 +9,7 @@ import { SaleNavigationService } from './sale-navigation.service';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 import { ConfirmModalComponent } from "../../shared/components/confirm-modal/confirm-modal.component";
 import { getSaleStatusName, getSaleStatusBadge } from "../../shared/enums/sale-status.enum"
+import { SaleDashboardDTO } from '../../shared/models/sale/sale-dashboard.dto';
 
 @Component({
     selector: 'app-sale',
@@ -38,6 +39,8 @@ export class SaleComponent implements OnInit {
     getSaleStatusName = getSaleStatusName;
     getSaleStatusBadge = getSaleStatusBadge;
 
+    dashboard?: SaleDashboardDTO;
+
     constructor(
         private saleService: SaleService,
         private navbarService: NavbarService,
@@ -51,6 +54,7 @@ export class SaleComponent implements OnInit {
             title: 'Vendas'
         });
         this.loadSales();
+        this.loadDashboard();
     }
 
     loadSales(): void {
@@ -60,6 +64,14 @@ export class SaleComponent implements OnInit {
                 this.totalPages = response.totalPages;
             }
         });
+    }
+
+    loadDashboard(): void {
+        this.saleService.getDashboard()
+            .subscribe({
+                next: (data) => this.dashboard = data,
+                error: () => { }
+            });
     }
 
     goToDetails(sale: SaleResponseDTO): void {
