@@ -1,29 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 import { SaleService } from '../../core/services/sale.service';
-import { CreateSaleRequestDTO } from '../../shared/models/sale/create-sale-request.dto';
-import { CreateSaleItemRequestDTO } from '../../shared/models/sale/create-sale-item-request.dto';
-import { SaleNavigationService } from './sale-navigation.service';
 import { ProductService } from '../../core/services/product.service';
 import { CustomerService } from '../../core/services/customer.service';
-import { PageResponse } from '../../shared/models/page-response.model';
+import { SaleNavigationService } from './sale-navigation.service';
+import { NavbarService } from '../../core/services/navbar.service';
+
+import { CreateSaleRequestDTO } from '../../shared/models/sale/create-sale-request.dto';
+import { CreateSaleItemRequestDTO } from '../../shared/models/sale/create-sale-item-request.dto';
 import { SaleItemResponseDTO } from '../../shared/models/sale/sale-item-response.dto';
 import { CustomerResponseDTO } from '../../shared/models/customer/customer-response.dto';
 import { ProductResponseDTO } from '../../shared/models/product/product-response.dto';
-import { NavbarService } from '../../core/services/navbar.service';
 
 @Component({
     selector: 'app-sale-create',
     standalone: true,
-    imports: [
-        CommonModule,
-        FormsModule,
-        CurrencyPipe
-    ],
+    imports: [CommonModule, ReactiveFormsModule, CurrencyPipe, NgSelectModule],
     templateUrl: './sale-update.component.html'
 })
 export class SaleUpdateComponent implements OnInit {
+
+    form!: FormGroup;
+    itemForm!: FormGroup;
 
     customers: CustomerResponseDTO[] = [];
     products: ProductResponseDTO[] = [];
@@ -37,15 +38,12 @@ export class SaleUpdateComponent implements OnInit {
     hasMoreCustomers = true;
     hasMoreProducts = true;
 
-    selectedCustomer?: CustomerResponseDTO;
-    selectedProduct?: ProductResponseDTO;
-
-    quantity = 1;
-    unitPrice = 0;
-
     items: SaleItemResponseDTO[] = [];
 
+    loading = false;
+
     constructor(
+        private fb: FormBuilder,
         private saleService: SaleService,
         private navigation: SaleNavigationService,
         private productService: ProductService,
@@ -54,31 +52,43 @@ export class SaleUpdateComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-       this.navbarService.setConfig({
+        this.navbarService.setConfig({
             icon: 'cart',
             showFilter: false,
             title: 'Vendas'
         });
+
+        this.createForms();
         this.loadCustomers();
         this.loadProducts();
     }
 
-    loadCustomers(): void {
+    createForms(): void {
+        this.form = this.fb.group({
+            customerId: [null, Validators.required]
+        });
 
-        if (this.loadingCustomers || !this.hasMoreCustomers) {
-            return;
-        }
+        this.itemForm = this.fb.group({
+            product: [null, Validators.required],
+            quantity: [1, [Validators.required, Validators.min(1)]],
+            unitPrice: [null, [Validators.required, Validators.min(0)]]
+        });
+
+        this.itemForm.get('product')!.valueChanges.subscribe((product: ProductResponseDTO | null) => {
+            if (product) {
+                this.itemForm.get('unitPrice')!.setValue(product.price);
+            }
+        });
+    }
+
+    loadCustomers(): void {
+        if (this.loadingCustomers || !this.hasMoreCustomers) return;
 
         this.loadingCustomers = true;
 
         this.customerService.findAll(this.customerPage, 10).subscribe({
             next: (response: any) => {
-
-                this.customers = [
-                    ...this.customers,
-                    ...response.content
-                ];
-
+                this.customers = [...this.customers, ...response.content];
                 this.hasMoreCustomers = !response.last;
                 this.customerPage++;
                 this.loadingCustomers = false;
@@ -87,18 +97,13 @@ export class SaleUpdateComponent implements OnInit {
     }
 
     loadProducts(): void {
-        if (this.loadingProducts || !this.hasMoreProducts) {
-            return;
-        }
+        if (this.loadingProducts || !this.hasMoreProducts) return;
 
         this.loadingProducts = true;
 
         this.productService.findAll(this.productPage, 10).subscribe({
             next: (response: any) => {
-                this.products = [
-                    ...this.products,
-                    ...response.content
-                ];
+                this.products = [...this.products, ...response.content];
                 this.hasMoreProducts = !response.last;
                 this.productPage++;
                 this.loadingProducts = false;
@@ -106,64 +111,31 @@ export class SaleUpdateComponent implements OnInit {
         });
     }
 
-    onCustomerScroll(event: Event): void {
-
-        const element = event.target as HTMLElement;
-
-        const atBottom =
-            element.scrollTop + element.clientHeight >= element.scrollHeight - 10;
-
-        if (atBottom) {
-            this.loadCustomers();
-        }
-    }
-
-    onProductScroll(event: Event): void {
-
-        const element = event.target as HTMLElement;
-
-        const atBottom =
-            element.scrollTop + element.clientHeight >= element.scrollHeight - 10;
-
-        if (atBottom) {
-            this.loadProducts();
-        }
-    }
-
-    onProductChange(): void {
-
-        if (!this.selectedProduct) {
-            return;
-        }
-
-        this.unitPrice = this.selectedProduct.price;
-    }
-
     addItem(): void {
-
-        if (!this.selectedProduct || this.quantity <= 0) {
+        if (this.itemForm.invalid) {
+            this.itemForm.markAllAsTouched();
             return;
         }
 
-        const existing = this.items.find(
-            i => i.productId === this.selectedProduct!.id
-        );
+        const { product, quantity, unitPrice } = this.itemForm.value;
+
+        const existing = this.items.find(i => i.productId === product.id);
 
         if (existing) {
-            existing.quantity += this.quantity;
-            existing.unitPrice = this.unitPrice;
+            existing.quantity += quantity;
+            existing.unitPrice = unitPrice;
             existing.subtotal = existing.quantity * existing.unitPrice;
         } else {
             this.items.push({
-                productId: this.selectedProduct.id,
-                productName: this.selectedProduct.name,
-                quantity: this.quantity,
-                unitPrice: this.unitPrice,
-                subtotal: this.quantity * this.unitPrice
+                productId: product.id,
+                productName: product.name,
+                quantity,
+                unitPrice,
+                subtotal: quantity * unitPrice
             });
         }
 
-        this.quantity = 1;
+        this.itemForm.reset({ quantity: 1 });
     }
 
     removeItem(index: number): void {
@@ -171,33 +143,37 @@ export class SaleUpdateComponent implements OnInit {
     }
 
     get total(): number {
-        return this.items.reduce(
-            (acc, item) => acc + item.subtotal,
-            0
-        );
+        return this.items.reduce((acc, item) => acc + item.subtotal, 0);
     }
 
-    save(): void {
-        if (!this.selectedCustomer) {
+    onSubmit(): void {
+        if (this.form.invalid || this.items.length === 0) {
+            this.form.markAllAsTouched();
             return;
         }
 
         const dto: CreateSaleRequestDTO = {
-            customerId: this.selectedCustomer.id,
+            customerId: this.form.value.customerId,
             items: this.items.map(item => ({
                 productId: item.productId,
                 quantity: item.quantity
             } as CreateSaleItemRequestDTO))
         };
 
+        this.loading = true;
+
         this.saleService.create(dto).subscribe({
-            next: () => {
-                this.navigation.goToList();
-            }
+            next: () => this.navigation.goToList(),
+            error: () => { this.loading = false; }
         });
     }
 
     goToList(): void {
         this.navigation.goToList();
+    }
+
+    isInvalidAndTouched(field: string, formGroup: FormGroup = this.form): boolean {
+        const c = formGroup.get(field);
+        return !!(c?.touched && c?.invalid);
     }
 }
