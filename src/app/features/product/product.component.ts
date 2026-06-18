@@ -6,6 +6,7 @@ import { ProductResponseDTO } from '../../shared/models/product/product-response
 import { PaginationComponent } from "../../shared/components/pagination/pagination.component";
 import { ProductNavigationService } from './product-navigation.service';
 import { ConfirmModalComponent } from '../../shared/components/confirm-modal/confirm-modal.component';
+import { ToastService } from '../../shared/components/toast/toast.service';
 
 @Component({
   selector: 'app-product',
@@ -41,7 +42,8 @@ export class ProductComponent implements OnInit {
   constructor(
     private navbarService: NavbarService,
     private productService: ProductService,
-    private navigation: ProductNavigationService
+    private navigation: ProductNavigationService,
+    private toast: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -121,6 +123,7 @@ export class ProductComponent implements OnInit {
     this.productService.disable(this.selectedProduct.id)
       .subscribe({
         next: () => {
+          this.toast.success('Produto excluído com sucesso!');
           this.closeDeleteModal();
           this.loadProducts();
         },

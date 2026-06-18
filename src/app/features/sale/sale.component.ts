@@ -10,6 +10,7 @@ import { PaginationComponent } from '../../shared/components/pagination/paginati
 import { ConfirmModalComponent } from "../../shared/components/confirm-modal/confirm-modal.component";
 import { getSaleStatusName, getSaleStatusBadge } from "../../shared/enums/sale-status.enum"
 import { SaleDashboardDTO } from '../../shared/models/sale/sale-dashboard.dto';
+import { ToastService } from '../../shared/components/toast/toast.service';
 
 @Component({
     selector: 'app-sale',
@@ -44,7 +45,8 @@ export class SaleComponent implements OnInit {
     constructor(
         private saleService: SaleService,
         private navbarService: NavbarService,
-        private navigation: SaleNavigationService
+        private navigation: SaleNavigationService,
+        private toast: ToastService
     ) { }
 
     ngOnInit(): void {
@@ -89,6 +91,7 @@ export class SaleComponent implements OnInit {
         this.saleService.cancel(this.selectedSale.id)
             .subscribe({
                 next: () => {
+                    this.toast.success('Venda cancelada com sucesso!');
                     this.closeCancelModal();
                     this.loadSales();
                 },

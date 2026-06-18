@@ -10,6 +10,7 @@ import { ProductService } from '../../../core/services/product.service';
 import { ProductResponseDTO } from '../../../shared/models/product/product-response.dto';
 import { OnChanges, SimpleChanges } from '@angular/core';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ToastService } from '../../../shared/components/toast/toast.service';
 
 @Component({
   selector: 'app-movement-modal',
@@ -42,7 +43,8 @@ export class MovementModalComponent implements OnInit, OnChanges {
   constructor(
     private fb: FormBuilder,
     private stockService: StockService,
-    private productService: ProductService
+    private productService: ProductService,
+    private toast: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -134,7 +136,10 @@ export class MovementModalComponent implements OnInit, OnChanges {
       : this.stockService.addExit(productId, payload as StockExitRequestDTO);
 
     request.subscribe({
-      next: () => this.confirm.emit()
+      next: () => {
+        this.toast.success('Movimentação registrada com sucesso!');
+        this.confirm.emit();
+      }
     });
   }
 
@@ -149,7 +154,7 @@ export class MovementModalComponent implements OnInit, OnChanges {
 
   get resolvedTitle(): string {
     const type = this.movementType ?? this.form.get('movementType')?.value;
-    if (!type) return 'Novo Movimento';
-    return type === MovementType.ENTRY ? 'Nova Entrada' : 'Nova Saída';
+    if (!type) return 'Nova movimentação';
+    return type === MovementType.ENTRY ? 'Nova entrada' : 'Nova Saída';
   }
 }

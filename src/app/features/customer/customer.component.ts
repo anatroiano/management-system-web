@@ -6,6 +6,7 @@ import { CustomerNavigationService } from './customer-navigation.service';
 import { ConfirmModalComponent } from '../../shared/components/confirm-modal/confirm-modal.component';
 import { CustomerResponseDTO } from '../../shared/models/customer/customer-response.dto';
 import { CustomerService } from '../../core/services/customer.service';
+import { ToastService } from '../../shared/components/toast/toast.service';
 
 @Component({
   selector: 'app-customer',
@@ -41,7 +42,8 @@ export class CustomerComponent implements OnInit {
   constructor(
     private navbarService: NavbarService,
     private customerService: CustomerService,
-    private navigation: CustomerNavigationService
+    private navigation: CustomerNavigationService,
+    private toast: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -122,6 +124,7 @@ export class CustomerComponent implements OnInit {
     this.customerService.disable(this.selectedCustomer.id)
       .subscribe({
         next: () => {
+          this.toast.success('Cliente excluído com sucesso!');
           this.closeDeleteModal();
           this.loadCustomers();
         },

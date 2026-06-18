@@ -14,6 +14,7 @@ import { CreateSaleItemRequestDTO } from '../../shared/models/sale/create-sale-i
 import { SaleItemResponseDTO } from '../../shared/models/sale/sale-item-response.dto';
 import { CustomerResponseDTO } from '../../shared/models/customer/customer-response.dto';
 import { ProductResponseDTO } from '../../shared/models/product/product-response.dto';
+import { ToastService } from '../../shared/components/toast/toast.service';
 
 @Component({
     selector: 'app-sale-create',
@@ -48,7 +49,8 @@ export class SaleUpdateComponent implements OnInit {
         private navigation: SaleNavigationService,
         private productService: ProductService,
         private customerService: CustomerService,
-        private navbarService: NavbarService
+        private navbarService: NavbarService,
+        private toast: ToastService
     ) { }
 
     ngOnInit(): void {
@@ -163,7 +165,10 @@ export class SaleUpdateComponent implements OnInit {
         this.loading = true;
 
         this.saleService.create(dto).subscribe({
-            next: () => this.navigation.goToList(),
+            next: () => {
+                this.toast.success('Venda criada com sucesso!');
+                this.navigation.goToList();
+            },
             error: () => { this.loading = false; }
         });
     }

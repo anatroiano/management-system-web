@@ -13,6 +13,7 @@ import { CustomerService } from '../../core/services/customer.service';
 import { CustomerRequestDTO } from '../../shared/models/customer/customer-request.dto';
 import { documentValidator } from '../../shared/utils/document.validator';
 import { NgxMaskDirective } from 'ngx-mask';
+import { ToastService } from '../../shared/components/toast/toast.service';
 
 @Component({
     selector: 'app-customer-update',
@@ -36,7 +37,8 @@ export class CustomerUpdateComponent implements OnInit {
         private fb: FormBuilder,
         private route: ActivatedRoute,
         private customerService: CustomerService,
-        private navigation: CustomerNavigationService
+        private navigation: CustomerNavigationService,
+        private toast: ToastService
     ) { }
 
     ngOnInit(): void {
@@ -94,6 +96,7 @@ export class CustomerUpdateComponent implements OnInit {
             this.customerService.update(this.customerId, payload)
                 .subscribe({
                     next: (customer) => {
+                        this.toast.success('Cliente alterado com sucesso!');
                         this.navigation.goToDetails(customer.id);
                     },
                     error: () => {
@@ -106,6 +109,7 @@ export class CustomerUpdateComponent implements OnInit {
         this.customerService.create(payload)
             .subscribe({
                 next: (customer) => {
+                    this.toast.success('Cliente criado com sucesso!');
                     this.navigation.goToDetails(customer.id);
                 },
                 error: () => {

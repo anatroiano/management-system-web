@@ -13,6 +13,7 @@ import { ProductRequestDTO } from '../../shared/models/product/product-request.d
 import { ProductNavigationService } from './product-navigation.service';
 import { NgxMaskDirective } from 'ngx-mask';
 import { NavbarService } from '../../core/services/navbar.service';
+import { ToastService } from '../../shared/components/toast/toast.service';
 
 @Component({
     selector: 'app-product-update',
@@ -37,7 +38,8 @@ export class ProductUpdateComponent implements OnInit {
         private navbarService: NavbarService,
         private route: ActivatedRoute,
         private productService: ProductService,
-        private navigation: ProductNavigationService
+        private navigation: ProductNavigationService,
+        private toast: ToastService
     ) { }
 
     ngOnInit(): void {
@@ -50,10 +52,10 @@ export class ProductUpdateComponent implements OnInit {
         }
 
         this.navbarService.setConfig({
-              icon: 'box-seam',
-              showFilter: false,
-              title: 'Produtos'
-        }); 
+            icon: 'box-seam',
+            showFilter: false,
+            title: 'Produtos'
+        });
     }
 
     createForm(): void {
@@ -102,6 +104,7 @@ export class ProductUpdateComponent implements OnInit {
             this.productService.update(this.productId, payload)
                 .subscribe({
                     next: (product) => {
+                        this.toast.success('Produto alterado com sucesso!');
                         this.navigation.goToDetails(product.id);
                     },
                     error: () => {
@@ -114,6 +117,7 @@ export class ProductUpdateComponent implements OnInit {
         this.productService.create(payload)
             .subscribe({
                 next: (product) => {
+                    this.toast.success('Produto criado com sucesso!');
                     this.navigation.goToDetails(product.id);
                 },
                 error: () => {

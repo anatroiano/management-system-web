@@ -35,7 +35,7 @@
             </label>
 
             <input type="text" class="form-control custom-input" [class.is-invalid]="isInvalidAndTouched('code')"
-            formControlName="code" minlength="1" maxlength="100">
+              formControlName="code" minlength="1" maxlength="100">
 
             <div class="custom-error" *ngIf="isInvalidAndTouched('code')">
               Campo obrigatório
@@ -48,7 +48,7 @@
             </label>
 
             <input type="text" class="form-control custom-input" [class.is-invalid]="isInvalidAndTouched('name')"
-            formControlName="name" minlength="1" maxlength="255">
+              formControlName="name" minlength="1" maxlength="255">
 
             <div class="custom-error" *ngIf="isInvalidAndTouched('name')">
               Campo obrigatório
@@ -61,7 +61,7 @@
             </label>
 
             <input type="text" class="form-control custom-input" [class.is-invalid]="isInvalidAndTouched('price')"
-            formControlName="price" mask="separator.2" thousandSeparator="." decimalMarker=",">
+              formControlName="price" mask="separator.2" thousandSeparator="." decimalMarker=",">
 
             <div class="custom-error" *ngIf="isInvalidAndTouched('price')">
               Campo obrigatório
@@ -73,8 +73,8 @@
               Descrição
             </label>
 
-            <textarea rows="6" class="form-control custom-input custom-textarea" formControlName="description"
-              maxlength="1000">
+            <textarea rows="6" class="form-control custom-input custom-textarea"
+              [class.is-invalid]="isInvalidAndTouched('description')" formControlName="description" maxlength="1000">
             </textarea>
           </div>
         </div>
