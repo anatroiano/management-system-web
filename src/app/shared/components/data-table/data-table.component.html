@@ -1,41 +1,67 @@
 <div class="table-card">
-  <div class="table-responsive">
+  <div class="table-responsive" *ngIf="data?.length; else emptyState">
     <table class="table table-hover custom-table align-middle mb-0">
       <thead>
-        <tr>
-          <th *ngFor="let column of columns">
-            {{ column.label }}
-          </th>
+      <tr>
+        <th *ngFor="let column of columns">
+          {{ column.label }}
+        </th>
 
-          <th class="text-end actions-column">
-            Ações
-          </th>
-        </tr>
+        <th class="text-end actions-column">
+          Ações
+        </th>
+      </tr>
       </thead>
 
       <tbody>
-        <tr *ngFor="let item of data">
-          <td *ngFor="let column of columns">
-            {{ item[column.field] }}
-          </td>
+      <tr *ngFor="let item of data">
+        <td *ngFor="let column of columns">
+          {{ item[column.field] }}
+        </td>
 
-          <td class="text-end">
-            <div class="table-actions">
-              <button class="action-btn view-btn" (click)="onView(item)">
-                <i class="bi bi-eye"></i>
-              </button>
+        <td class="text-end">
+          <div class="table-actions">
+            <button
+              class="action-btn view-btn"
+              (click)="onView(item)"
+              title="Visualizar"
+            >
+              <i class="bi bi-eye"></i>
+            </button>
 
-              <button class="action-btn edit-btn" (click)="onEdit(item)">
-                <i class="bi bi-pencil"></i>
-              </button>
+            <button
+              class="action-btn edit-btn"
+              (click)="onEdit(item)"
+              title="Editar"
+            >
+              <i class="bi bi-pencil"></i>
+            </button>
 
-              <button class="action-btn delete-btn" (click)="onDelete(item)">
-                <i class="bi bi-trash"></i>
-              </button>
-            </div>
-          </td>
-        </tr>
+            <button
+              class="action-btn delete-btn"
+              (click)="onDelete(item)"
+              title="Excluir"
+            >
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
       </tbody>
     </table>
   </div>
+
+  <ng-template #emptyState>
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="bi bi-inbox"></i>
+      </div>
+
+      <h3>Nenhum item encontrado</h3>
+
+      <p>
+        Não encontramos nenhum item para exibir no momento.
+      </p>
+    </div>
+  </ng-template>
 </div>

@@ -23,10 +23,10 @@
   --shadow-card: 0 20px 45px rgba(7, 22, 51, 0.12);
 
   --brand-gradient: linear-gradient(135deg,
-      #071633 0%,
-      #0b2a63 35%,
-      #1147a6 70%,
-      #12b5d0 100%);
+  #071633 0%,
+  #0b2a63 35%,
+  #1147a6 70%,
+  #12b5d0 100%);
 }
 
 .products-page {
@@ -396,9 +396,8 @@
   padding: 0 14px;
   font-size: 0.92rem;
 
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+  transition: border-color 0.2s,
+  box-shadow 0.2s;
 
   &:focus {
     border-color: rgba(21, 84, 192, 0.35);
@@ -502,6 +501,71 @@ ng-select.custom-ng-select {
   content: ' *';
   color: #dc3545;
   font-weight: 700;
+}
+
+.empty-state {
+  min-height: 320px;
+  padding: 50px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(
+    circle at center,
+    rgba(18, 181, 208, 0.06),
+    transparent 55%
+  );
+}
+
+.empty-icon {
+  width: 76px;
+  height: 76px;
+  margin-bottom: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 24px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(7, 22, 51, 0.08),
+    rgba(18, 181, 208, 0.12)
+  );
+
+  border: 1px solid rgba(18, 181, 208, 0.12);
+
+  box-shadow: 0 12px 30px rgba(7, 22, 51, 0.08),
+  inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+  i {
+    font-size: 2rem;
+    background: var(--brand-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+.empty-state h3 {
+  margin: 0 0 8px;
+
+  color: var(--text-dark);
+
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.empty-state p {
+  max-width: 360px;
+  margin: 0;
+
+  color: var(--text-medium);
+
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
 @media (max-width: 768px) {

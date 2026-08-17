@@ -1,140 +1,153 @@
 <div class="page">
 
-    <div class="page-header">
-        <div>
-            <h4 class="page-title">
-                Controle de estoque
-            </h4>
+  <div class="page-header">
+    <div>
+      <h4 class="page-title">
+        Controle de estoque
+      </h4>
 
-            <p class="page-subtitle">
-                Gerencie entradas, saídas e acompanhe os níveis de estoque
-            </p>
-        </div>
-
-        <button class="btn primary-btn" (click)="openNewMovementModal()">
-            <i class="bi bi-plus-lg me-2"></i>
-            Novo
-        </button>
+      <p class="page-subtitle">
+        Gerencie entradas, saídas e acompanhe os níveis de estoque
+      </p>
     </div>
 
-    <div class="summary">
-        <div class="summary-card">
-            <span class="summary-label">
-                Total de estoques
-            </span>
+    <button class="btn primary-btn" (click)="openNewMovementModal()">
+      <i class="bi bi-plus-lg me-2"></i>
+      Novo
+    </button>
+  </div>
 
-            <span class="summary-value">
-                {{ dashboard?.totalActive }}
-            </span>
-        </div>
+  <div class="summary">
+    <div class="summary-card">
+      <span class="summary-label">
+        Total de estoques
+      </span>
 
-        <div class="summary-card">
-            <span class="summary-label">
-                Estoque baixo
-            </span>
-
-            <span class="summary-value warning">
-                {{ dashboard?.totalLowStock }}
-            </span>
-        </div>
-
-        <div class="summary-card">
-            <span class="summary-label">
-                Sem estoque
-            </span>
-
-            <span class="summary-value danger">
-                {{ dashboard?.totalOutOfStock }}
-            </span>
-        </div>
+      <span class="summary-value">
+        {{ dashboard?.totalActive }}
+      </span>
     </div>
 
-    <div class="table-card">
+    <div class="summary-card">
+      <span class="summary-label">
+        Estoque baixo
+      </span>
 
-        <div *ngIf="loading" class="text-center py-5">
-            <div class="spinner-border"></div>
-        </div>
-
-        <div *ngIf="!loading" class="table-responsive">
-            <table class="table custom-table">
-
-                <thead>
-                    <tr>
-                        <th>Produto</th>
-                        <th>Quantidade</th>
-                        <th>Status</th>
-                        <th>Atualizado em</th>
-                        <th class="actions-column text-end">
-                            Ações
-                        </th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr *ngFor="let stock of stocks">
-
-                        <td>
-                            {{ stock.productCode }} - {{ stock.productName }}
-                        </td>
-
-                        <td>
-                            <strong>
-                                {{ stock.quantity }}
-                            </strong>
-                        </td>
-
-                        <td>
-                            <span class="badge" [ngClass]="getStockQuantityClass(stock)">
-                                {{ getStockQuantityLabel(stock)}}
-                            </span>
-                        </td>
-
-                        <td>
-                            {{ stock.updatedAt | date:'dd/MM/yyyy HH:mm' }}
-                        </td>
-
-                        <td>
-                            <div class="table-actions">
-
-                                <button class="action-btn entry-btn" (click)="openEntryModal(stock)">
-                                    <i class="bi bi-plus-lg"></i>
-                                </button>
-
-                                <button class="action-btn exit-btn" (click)="openExitModal(stock)">
-                                    <i class="bi bi-box-arrow-right"></i>
-                                </button>
-
-                                <button class="action-btn view-btn" (click)="goToView(stock)">
-                                    <i class="bi bi-clock-history"></i>
-                                </button>
-
-                            </div>
-                        </td>
-
-                    </tr>
-
-                    <tr *ngIf="stocks.length === 0">
-                        <td colspan="5" class="text-center py-5 text-muted">
-                            Nenhum estoque encontrado
-                        </td>
-                    </tr>
-                </tbody>
-
-            </table>
-        </div>
-
+      <span class="summary-value warning">
+        {{ dashboard?.totalLowStock }}
+      </span>
     </div>
 
-    <div class="pagination-wrapper">
-        <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="onPageChange($event)">
-        </app-pagination>
+    <div class="summary-card">
+      <span class="summary-label">
+        Sem estoque
+      </span>
+
+      <span class="summary-value danger">
+        {{ dashboard?.totalOutOfStock }}
+      </span>
     </div>
+  </div>
+
+  <div class="table-card">
+
+    <div *ngIf="loading" class="text-center py-5">
+      <div class="spinner-border"></div>
+    </div>
+
+    <ng-container *ngIf="stocks?.length; else emptyStocks">
+      <div *ngIf="!loading" class="table-responsive">
+        <table class="table custom-table">
+
+          <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Status</th>
+            <th>Atualizado em</th>
+            <th class="actions-column text-end">
+              Ações
+            </th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr *ngFor="let stock of stocks">
+            <td>
+              {{ stock.productCode }} - {{ stock.productName }}
+            </td>
+
+            <td>
+              <strong>
+                {{ stock.quantity }}
+              </strong>
+            </td>
+
+            <td>
+              <span class="badge" [ngClass]="getStockQuantityClass(stock)">
+                {{ getStockQuantityLabel(stock) }}
+              </span>
+            </td>
+
+            <td>
+              {{ stock.updatedAt | date:'dd/MM/yyyy HH:mm' }}
+            </td>
+
+            <td>
+              <div class="table-actions">
+
+                <button class="action-btn entry-btn" (click)="openEntryModal(stock)">
+                  <i class="bi bi-plus-lg"></i>
+                </button>
+
+                <button class="action-btn exit-btn" (click)="openExitModal(stock)">
+                  <i class="bi bi-box-arrow-right"></i>
+                </button>
+
+                <button class="action-btn view-btn" (click)="goToView(stock)">
+                  <i class="bi bi-clock-history"></i>
+                </button>
+
+              </div>
+            </td>
+
+          </tr>
+
+          <tr *ngIf="stocks.length === 0">
+            <td colspan="5" class="text-center py-5 text-muted">
+              Nenhum estoque encontrado
+            </td>
+          </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </ng-container>
+
+    <ng-template #emptyStocks>
+      <div class="empty-state">
+        <div class="empty-icon">
+          <i class="bi bi-boxes"></i>
+        </div>
+
+        <h3>Nenhum estoque encontrado</h3>
+        <p>
+          Ainda não existem estoques cadastrados para exibir.
+        </p>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="pagination-wrapper">
+    <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="onPageChange($event)">
+    </app-pagination>
+  </div>
 </div>
 
 <app-movement-modal *ngIf="selectedStock" [isOpen]="isMovementModalOpen" [movementType]="movementType"
-    [stock]="selectedStock" (confirm)="confirmMovement()" (close)="closeMovementModal()">
+                    [stock]="selectedStock" (confirm)="confirmMovement()" (close)="closeMovementModal()">
 </app-movement-modal>
 
 <app-movement-modal [isOpen]="isNewMovementModalOpen" (confirm)="confirmNewMovement()"
-    (close)="closeNewMovementModal()">
+                    (close)="closeNewMovementModal()">
 </app-movement-modal>
