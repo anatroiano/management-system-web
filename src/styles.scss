@@ -399,6 +399,10 @@
   transition: border-color 0.2s,
   box-shadow 0.2s;
 
+  &::placeholder {
+    color: #818c97;
+  }
+
   &:focus {
     border-color: rgba(21, 84, 192, 0.35);
     box-shadow: 0 0 0 4px rgba(21, 84, 192, 0.08);
@@ -427,7 +431,7 @@ ng-select.custom-ng-select {
       padding: 0;
 
       .ng-placeholder {
-        color: #6c757d;
+        color: #818c97;
       }
     }
   }
