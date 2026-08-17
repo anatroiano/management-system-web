@@ -1,15 +1,14 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MovementType } from '../../../shared/enums/movement-type.enum';
-import { StockResponseDTO } from '../../../shared/models/stock/stock-response.dto';
-import { StockEntryRequestDTO } from '../../../shared/models/stock/stock-entry-request.dto';
-import { StockExitRequestDTO } from '../../../shared/models/stock/stock-exit-request.dto';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { StockService } from '../../../core/services/stock.service';
-import { ProductService } from '../../../core/services/product.service';
-import { ProductResponseDTO } from '../../../shared/models/product/product-response.dto';
-import { OnChanges, SimpleChanges } from '@angular/core';
-import { NgSelectModule } from '@ng-select/ng-select';
+import {CommonModule} from '@angular/common';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {MovementType} from '../../../shared/enums/movement-type.enum';
+import {StockResponseDTO} from '../../../shared/models/stock/stock-response.dto';
+import {StockEntryRequestDTO} from '../../../shared/models/stock/stock-entry-request.dto';
+import {StockExitRequestDTO} from '../../../shared/models/stock/stock-exit-request.dto';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {StockService} from '../../../core/services/stock.service';
+import {ProductService} from '../../../core/services/product.service';
+import {ProductResponseDTO} from '../../../shared/models/product/product-response.dto';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-movement-modal',
@@ -43,7 +42,8 @@ export class MovementModalComponent implements OnInit, OnChanges {
     private fb: FormBuilder,
     private stockService: StockService,
     private productService: ProductService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -149,7 +149,7 @@ export class MovementModalComponent implements OnInit, OnChanges {
 
   get resolvedTitle(): string {
     const type = this.movementType ?? this.form.get('movementType')?.value;
-    if (!type) return 'Novo Movimento';
-    return type === MovementType.ENTRY ? 'Nova Entrada' : 'Nova Saída';
+    if (!type) return 'Novo movimento';
+    return type === MovementType.ENTRY ? 'Nova entrada' : 'Nova saída';
   }
 }

@@ -20,13 +20,12 @@
       <form [formGroup]="form">
 
         <ng-container *ngIf="isFreeMode">
-
-          <div class="mb-3">
+          <div class="mb-4">
             <label class="form-label required">Produto</label>
 
             <ng-select formControlName="productId" [items]="products" bindValue="id" bindLabel="name"
-              placeholder="Selecione um produto" [loading]="loadingProducts"
-              [class.is-invalid]="isInvalidAndTouched('productId')" (scrollToEnd)="loadProducts()">
+                       placeholder="Selecione um produto" [loading]="loadingProducts"
+                       [class.is-invalid]="isInvalidAndTouched('productId')" (scrollToEnd)="loadProducts()">
 
               <ng-template ng-option-tmp let-item="item">
                 {{ item.code }} - {{ item.name }}
@@ -39,11 +38,11 @@
             </div>
           </div>
 
-          <div class="mb-3">
+          <div class="mb-4">
             <label class="form-label required">Tipo de movimento</label>
 
             <select class="form-select" formControlName="movementType"
-              [class.is-invalid]="isInvalidAndTouched('movementType')">
+                    [class.is-invalid]="isInvalidAndTouched('movementType')">
               <option [ngValue]="null" disabled>Selecione o tipo</option>
               <option [ngValue]="MovementType.ENTRY">Entrada</option>
               <option [ngValue]="MovementType.MANUAL_EXIT">Saída manual</option>
@@ -61,16 +60,16 @@
           <div class="small text-muted">Estoque atual: {{ stock.quantity }}</div>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-4">
           <label class="form-label required">Quantidade</label>
           <input type="number" class="form-control" formControlName="quantity"
-            [class.is-invalid]="isInvalidAndTouched('quantity')">
+                 [class.is-invalid]="isInvalidAndTouched('quantity')">
           <div class="text-danger small mt-1" *ngIf="isInvalidAndTouched('quantity')">
             Informe uma quantidade válida
           </div>
         </div>
 
-        <div class="mb-3">
+        <div>
           <label class="form-label">Motivo</label>
           <textarea rows="3" class="form-control" formControlName="reason"></textarea>
         </div>
@@ -81,7 +80,8 @@
     <div class="custom-modal-footer">
       <button type="button" class="btn secondary-btn" (click)="onClose()">Cancelar</button>
       <button type="button" class="btn modal-confirm-btn success" (click)="onConfirm()"
-        [disabled]="form.invalid">Confirmar</button>
+              [disabled]="form.invalid">Confirmar
+      </button>
     </div>
 
   </div>

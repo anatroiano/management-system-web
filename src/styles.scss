@@ -48,7 +48,7 @@
 }
 
 .page-subtitle {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--text-medium);
   margin: 0;
 }
@@ -266,7 +266,7 @@
 .details-subtitle {
   margin: 0;
   color: var(--text-medium);
-  font-size: 0.92rem;
+  font-size: 0.95rem;
 }
 
 .details-actions {
@@ -382,7 +382,7 @@
 }
 
 .custom-label {
-  font-size: 0.82rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-medium);
   margin-bottom: 8px;
@@ -394,7 +394,7 @@
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.8);
   padding: 0 14px;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
 
   transition: border-color 0.2s,
   box-shadow 0.2s;
@@ -448,7 +448,7 @@ ng-select.custom-ng-select {
 
 .custom-error {
   margin-top: 6px;
-  font-size: 0.78rem;
+  font-size: 0.80rem;
   color: #dc2626;
 }
 
@@ -478,7 +478,7 @@ ng-select.custom-ng-select {
 }
 
 .summary-label {
-  font-size: 0.85rem;
+  font-size: 0.90rem;
   color: var(--text-medium);
   margin-bottom: 10px;
 }
