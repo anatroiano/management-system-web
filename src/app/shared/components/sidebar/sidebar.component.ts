@@ -1,10 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthService } from '../../../core/services/auth.service';
-import { Router } from '@angular/router';
-import { TokenService } from '../../../core/services/token.service';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {MatIconModule} from '@angular/material/icon';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
+import {TokenService} from '../../../core/services/token.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,6 +14,8 @@ import { TokenService } from '../../../core/services/token.service';
 export class SidebarComponent {
 
   @Input() isOpen = true;
+
+  @Output() toggleSidebar = new EventEmitter<void>();
 
   constructor(
     private tokenService: TokenService,
@@ -50,6 +50,10 @@ export class SidebarComponent {
       link: '/sales'
     }
   ];
+  
+  toggle(): void {
+    this.toggleSidebar.emit();
+  }
 
   logout(): void {
     this.tokenService.removeToken();

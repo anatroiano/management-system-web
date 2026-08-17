@@ -1,6 +1,6 @@
 <div class="layout-container">
 
-  <app-sidebar [isOpen]="isSidebarOpen">
+  <app-sidebar [isOpen]="isSidebarOpen" (toggleSidebar)="toggleSidebar()">
   </app-sidebar>
 
   <div class="content-area" [class.sidebar-closed]="!isSidebarOpen">
