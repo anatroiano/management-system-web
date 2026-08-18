@@ -13,9 +13,11 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
+  private readonly API = `${environment.baseUrl}/auth`;
+
   login(email: string, password: string): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(
-      `${environment.baseUrl}/login`,
+      `${(this.API)}/login`,
       {email, password},
       {context: noErrorToastContext()}
     );

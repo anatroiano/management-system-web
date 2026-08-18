@@ -1,0 +1,71 @@
+.not-found-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--bg-page);
+}
+
+.not-found-card {
+  width: 100%;
+  max-width: 460px;
+  padding: 48px 36px;
+  text-align: center;
+
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-card);
+
+  .empty-icon {
+    margin: 0 auto 20px;
+  }
+}
+
+.not-found-code {
+  display: block;
+  margin-bottom: 8px;
+
+  font-size: 2.75rem;
+  font-weight: 800;
+  line-height: 1;
+
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.not-found-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.not-found-card p {
+  margin: 0 0 28px;
+  color: var(--text-medium);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.not-found-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+
+  .primary-btn,
+  .secondary-btn {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .not-found-actions {
+    flex-direction: column;
+  }
+}

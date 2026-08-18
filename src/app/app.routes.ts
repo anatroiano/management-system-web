@@ -1,18 +1,19 @@
-import { Routes } from '@angular/router';
-import { ProductComponent } from "./features/product/product.component";
-import { MainLayoutComponent } from './core/layout/main-layout/main-layout.component';
-import { LoginComponent } from './features/login/login.component';
-import { authGuard } from './core/guards/auth.guard';
-import { ProductDetailComponent } from './features/product/product-detail.component';
-import { ProductUpdateComponent } from './features/product/product-update.component';
-import { CustomerUpdateComponent } from './features/customer/customer-update.component';
-import { CustomerDetailComponent } from './features/customer/customer-detail.component';
-import { CustomerComponent } from './features/customer/customer.component';
-import { StockComponent } from './features/stock/stock.component';
-import { StockDetailComponent } from './features/stock/stock-detail.component';
-import { SaleComponent } from './features/sale/sale.component';
-import { SaleDetailComponent } from './features/sale/sale-detail.component';
-import { SaleUpdateComponent } from './features/sale/sale-update.component';
+import {Routes} from '@angular/router';
+import {ProductComponent} from "./features/product/product.component";
+import {MainLayoutComponent} from './core/layout/main-layout/main-layout.component';
+import {LoginComponent} from './features/login/login.component';
+import {authGuard} from './core/guards/auth.guard';
+import {ProductDetailComponent} from './features/product/product-detail.component';
+import {ProductUpdateComponent} from './features/product/product-update.component';
+import {CustomerUpdateComponent} from './features/customer/customer-update.component';
+import {CustomerDetailComponent} from './features/customer/customer-detail.component';
+import {CustomerComponent} from './features/customer/customer.component';
+import {StockComponent} from './features/stock/stock.component';
+import {StockDetailComponent} from './features/stock/stock-detail.component';
+import {SaleComponent} from './features/sale/sale.component';
+import {SaleDetailComponent} from './features/sale/sale-detail.component';
+import {SaleUpdateComponent} from './features/sale/sale-update.component';
+import {NotFoundComponent} from './shared/components/not-found/not-found.component';
 
 export const routes: Routes = [
   {
@@ -90,5 +91,13 @@ export const routes: Routes = [
         canActivate: [authGuard]
       },
     ]
+  },
+  {
+    path: '404',
+    component: NotFoundComponent
+  },
+  {
+    path: '**',
+    redirectTo: '404'
   }
 ];
