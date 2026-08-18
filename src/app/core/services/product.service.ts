@@ -1,10 +1,11 @@
-import { Injectable } from "@angular/core";
-import { environment } from "../../../enviroments/enviroment";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { ProductResponseDTO } from "../../shared/models/product/product-response.dto";
-import { Observable } from "rxjs";
-import { ProductRequestDTO } from "../../shared/models/product/product-request.dto";
-import { PageResponse } from "../../shared/models/page-response.model";
+import {Injectable} from "@angular/core";
+import {environment} from "../../../enviroments/enviroment";
+import {HttpClient, HttpParams} from "@angular/common/http";
+import {ProductResponseDTO} from "../../shared/models/product/product-response.dto";
+import {Observable} from "rxjs";
+import {ProductRequestDTO} from "../../shared/models/product/product-request.dto";
+import {PageResponse} from "../../shared/models/page-response.model";
+import {successContext} from '../context/http-context';
 
 @Injectable({
   providedIn: 'root'
@@ -13,19 +14,22 @@ export class ProductService {
 
   private readonly API = `${environment.apiUrl}/products`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
-   create(dto: ProductRequestDTO): Observable<ProductResponseDTO> {
+  create(dto: ProductRequestDTO): Observable<ProductResponseDTO> {
     return this.http.post<ProductResponseDTO>(
       this.API,
-      dto
+      dto,
+      {context: successContext('Produto criado com sucesso!')}
     );
   }
 
   update(id: number, dto: ProductRequestDTO): Observable<ProductResponseDTO> {
     return this.http.put<ProductResponseDTO>(
       `${this.API}/${id}`,
-      dto
+      dto,
+      {context: successContext('Produto atualizado com sucesso!')}
     );
   }
 
@@ -44,7 +48,7 @@ export class ProductService {
 
     return this.http.get<PageResponse<ProductResponseDTO>>(
       this.API,
-      { params }
+      {params}
     );
   }
 
@@ -57,7 +61,8 @@ export class ProductService {
   disable(id: number): Observable<ProductResponseDTO> {
     return this.http.patch<ProductResponseDTO>(
       `${this.API}/${id}/disable`,
-      {}
+      {},
+      {context: successContext('Produto desativado com sucesso!')}
     );
   }
 }
