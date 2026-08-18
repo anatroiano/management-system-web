@@ -28,14 +28,14 @@
   </app-pagination>
 
   <app-confirm-modal
-  [isOpen]="isDeleteModalOpen"
-  title="Excluir cliente"
-  [message]="'Tem certeza que deseja excluir o cliente ' + selectedCustomer?.name + '?'"
-  confirmText="Excluir"
-  cancelText="Cancelar"
-  variant="danger"
-  (confirm)="confirmDelete()"
-  (close)="closeDeleteModal()">
-</app-confirm-modal>
+    [isOpen]="isDeleteModalOpen"
+    title="Excluir cliente"
+    [message]="'Tem certeza que deseja excluir o cliente ' + selectedCustomer?.name + '?'"
+    confirmText="Excluir"
+    cancelText="Cancelar"
+    variant="danger"
+    (confirm)="confirmDelete()"
+    (close)="closeDeleteModal()">
+  </app-confirm-modal>
 
 </div>

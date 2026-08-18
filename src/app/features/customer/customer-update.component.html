@@ -4,15 +4,19 @@
       <div class="details-title-area">
         <div>
           <h2 class="details-title">
-            {{ isEditMode
-              ? 'Editar cliente'
-              : 'Novo cliente' }}
+            {{
+              isEditMode
+                ? 'Editar cliente'
+                : 'Novo cliente'
+            }}
           </h2>
 
           <p class="details-subtitle">
-            {{ isEditMode
-              ? 'Atualize as informações do cliente'
-              : 'Preencha os dados do cliente' }}
+            {{
+              isEditMode
+                ? 'Atualize as informações do cliente'
+                : 'Preencha os dados do cliente'
+            }}
           </p>
         </div>
       </div>
@@ -142,9 +146,11 @@
             [disabled]="form.invalid || loading">
             <i class="bi bi-check-lg"></i>
 
-            {{ isEditMode
-              ? 'Salvar alterações'
-              : 'Criar cliente' }}
+            {{
+              isEditMode
+                ? 'Salvar alterações'
+                : 'Criar cliente'
+            }}
           </button>
         </div>
       </form>
