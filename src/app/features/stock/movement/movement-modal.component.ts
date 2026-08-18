@@ -106,15 +106,6 @@ export class MovementModalComponent implements OnInit, OnChanges {
     });
   }
 
-  onProductScroll(event: Event): void {
-    const element = event.target as HTMLElement;
-    const atBottom = element.scrollTop + element.clientHeight >= element.scrollHeight - 10;
-
-    if (atBottom) {
-      this.loadProducts();
-    }
-  }
-
   onConfirm(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();

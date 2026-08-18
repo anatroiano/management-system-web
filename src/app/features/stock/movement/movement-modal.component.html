@@ -30,7 +30,6 @@
               <ng-template ng-option-tmp let-item="item">
                 {{ item.code }} - {{ item.name }}
               </ng-template>
-
             </ng-select>
 
             <div class="text-danger small mt-1" *ngIf="isInvalidAndTouched('productId')">
@@ -80,7 +79,8 @@
     <div class="custom-modal-footer">
       <button type="button" class="btn secondary-btn" (click)="onClose()">Cancelar</button>
       <button type="button" class="btn modal-confirm-btn success" (click)="onConfirm()"
-              [disabled]="form.invalid">Confirmar
+              [disabled]="form.invalid">
+        Confirmar
       </button>
     </div>
 
