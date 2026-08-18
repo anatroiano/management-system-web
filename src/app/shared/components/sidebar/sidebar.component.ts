@@ -50,7 +50,7 @@ export class SidebarComponent {
       link: '/sales'
     }
   ];
-  
+
   toggle(): void {
     this.toggleSidebar.emit();
   }
