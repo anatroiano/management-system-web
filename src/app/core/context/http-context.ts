@@ -14,3 +14,10 @@ export function successContext(message: string): HttpContext {
     message
   );
 }
+
+export function noErrorToastContext(): HttpContext {
+  return new HttpContext().set(
+    SHOW_ERROR_TOAST,
+    false
+  );
+}
