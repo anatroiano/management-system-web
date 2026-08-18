@@ -1,0 +1,28 @@
+.movements-loading {
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  background: rgba(248, 250, 252, 0.5);
+}
+
+.movements-empty {
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--text-medium);
+}
+
+.movements-empty i {
+  font-size: 1.5rem;
+  color: var(--text-light);
+}
+
+.movements-empty span {
+  font-size: 0.9rem;
+}

@@ -84,7 +84,7 @@
             </td>
 
             <td>
-              <span class="badge" [ngClass]="getStockQuantityClass(stock)">
+              <span class="stock-badge" [ngClass]="'stock-' + getStockQuantityClass(stock)">
                 {{ getStockQuantityLabel(stock) }}
               </span>
             </td>

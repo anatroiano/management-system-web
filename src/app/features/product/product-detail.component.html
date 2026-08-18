@@ -50,23 +50,23 @@
 
         <div class="details-info-card">
           <span class="details-label">
-            Data de criação
+            Criado em
           </span>
 
           <div class="details-value">
             {{ product.createdAt | date:'dd/MM/yyyy HH:mm' }}
           </div>
         </div>
+      </div>
 
-        <div class="details-info-card details-full-width">
-          <span class="details-label">
-            Descrição
-          </span>
+      <div class="details-description-section">
+        <span class="details-label">
+          Descrição
+        </span>
 
-          <div class="details-value details-description">
-            {{ product.description }}
-          </div>
-        </div>
+        <p class="details-description">
+          {{ product.description || '-' }}
+        </p>
       </div>
     </div>
   </div>

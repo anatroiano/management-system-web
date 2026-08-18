@@ -1,115 +1,135 @@
 <div class="details-page" *ngIf="stock">
-    <div class="details-card">
-        <div class="details-header">
-            <div class="details-title-area">
-                <div>
-                    <h2 class="details-title">
-                        {{ stock.productName }}
-                    </h2>
+  <div class="details-card">
+    <div class="details-header">
+      <div class="details-title-area">
+        <div>
+          <h2 class="details-title">
+            {{ stock.productName }}
+          </h2>
 
-                    <p class="details-subtitle">
-                        Código: {{ stock.productCode }}
-                    </p>
-                </div>
-            </div>
-
-            <div class="details-actions">
-                <button class="btn secondary-btn" (click)="goToList()">
-                    <i class="bi bi-arrow-left"></i>
-                    Voltar
-                </button>
-            </div>
+          <p class="details-subtitle">
+            Código: {{ stock.productCode }}
+          </p>
         </div>
+      </div>
 
-        <div class="details-content">
-            <div class="details-grid">
-
-                <div class="details-info-card">
-                    <span class="details-label">
-                        Quantidade atual
-                    </span>
-
-                    <div class="details-value">
-                        {{ stock.quantity }}
-                    </div>
-                </div>
-
-                <div class="details-info-card">
-                    <span class="details-label">
-                        Última atualização
-                    </span>
-
-                    <div class="details-value">
-                        {{ stock.updatedAt | date:'dd/MM/yyyy HH:mm' }}
-                    </div>
-                </div>
-
-                <div class="details-info-card">
-                    <span class="details-label">
-                        Status
-                    </span>
-
-                    <div class="details-value">
-                        <span class="badge fs-6" [ngClass]="getStockQuantityClass(stock)">
-                            {{ getStockQuantityLabel(stock)}}
-                        </span>
-                    </div>
-                </div>
-
-                <div class="details-info-card details-full-width">
-                    <span class="details-label">
-                        Itens da venda
-                    </span>
-
-                    <div *ngIf="loading" class="text-center py-5">
-                        <div class="spinner-border"></div>
-                    </div>
-
-                    <div *ngIf="!loading" class="table-responsive">
-                        <table class="table table-hover custom-table align-middle mb-0"
-                            style="--bs-table-bg: transparent;">
-                            <thead>
-                                <tr>
-                                    <th>Tipo</th>
-                                    <th>Quantidade</th>
-                                    <th>Motivo</th>
-                                    <th>Data</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let movement of movements">
-                                    <td>
-                                        <span [class]="'badge bg-' + getMovementTypeBadge(movement.type)">
-                                            {{ getMovementTypeName(movement!.type) }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="fw-semibold">
-                                            {{ movement.quantity }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        {{ movement.reason }}
-                                    </td>
-                                    <td>
-                                        {{ movement.createdAt | date:'dd/MM/yyyy HH:mm' }}
-                                    </td>
-                                </tr>
-
-                                <tr *ngIf="movements.length === 0">
-                                    <td colspan="4" class="text-center py-5 text-muted">
-                                        Nenhuma movimentação encontrada
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <app-pagination [currentPage]="currentPage" [totalPages]="totalPages"
-                        (pageChange)="onPageChange($event)">
-                    </app-pagination>
-                </div>
-            </div>
-        </div>
+      <div class="details-actions">
+        <button class="btn secondary-btn" (click)="goToList()">
+          <i class="bi bi-arrow-left"></i>
+          Voltar
+        </button>
+      </div>
     </div>
+
+    <div class="details-content">
+      <div class="details-grid">
+
+        <div class="details-info-card">
+          <span class="details-label">
+            Quantidade atual
+          </span>
+
+          <div class="details-value">
+            {{ stock.quantity }}
+          </div>
+        </div>
+
+        <div class="details-info-card">
+          <span class="details-label">
+            Última atualização
+          </span>
+
+          <div class="details-value">
+            {{ stock.updatedAt | date:'dd/MM/yyyy HH:mm' }}
+          </div>
+        </div>
+
+        <div class="details-info-card">
+          <span class="details-label">
+            Status
+          </span>
+
+          <div class="details-value">
+            <span
+              class="badge"
+              [ngClass]="'badge-' + getStockQuantityClass(stock)">
+              {{ getStockQuantityLabel(stock) }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="details-item-section">
+        <div class="details-item-section-header">
+          <div>
+            <h3 class="details-item-section-title">
+              Movimentações
+            </h3>
+            <p class="details-item-section-subtitle">
+              Histórico de entradas e saídas deste produto
+            </p>
+          </div>
+        </div>
+
+        <div *ngIf="loading" class="movements-loading">
+          <div class="spinner-border"></div>
+        </div>
+
+        <div *ngIf="!loading" class="table-responsive details-table-wrapper">
+          <table class="table table-hover custom-table align-middle mb-0">
+            <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Quantidade</th>
+              <th>Motivo</th>
+              <th>Data</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let movement of movements">
+              <td>
+                <span
+                  class="badge"
+                  [ngClass]="'badge-' + getMovementTypeBadge(movement.type)">
+                  {{ getMovementTypeName(movement.type) }}
+                </span>
+              </td>
+
+              <td>
+                {{ movement.quantity }}
+              </td>
+
+              <td>
+                {{ movement.reason }}
+              </td>
+
+              <td>
+                {{ movement.createdAt | date:'dd/MM/yyyy HH:mm' }}
+              </td>
+
+            </tr>
+
+            <tr *ngIf="movements.length === 0">
+              <td colspan="4">
+                <div class="movements-empty">
+                  <i class="bi bi-arrow-left-right"></i>
+                  <span>
+                      Nenhuma movimentação encontrada
+                    </span>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <app-pagination
+          *ngIf="!loading && movements.length > 0"
+          [currentPage]="currentPage"
+          [totalPages]="totalPages"
+          (pageChange)="onPageChange($event)">
+        </app-pagination>
+      </div>
+    </div>
+  </div>
 </div>
