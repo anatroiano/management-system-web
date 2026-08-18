@@ -4,15 +4,19 @@
       <div class="details-title-area">
         <div>
           <h2 class="details-title">
-            {{ isEditMode
-            ? 'Editar produto'
-            : 'Novo produto' }}
+            {{
+              isEditMode
+                ? 'Editar produto'
+                : 'Novo produto'
+            }}
           </h2>
 
           <p class="details-subtitle">
-            {{ isEditMode
-            ? 'Atualize as informações do produto'
-            : 'Preencha os dados do produto' }}
+            {{
+              isEditMode
+                ? 'Atualize as informações do produto'
+                : 'Preencha os dados do produto'
+            }}
           </p>
         </div>
       </div>
@@ -35,7 +39,7 @@
             </label>
 
             <input type="text" class="form-control custom-input" [class.is-invalid]="isInvalidAndTouched('code')"
-            formControlName="code" minlength="1" maxlength="100">
+                   formControlName="code" minlength="1" maxlength="100">
 
             <div class="custom-error" *ngIf="isInvalidAndTouched('code')">
               Campo obrigatório
@@ -48,7 +52,7 @@
             </label>
 
             <input type="text" class="form-control custom-input" [class.is-invalid]="isInvalidAndTouched('name')"
-            formControlName="name" minlength="1" maxlength="255">
+                   formControlName="name" minlength="1" maxlength="255">
 
             <div class="custom-error" *ngIf="isInvalidAndTouched('name')">
               Campo obrigatório
@@ -61,7 +65,7 @@
             </label>
 
             <input type="text" class="form-control custom-input" [class.is-invalid]="isInvalidAndTouched('price')"
-            formControlName="price" mask="separator.2" thousandSeparator="." decimalMarker=",">
+                   formControlName="price" mask="separator.2" thousandSeparator="." decimalMarker=",">
 
             <div class="custom-error" *ngIf="isInvalidAndTouched('price')">
               Campo obrigatório
@@ -74,7 +78,7 @@
             </label>
 
             <textarea rows="6" class="form-control custom-input custom-textarea" formControlName="description"
-              maxlength="1000">
+                      maxlength="1000">
             </textarea>
           </div>
         </div>
@@ -88,9 +92,11 @@
           <button type="submit" class="btn primary-btn" [disabled]="form.invalid || loading">
             <i class="bi bi-check-lg"></i>
 
-            {{ isEditMode
-            ? 'Salvar alterações'
-            : 'Criar produto' }}
+            {{
+              isEditMode
+                ? 'Salvar alterações'
+                : 'Criar produto'
+            }}
           </button>
         </div>
       </form>

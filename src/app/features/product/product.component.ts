@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { DataTableComponent } from '../../shared/components/data-table/data-table.component';
-import { NavbarService } from '../../core/services/navbar.service';
-import { ProductService } from '../../core/services/product.service';
-import { ProductResponseDTO } from '../../shared/models/product/product-response.dto';
-import { PaginationComponent } from "../../shared/components/pagination/pagination.component";
-import { ProductNavigationService } from './product-navigation.service';
-import { ConfirmModalComponent } from '../../shared/components/confirm-modal/confirm-modal.component';
+import {Component, OnInit} from '@angular/core';
+import {DataTableComponent} from '../../shared/components/data-table/data-table.component';
+import {NavbarService} from '../../core/services/navbar.service';
+import {ProductService} from '../../core/services/product.service';
+import {ProductResponseDTO} from '../../shared/models/product/product-response.dto';
+import {PaginationComponent} from "../../shared/components/pagination/pagination.component";
+import {ProductNavigationService} from './product-navigation.service';
+import {ConfirmModalComponent} from '../../shared/components/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-product',
@@ -20,9 +20,9 @@ import { ConfirmModalComponent } from '../../shared/components/confirm-modal/con
 export class ProductComponent implements OnInit {
 
   columns = [
-    { field: 'id', label: 'ID' },
-    { field: 'code', label: 'Código' },
-    { field: 'name', label: 'Nome' }
+    {field: 'id', label: 'ID'},
+    {field: 'code', label: 'Código'},
+    {field: 'name', label: 'Nome'}
   ];
 
   products: ProductResponseDTO[] = [];
@@ -42,7 +42,8 @@ export class ProductComponent implements OnInit {
     private navbarService: NavbarService,
     private productService: ProductService,
     private navigation: ProductNavigationService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.navbarService.setConfig({

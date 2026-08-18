@@ -1,11 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { ProductResponseDTO } from "../../shared/models/product/product-response.dto";
-import { CurrencyUtil } from "../../shared/utils/current.util";
-import { ProductService } from "../../core/services/product.service";
-import { CommonModule } from "@angular/common";
-import { ProductNavigationService } from "./product-navigation.service";
-import { NavbarService } from "../../core/services/navbar.service";
+import {Component, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {ProductResponseDTO} from "../../shared/models/product/product-response.dto";
+import {CurrencyUtil} from "../../shared/utils/current.util";
+import {ProductService} from "../../core/services/product.service";
+import {CommonModule} from "@angular/common";
+import {ProductNavigationService} from "./product-navigation.service";
+import {NavbarService} from "../../core/services/navbar.service";
 
 @Component({
   selector: 'app-product-detail',
@@ -24,7 +24,8 @@ export class ProductDetailComponent implements OnInit {
     private productService: ProductService,
     private navigation: ProductNavigationService,
     private navbarService: NavbarService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
