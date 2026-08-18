@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
 export class SaleNavigationService {
   constructor(
     private router: Router
-  ) {}
+  ) {
+  }
 
   goToList(): Promise<boolean> {
     return this.router.navigate(['/sales']);

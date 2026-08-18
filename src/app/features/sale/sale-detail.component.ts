@@ -5,7 +5,6 @@ import {SaleService} from '../../core/services/sale.service';
 import {SaleResponseDTO} from '../../shared/models/sale/sale-response.dto';
 import {NavbarService} from '../../core/services/navbar.service';
 import {SaleNavigationService} from './sale-navigation.service';
-import {getStockQuantityClass, getStockQuantityLabel} from '../../shared/models/stock/stock-response.dto';
 import {getSaleStatusBadge, getSaleStatusName} from '../../shared/enums/sale-status.enum';
 
 @Component({
@@ -50,8 +49,6 @@ export class SaleDetailComponent implements OnInit {
     this.navigation.goToList();
   }
 
-  protected readonly getStockQuantityClass = getStockQuantityClass;
-  protected readonly getStockQuantityLabel = getStockQuantityLabel;
   protected readonly getSaleStatusBadge = getSaleStatusBadge;
   protected readonly getSaleStatusName = getSaleStatusName;
 }
