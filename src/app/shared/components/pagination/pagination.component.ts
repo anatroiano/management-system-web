@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-pagination',
@@ -15,7 +15,7 @@ export class PaginationComponent {
   @Output() pageChange = new EventEmitter<number>();
 
   get pages(): number[] {
-    return Array.from({ length: this.totalPages }, (_, i) => i);
+    return Array.from({length: this.totalPages}, (_, i) => i);
   }
 
   changePage(page: number): void {

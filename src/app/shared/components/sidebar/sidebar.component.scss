@@ -34,7 +34,10 @@
 
 .logo {
   width: 42px;
+  min-width: 42px;
   height: 42px;
+  min-height: 42px;
+  flex-shrink: 0;
   border-radius: 14px;
   background: var(--brand-gradient);
   display: flex;
@@ -44,6 +47,7 @@
   font-size: 1rem;
   font-weight: 700;
   box-shadow: 0 6px 10px rgba(18, 181, 208, 0.25);
+  cursor: pointer;
 }
 
 .system-name {
@@ -69,15 +73,14 @@
   border-radius: 14px;
   color: var(--text-medium);
   text-decoration: none;
-  transition:
-    background 0.2s,
-    color 0.2s,
-    transform 0.15s;
-    
+  transition: background 0.2s,
+  color 0.2s,
+  transform 0.15s;
+
   cursor: pointer;
 
   i {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     min-width: 20px;
     display: flex;
     justify-content: center;
@@ -118,21 +121,5 @@
   &:hover {
     background: rgba(220, 38, 38, 0.08);
     color: #dc2626;
-  }
-}
-
-.sidebar.closed {
-  .logo-area {
-    justify-content: center;
-    padding: 0;
-  }
-
-  .menu-item {
-    justify-content: center;
-    padding: 0;
-  }
-
-  .logout {
-    justify-content: center;
   }
 }

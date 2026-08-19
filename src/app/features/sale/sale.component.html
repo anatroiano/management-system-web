@@ -1,108 +1,140 @@
 <div class="page">
-
-    <div class="page-header">
-        <div>
-            <h4 class="page-title">
-                Controle de vendas
-            </h4>
-        </div>
-
-        <button class="btn new-button" (click)="goToNew()">
-
-            <i class="bi bi-plus-lg"></i>
-            Nova venda
-        </button>
+  <div class="page-header">
+    <div>
+      <h4 class="page-title">
+        Controle de vendas
+      </h4>
     </div>
 
-    <div class="summary">
-        <div class="summary-card">
-            <span class="summary-label">
-                Vendas
-            </span>
+    <button class="btn new-button" (click)="goToNew()">
+      <i class="bi bi-plus-lg"></i>
+      Nova venda
+    </button>
+  </div>
 
-            <span class="summary-value">
-                {{ dashboard?.totalSales }}
-            </span>
-        </div>
-        <div class="summary-card">
-            <span class="summary-label">
-                Faturamento
-            </span>
+  <div class="summary">
+    <div class="summary-card">
+      <span class="summary-label">
+        Vendas
+      </span>
 
-            <span class="summary-value">
-                {{ dashboard?.totalRevenue | currency:'BRL' }}
-            </span>
-        </div>
-        <div class="summary-card">
-            <span class="summary-label">
-                Ticket médio
-            </span>
-
-            <span class="summary-value">
-             {{ dashboard?.averageTicket | currency:'BRL' }}
-            </span>
-        </div>
+      <span class="summary-value">
+        {{ dashboard?.totalSales }}
+      </span>
     </div>
 
-    <div class="table-card">
-        <div class="table-responsive">
-            <table class="table table-hover custom-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Data</th>
-                        <th>Itens</th>
-                        <th>Status</th>
-                        <th>Total</th>
-                        <th class="actions-column text-end">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let sale of sales">
-                        <td>{{ sale.id }}</td>
+    <div class="summary-card">
+      <span class="summary-label">
+        Faturamento
+      </span>
 
-                        <td>
-                            {{ sale.createdAt | date:'dd/MM/yyyy, HH:mm' }}
-                        </td>
-
-                        <td>
-                            {{ sale.items.length }}
-                        </td>
-
-                        <td>
-                            <span class="badge" [class]="'badge bg-' + getSaleStatusBadge(sale.status)">
-                                {{ getSaleStatusName(sale.status) }}
-                            </span>
-                        </td>
-
-                        <td class="fw-semibold">
-                            {{ sale.totalAmount | currency:'BRL' }}
-                        </td>
-
-                        <td>
-                            <div class="table-actions">
-                                <button class="action-btn view-btn" (click)="goToDetails(sale)">
-                                    <i class="bi bi-eye"></i>
-                                </button>
-
-                                <button class="action-btn delete-btn" (click)="openCancelModal(sale)"
-                                    *ngIf="sale.status === 'COMPLETED'">
-                                    <i class="bi bi-x"></i>
-
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="onPageChange($event)">
-        </app-pagination>
+      <span class="summary-value">
+        {{ dashboard?.totalRevenue | currency:'BRL' }}
+      </span>
     </div>
 
-    <app-confirm-modal [isOpen]="isCancelModalOpen" title="Cancelar venda"
-        [message]="'Tem certeza que deseja cancelar a venda ' + selectedSale?.id + '?'" confirmText="Confirmar"
-        variant="danger" (confirm)="confirmCancelSale()" (close)="closeCancelModal()">
-    </app-confirm-modal>
+    <div class="summary-card">
+      <span class="summary-label">
+        Ticket médio
+      </span>
+
+      <span class="summary-value">
+        {{ dashboard?.averageTicket | currency:'BRL' }}
+      </span>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <ng-container *ngIf="sales?.length; else emptySales">
+      <div class="table-responsive">
+        <table class="table table-hover custom-table">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Data</th>
+            <th>Itens</th>
+            <th>Status</th>
+            <th>Total</th>
+            <th class="actions-column text-center">
+              Ações
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let sale of sales">
+            <td>
+              {{ sale.id }}
+            </td>
+
+            <td>
+              {{ sale.createdAt | date:'dd/MM/yyyy HH:mm' }}
+            </td>
+
+            <td>
+              {{ sale.items.length }}
+            </td>
+
+            <td>
+              <span class="badge" [class]="'badge-' + getSaleStatusBadge(sale.status)">
+                {{ getSaleStatusName(sale.status) }}
+              </span>
+            </td>
+
+            <td class="fw-semibold">
+              {{ sale.totalAmount | currency:'BRL' }}
+            </td>
+
+            <td>
+              <div class="table-actions">
+                <button
+                  class="action-btn view-btn"
+                  (click)="goToDetails(sale)"
+                  title="Visualizar"
+                >
+                  <i class="bi bi-eye"></i>
+                </button>
+
+                <button
+                  class="action-btn delete-btn"
+                  (click)="openCancelModal(sale)"
+                  *ngIf="sale.status === 'COMPLETED'"
+                  title="Cancelar venda"
+                >
+                  <i class="bi bi-x"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <app-pagination
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        (pageChange)="onPageChange($event)">
+      </app-pagination>
+    </ng-container>
+
+    <ng-template #emptySales>
+      <div class="empty-state">
+        <div class="empty-icon">
+          <i class="bi bi-cart"></i>
+        </div>
+
+        <h3>Nenhuma venda encontrada</h3>
+        <p>
+          Ainda não existem vendas cadastradas para exibir.
+        </p>
+      </div>
+    </ng-template>
+  </div>
+
+  <app-confirm-modal [isOpen]="isCancelModalOpen" title="Cancelar venda"
+                     [message]="'Tem certeza que deseja cancelar a venda ' + selectedSale?.id + '?'"
+                     confirmText="Confirmar"
+                     variant="danger" (confirm)="confirmCancelSale()"
+                     (close)="closeCancelModal()">
+  </app-confirm-modal>
+
 </div>

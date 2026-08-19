@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { CUSTOMER_ROUTES } from '../../shared/constants/customer-routes';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {CUSTOMER_ROUTES} from '../../shared/constants/customer-routes';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,8 @@ import { CUSTOMER_ROUTES } from '../../shared/constants/customer-routes';
 export class CustomerNavigationService {
   constructor(
     private router: Router
-  ) {}
+  ) {
+  }
 
   goToList(): Promise<boolean> {
     return this.router.navigate([

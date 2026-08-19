@@ -1,3 +1,3 @@
 export interface CreateStockRequestDTO {
-    productId: number;
+  productId: number;
 }

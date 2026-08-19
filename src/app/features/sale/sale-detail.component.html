@@ -25,17 +25,6 @@
     <div class="details-content">
 
       <div class="details-grid">
-
-        <div class="details-info-card">
-          <span class="details-label">
-            ID da venda
-          </span>
-
-          <div class="details-value">
-            #{{ sale.id }}
-          </div>
-        </div>
-
         <div class="details-info-card">
           <span class="details-label">
             Data da venda
@@ -56,43 +45,64 @@
           </div>
         </div>
 
-        <div class="details-info-card details-full-width">
+        <div class="details-info-card">
           <span class="details-label">
-            Itens da venda
+            Status
           </span>
 
-          <div class="table-responsive">
-            <table class="table table-hover custom-table align-middle mb-0" style="--bs-table-bg: transparent;">
-              <thead>
-                <tr>
-                  <th>Produto</th>
-                  <th>Quantidade</th>
-                  <th>Valor unitário</th>
-                  <th>Subtotal</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of sale.items">
-                  <td>
-                    #{{ item.productId }}
-                  </td>
-
-                  <td>
-                    {{ item.quantity }}
-                  </td>
-
-                  <td>
-                    {{ item.unitPrice | currency:'BRL' }}
-                  </td>
-
-                  <td class="fw-semibold">
-                    {{ item.subtotal | currency:'BRL' }}
-                  </td>
-
-                </tr>
-              </tbody>
-            </table>
+          <div class="details-value">
+            <span
+              class="badge"
+              [ngClass]="'badge-' + getSaleStatusBadge(sale.status)">
+              {{ getSaleStatusName(sale.status) }}
+            </span>
           </div>
+        </div>
+      </div>
+
+      <div class="details-item-section">
+        <div class="details-item-section-header">
+          <div>
+            <h3 class="details-item-section-title">
+              Itens da venda
+            </h3>
+
+            <p class="details-section-subtitle">
+              Produtos incluídos nesta venda
+            </p>
+          </div>
+        </div>
+
+        <div class="table-responsive details-table-wrapper">
+          <table class="table table-hover custom-table align-middle mb-0">
+            <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Quantidade</th>
+              <th>Valor unitário</th>
+              <th>Subtotal</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of sale.items">
+              <td>
+                #{{ item.productId }}
+              </td>
+
+              <td>
+                {{ item.quantity }}
+              </td>
+
+              <td>
+                {{ item.unitPrice | currency:'BRL' }}
+              </td>
+
+              <td>
+                {{ item.subtotal | currency:'BRL' }}
+              </td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

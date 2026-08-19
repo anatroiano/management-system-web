@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { DataTableComponent } from '../../shared/components/data-table/data-table.component';
-import { NavbarService } from '../../core/services/navbar.service';
-import { PaginationComponent } from "../../shared/components/pagination/pagination.component";
-import { CustomerNavigationService } from './customer-navigation.service';
-import { ConfirmModalComponent } from '../../shared/components/confirm-modal/confirm-modal.component';
-import { CustomerResponseDTO } from '../../shared/models/customer/customer-response.dto';
-import { CustomerService } from '../../core/services/customer.service';
+import {Component, OnInit} from '@angular/core';
+import {DataTableComponent} from '../../shared/components/data-table/data-table.component';
+import {NavbarService} from '../../core/services/navbar.service';
+import {PaginationComponent} from "../../shared/components/pagination/pagination.component";
+import {CustomerNavigationService} from './customer-navigation.service';
+import {ConfirmModalComponent} from '../../shared/components/confirm-modal/confirm-modal.component';
+import {CustomerResponseDTO} from '../../shared/models/customer/customer-response.dto';
+import {CustomerService} from '../../core/services/customer.service';
 
 @Component({
   selector: 'app-customer',
@@ -20,9 +20,9 @@ import { CustomerService } from '../../core/services/customer.service';
 export class CustomerComponent implements OnInit {
 
   columns = [
-    { field: 'id', label: 'ID' },
-    { field: 'name', label: 'Nome' },
-    { field: 'email', label: 'E-mail' }
+    {field: 'id', label: 'ID'},
+    {field: 'name', label: 'Nome'},
+    {field: 'email', label: 'E-mail'}
   ];
 
   customers: CustomerResponseDTO[] = [];
@@ -42,7 +42,8 @@ export class CustomerComponent implements OnInit {
     private navbarService: NavbarService,
     private customerService: CustomerService,
     private navigation: CustomerNavigationService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.navbarService.setConfig({
@@ -71,20 +72,6 @@ export class CustomerComponent implements OnInit {
           this.loading = false;
         }
       });
-  }
-
-  nextPage(): void {
-    if (this.currentPage < this.totalPages - 1) {
-      this.currentPage++;
-      this.loadCustomers();
-    }
-  }
-
-  previousPage(): void {
-    if (this.currentPage > 0) {
-      this.currentPage--;
-      this.loadCustomers();
-    }
   }
 
   onPageChange(page: number): void {

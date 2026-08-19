@@ -14,15 +14,16 @@
   </div>
 
   <app-data-table [columns]="columns" [data]="products" (edit)="goToEdit($event)" (remove)="onDelete($event)"
-    (view)="goToDetails($event)">
+                  (view)="goToDetails($event)">
   </app-data-table>
 
   <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="onPageChange($event)">
   </app-pagination>
 
   <app-confirm-modal [isOpen]="isDeleteModalOpen" title="Excluir produto"
-    [message]="'Tem certeza que deseja excluir o produto ' + selectedProduct?.name + '?'" confirmText="Excluir"
-    cancelText="Cancelar" variant="danger" (confirm)="confirmDelete()" (close)="closeDeleteModal()">
+                     [message]="'Tem certeza que deseja excluir o produto ' + selectedProduct?.name + '?'"
+                     confirmText="Excluir"
+                     cancelText="Cancelar" variant="danger" (confirm)="confirmDelete()" (close)="closeDeleteModal()">
   </app-confirm-modal>
 
 </div>

@@ -1,21 +1,25 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { AuthResponse } from '../../shared/models/auth-response.model';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {AuthResponse} from '../../shared/models/auth-response.model';
+import {environment} from '../../../enviroments/enviroment';
+import {noErrorToastContext} from '../context/http-context';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private readonly API = 'http://localhost:8080/auth';
+  constructor(private http: HttpClient) {
+  }
 
-  constructor(private http: HttpClient) {}
+  private readonly API = `${environment.baseUrl}/auth`;
 
   login(email: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.API}/login`, {
-      email,
-      password
-    });
+    return this.http.post<AuthResponse>(
+      `${(this.API)}/login`,
+      {email, password},
+      {context: noErrorToastContext()}
+    );
   }
 }

@@ -1,0 +1,26 @@
+<div class="not-found-page">
+  <div class="not-found-card">
+    <div class="empty-icon">
+      <i class="bi bi-signpost-split"></i>
+    </div>
+
+    <span class="not-found-code">404</span>
+
+    <h3>Página não encontrada</h3>
+    <p>
+      O endereço que você tentou acessar não existe ou foi movido.
+      Confira o link ou volte para uma área conhecida do sistema.
+    </p>
+
+    <div class="not-found-actions">
+      <button type="button" class="secondary-btn" (click)="goBack()">
+        <i class="bi bi-arrow-left"></i>
+        Voltar
+      </button>
+      <button type="button" class="primary-btn" (click)="goHome()">
+        <i class="bi bi-house-door"></i>
+        Ir para o início
+      </button>
+    </div>
+  </div>
+</div>

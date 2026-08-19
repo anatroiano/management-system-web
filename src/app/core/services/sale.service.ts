@@ -1,11 +1,12 @@
-import { Injectable } from "@angular/core";
-import { environment } from "../../../enviroments/enviroment";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { PageResponse } from "../../shared/models/page-response.model";
-import { SaleResponseDTO } from "../../shared/models/sale/sale-response.dto";
-import { CreateSaleRequestDTO } from "../../shared/models/sale/create-sale-request.dto";
-import { SaleDashboardDTO } from "../../shared/models/sale/sale-dashboard.dto";
+import {Injectable} from "@angular/core";
+import {environment} from "../../../enviroments/enviroment";
+import {HttpClient, HttpParams} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {PageResponse} from "../../shared/models/page-response.model";
+import {SaleResponseDTO} from "../../shared/models/sale/sale-response.dto";
+import {CreateSaleRequestDTO} from "../../shared/models/sale/create-sale-request.dto";
+import {SaleDashboardDTO} from "../../shared/models/sale/sale-dashboard.dto";
+import {successContext} from '../context/http-context';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +15,14 @@ export class SaleService {
 
   private readonly API = `${environment.apiUrl}/sales`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   create(dto: CreateSaleRequestDTO): Observable<SaleResponseDTO> {
     return this.http.post<SaleResponseDTO>(
       this.API,
-      dto
+      dto,
+      {context: successContext('Venda criada com sucesso!')}
     );
   }
 
@@ -38,7 +41,7 @@ export class SaleService {
 
     return this.http.get<PageResponse<SaleResponseDTO>>(
       this.API,
-      { params }
+      {params}
     );
   }
 
@@ -51,7 +54,8 @@ export class SaleService {
   cancel(id: number): Observable<SaleResponseDTO> {
     return this.http.patch<SaleResponseDTO>(
       `${this.API}/${id}/cancel`,
-      {}
+      {},
+      {context: successContext('Venda cancelada com sucesso!')}
     );
   }
 
