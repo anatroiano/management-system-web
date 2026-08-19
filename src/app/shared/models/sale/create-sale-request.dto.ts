@@ -1,6 +1,6 @@
-import { CreateSaleItemRequestDTO } from "./create-sale-item-request.dto";
+import {CreateSaleItemRequestDTO} from "./create-sale-item-request.dto";
 
 export interface CreateSaleRequestDTO {
-    customerId: number;
-    items: CreateSaleItemRequestDTO[];
+  customerId: number;
+  items: CreateSaleItemRequestDTO[];
 }

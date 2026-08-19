@@ -1,5 +1,5 @@
 export interface StockDashboardDTO {
-    totalActive: number;
-    totalLowStock: number;
-    totalOutOfStock: number;
+  totalActive: number;
+  totalLowStock: number;
+  totalOutOfStock: number;
 }

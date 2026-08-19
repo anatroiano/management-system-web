@@ -1,4 +1,4 @@
 export interface StockEntryRequestDTO {
-    quantity: number;
-    reason: string;
+  quantity: number;
+  reason: string;
 }

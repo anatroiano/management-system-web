@@ -1,5 +1,5 @@
 export interface SaleDashboardDTO {
-    totalSales: number;
-    totalRevenue: number;
-    averageTicket: number;
+  totalSales: number;
+  totalRevenue: number;
+  averageTicket: number;
 }
