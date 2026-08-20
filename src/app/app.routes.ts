@@ -14,6 +14,7 @@ import {SaleComponent} from './features/sale/sale.component';
 import {SaleDetailComponent} from './features/sale/sale-detail.component';
 import {SaleUpdateComponent} from './features/sale/sale-update.component';
 import {NotFoundComponent} from './shared/components/not-found/not-found.component';
+import {DashboardComponent} from './features/dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
@@ -25,6 +26,16 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     canActivate: [authGuard],
     children: [
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        canActivate: [authGuard]
+      },
       {
         path: 'products',
         component: ProductComponent,
