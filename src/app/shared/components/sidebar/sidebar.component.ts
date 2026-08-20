@@ -27,7 +27,7 @@ export class SidebarComponent {
     {
       icon: 'speedometer2',
       label: 'Dashboard',
-      link: ''
+      link: '/dashboard'
     },
     {
       icon: 'box-seam',

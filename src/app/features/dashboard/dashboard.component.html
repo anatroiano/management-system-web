@@ -1,0 +1,251 @@
+<div class="dashboard-page">
+  <section class="dashboard-section">
+    <div *ngIf="summaryLoading" class="summary-grid">
+      <div class="stat-card skeleton" *ngFor="let i of [1,2,3,4]"></div>
+    </div>
+    <div *ngIf="!summaryLoading && summaryError" class="section-error">
+      <i class="bi bi-exclamation-circle"></i>
+      <span>Não foi possível carregar o resumo.</span>
+      <button class="retry-btn" (click)="loadSummary()">
+        <i class="bi bi-arrow-clockwise"></i> Tentar novamente
+      </button>
+    </div>
+
+    <div *ngIf="!summaryLoading && !summaryError && summary" class="summary-grid">
+      <div class="stat-card">
+        <div class="stat-icon stat-icon--blue">
+          <i class="bi bi-people-fill"></i>
+        </div>
+        <div class="stat-body">
+          <span class="stat-label">Total de clientes</span>
+          <span class="stat-value">{{ summary.totalCustomers }}</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon stat-icon--teal">
+          <i class="bi bi-box-seam-fill"></i>
+        </div>
+        <div class="stat-body">
+          <span class="stat-label">Total de produtos</span>
+          <span class="stat-value">{{ summary.totalProducts }}</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon stat-icon--purple">
+          <i class="bi bi-cart-check-fill"></i>
+        </div>
+        <div class="stat-body">
+          <span class="stat-label">Vendas hoje</span>
+          <span class="stat-value">{{ summary.salesToday }}</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon stat-icon--green">
+          <i class="bi bi-currency-dollar"></i>
+        </div>
+        <div class="stat-body">
+          <span class="stat-label">Receita do mês</span>
+          <span class="stat-value stat-value--currency">
+            {{ summary.currentMonthRevenue | currency:'BRL' }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="charts-grid">
+    <div class="dashboard-card">
+      <div class="card-header">
+        <div class="card-title-area">
+          <i class="bi bi-graph-up-arrow card-icon"></i>
+          <div>
+            <h2 class="card-title">Vendas dos últimos 30 dias</h2>
+            <p class="card-subtitle">Receita diária acumulada</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div *ngIf="salesByDayLoading" class="chart-skeleton">
+          <div class="skeleton skeleton-chart"></div>
+        </div>
+
+        <div *ngIf="!salesByDayLoading && salesByDayError" class="section-error section-error--inline">
+          <i class="bi bi-exclamation-circle"></i>
+          <span>Erro ao carregar dados.</span>
+          <button class="retry-btn" (click)="loadSalesByDay()">
+            <i class="bi bi-arrow-clockwise"></i> Tentar novamente
+          </button>
+        </div>
+
+        <div *ngIf="!salesByDayLoading && !salesByDayError && salesByDay.length === 0" class="empty-chart">
+          <i class="bi bi-bar-chart"></i>
+          <span>Sem dados de vendas.</span>
+        </div>
+
+        <div class="chart-wrapper"
+             [class.chart-hidden]="salesByDayLoading || salesByDayError || salesByDay.length === 0">
+          <canvas #salesByDayCanvas></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-card">
+      <div class="card-header">
+        <div class="card-title-area">
+          <i class="bi bi-trophy-fill card-icon"></i>
+          <div>
+            <h2 class="card-title">Top 5 produtos</h2>
+            <p class="card-subtitle">Mais vendidos por quantidade</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div *ngIf="topProductsLoading" class="chart-skeleton">
+          <div class="skeleton skeleton-chart"></div>
+        </div>
+
+        <div *ngIf="!topProductsLoading && topProductsError" class="section-error section-error--inline">
+          <i class="bi bi-exclamation-circle"></i>
+          <span>Erro ao carregar dados.</span>
+          <button class="retry-btn" (click)="loadTopProducts()">
+            <i class="bi bi-arrow-clockwise"></i> Tentar novamente
+          </button>
+        </div>
+
+        <div *ngIf="!topProductsLoading && !topProductsError && topProducts.length === 0" class="empty-chart">
+          <i class="bi bi-box-seam"></i>
+          <span>Sem dados de produtos.</span>
+        </div>
+
+        <div class="chart-wrapper"
+             [class.chart-hidden]="topProductsLoading || topProductsError || topProducts.length === 0">
+          <canvas #topProductsCanvas></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lists-grid">
+    <div class="dashboard-card">
+      <div class="card-header">
+        <div class="card-title-area">
+          <i class="bi bi-receipt card-icon"></i>
+          <div>
+            <h2 class="card-title">Últimas vendas</h2>
+            <p class="card-subtitle">Últimas 3 transações realizadas</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body card-body--flush">
+        <div *ngIf="recentSalesLoading" class="skeleton-list skeleton-list--rows">
+          <div class="skeleton skeleton-row" *ngFor="let i of [1,2,3]"></div>
+        </div>
+
+        <div *ngIf="!recentSalesLoading && recentSalesError" class="section-error section-error--inline"
+             style="margin: 16px;">
+          <i class="bi bi-exclamation-circle"></i>
+          <span>Erro ao carregar vendas.</span>
+          <button class="retry-btn" (click)="loadRecentSales()">
+            <i class="bi bi-arrow-clockwise"></i> Tentar novamente
+          </button>
+        </div>
+
+        <div *ngIf="!recentSalesLoading && !recentSalesError">
+          <div *ngIf="recentSales.length === 0" class="empty-chart">
+            <i class="bi bi-receipt"></i>
+            <span>Nenhuma venda recente.</span>
+          </div>
+          <div *ngFor="let sale of recentSales" class="list-row" (click)="goToSaleDetails(sale)">
+            <div class="list-row-main">
+              <div class="list-avatar">
+                <i class="bi bi-person-fill"></i>
+              </div>
+              <div class="list-info">
+                <span class="list-primary">{{ sale.customerName }}</span>
+                <span class="list-secondary">{{ sale.createdAt | date:'dd/MM/yyyy HH:mm':'':'pt-BR' }}</span>
+              </div>
+            </div>
+            <div class="list-row-end">
+              <span class="list-amount">{{ sale.totalAmount | currency:'BRL' }}</span>
+              <span
+                class="badge"
+                [ngClass]="'badge-' + getSaleStatusBadge(getSaleStatusAsEnum(sale.status))">
+                {{ getSaleStatusName(getSaleStatusAsEnum(sale.status)) }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-card">
+      <div class="card-header">
+        <div class="card-title-area">
+          <i class="bi bi-star-fill card-icon"></i>
+          <div>
+            <h2 class="card-title">Top clientes</h2>
+            <p class="card-subtitle">Maiores compradores do período</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body card-body--flush">
+        <div *ngIf="topCustomersLoading" class="skeleton-list skeleton-list--rows">
+          <div class="skeleton skeleton-row" *ngFor="let i of [1,2,3]"></div>
+        </div>
+
+        <div *ngIf="!topCustomersLoading && topCustomersError" class="section-error section-error--inline"
+             style="margin: 16px;">
+          <i class="bi bi-exclamation-circle"></i>
+          <span>Erro ao carregar clientes.</span>
+          <button class="retry-btn" (click)="loadTopCustomers()">
+            <i class="bi bi-arrow-clockwise"></i> Tentar novamente
+          </button>
+        </div>
+
+        <div *ngIf="!topCustomersLoading && !topCustomersError">
+          <div *ngIf="topCustomers.length === 0" class="empty-chart">
+            <i class="bi bi-people"></i>
+            <span>Nenhum cliente encontrado.</span>
+          </div>
+          <div *ngFor="let customer of topCustomers; let i = index" class="list-row"
+               (click)="goToCustomerDetails(customer)">
+            <div class="list-row-main">
+              <div class="list-avatar list-avatar--ranked">
+                <span>{{ i + 1 }}</span>
+              </div>
+              <div class="list-info">
+                <span class="list-primary">{{ customer.customerName }}</span>
+                <span class="list-secondary">{{ customer.purchaseCount }} compra(s)</span>
+              </div>
+            </div>
+            <div class="list-row-end">
+              <span class="list-amount">{{ customer.totalSpent | currency:'BRL' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section
+    *ngIf="!stockAlertLoading && !stockAlertError && stockAlert && stockAlert.criticalProductsCount > 0"
+    class="stock-alert-banner">
+    <div class="stock-alert-content">
+      <i class="bi bi-exclamation-triangle-fill stock-alert-icon"></i>
+      <span class="stock-alert-text">
+        <strong>{{ stockAlert.criticalProductsCount }} produto(s) com estoque crítico</strong> —
+        reposição urgente necessária.
+      </span>
+    </div>
+    <a routerLink="/stocks" class="stock-alert-link">
+      Ver estoque <i class="bi bi-arrow-right"></i>
+    </a>
+  </section>
+</div>
