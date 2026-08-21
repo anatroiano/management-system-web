@@ -51,7 +51,7 @@ export class LoginComponent {
       .subscribe({
         next: (response: any) => {
           this.tokenService.setToken(response.token);
-          this.router.navigate(['/products']);
+          this.router.navigate(['/dashboard']);
         },
 
         error: () => {
