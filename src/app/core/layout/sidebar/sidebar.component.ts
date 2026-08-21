@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {Router, RouterLink, RouterLinkActive} from '@angular/router';
-import {TokenService} from '../../../core/services/token.service';
+import {TokenService} from '../../services/token.service';
 
 @Component({
   selector: 'app-sidebar',
