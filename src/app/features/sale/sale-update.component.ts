@@ -3,9 +3,9 @@ import {CommonModule, CurrencyPipe} from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select';
 
-import {SaleService} from '../../core/services/sale.service';
-import {ProductService} from '../../core/services/product.service';
-import {CustomerService} from '../../core/services/customer.service';
+import {SaleService} from './sale.service';
+import {ProductService} from '../product/product.service';
+import {CustomerService} from '../customer/customer.service';
 import {SaleNavigationService} from './sale-navigation.service';
 import {NavbarService} from '../../core/services/navbar.service';
 

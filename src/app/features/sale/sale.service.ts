@@ -6,7 +6,7 @@ import {PageResponse} from "../../shared/models/page-response.model";
 import {SaleResponseDTO} from "../../shared/models/sale/sale-response.dto";
 import {CreateSaleRequestDTO} from "../../shared/models/sale/create-sale-request.dto";
 import {SaleDashboardDTO} from "../../shared/models/sale/sale-dashboard.dto";
-import {successContext} from '../context/http-context';
+import {successContext} from '../../core/context/http-context';
 
 @Injectable({
   providedIn: 'root'

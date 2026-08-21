@@ -13,7 +13,7 @@ import {environment} from '../../../environments/environment';
 import {CreateStockRequestDTO} from '../../shared/models/stock/crete-stock-request.dto';
 import {PageResponse} from '../../shared/models/page-response.model';
 import {StockDashboardDTO} from '../../shared/models/stock/stock-dashboard.dto';
-import {successContext} from '../context/http-context';
+import {successContext} from '../../core/context/http-context';
 
 @Injectable({
   providedIn: 'root'

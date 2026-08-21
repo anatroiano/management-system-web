@@ -14,7 +14,7 @@ import {
   PointElement,
   Tooltip
 } from 'chart.js';
-import {DashboardService} from '../../core/services/dashboard.service';
+import {DashboardService} from './dashboard.service';
 import {NavbarService} from '../../core/services/navbar.service';
 import {DashboardSummary, RecentSale, SalesByDay, StockAlert, TopCustomer, TopProduct} from './dashboard.model';
 import {getSaleStatusBadge, getSaleStatusName, SaleStatus} from '../../shared/enums/sale-status.enum';

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonModule, CurrencyPipe, DatePipe} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
-import {SaleService} from '../../core/services/sale.service';
+import {SaleService} from './sale.service';
 import {SaleResponseDTO} from '../../shared/models/sale/sale-response.dto';
 import {NavbarService} from '../../core/services/navbar.service';
 import {SaleNavigationService} from './sale-navigation.service';

@@ -1,7 +1,7 @@
 import {CommonModule} from '@angular/common';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {StockService} from '../../core/services/stock.service';
+import {StockService} from './stock.service';
 import {
   getStockQuantityClass,
   getStockQuantityLabel,

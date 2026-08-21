@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 
-import {ProductService} from '../../core/services/product.service';
+import {ProductService} from './product.service';
 import {ProductRequestDTO} from '../../shared/models/product/product-request.dto';
 import {ProductNavigationService} from './product-navigation.service';
 import {NgxMaskDirective} from 'ngx-mask';

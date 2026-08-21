@@ -5,7 +5,7 @@ import {ProductResponseDTO} from "../../shared/models/product/product-response.d
 import {Observable} from "rxjs";
 import {ProductRequestDTO} from "../../shared/models/product/product-request.dto";
 import {PageResponse} from "../../shared/models/page-response.model";
-import {successContext} from '../context/http-context';
+import {successContext} from '../../core/context/http-context';
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DataTableComponent} from '../../shared/components/data-table/data-table.component';
 import {NavbarService} from '../../core/services/navbar.service';
-import {ProductService} from '../../core/services/product.service';
+import {ProductService} from './product.service';
 import {ProductResponseDTO} from '../../shared/models/product/product-response.dto';
 import {PaginationComponent} from "../../shared/components/pagination/pagination.component";
 import {ProductNavigationService} from './product-navigation.service';
