@@ -59,7 +59,7 @@ export class SaleComponent implements OnInit {
   }
 
   loadSales(): void {
-    this.saleService.findAll(this.currentPage, this.pageSize, 'id,asc').subscribe({
+    this.saleService.findAll(this.currentPage, this.pageSize, 'id,desc').subscribe({
       next: (response: any) => {
         this.sales = response.content;
         this.totalPages = response.totalPages;
