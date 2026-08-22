@@ -2,7 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {DashboardSummary, RecentSale, SalesByDay, StockAlert, TopCustomer, TopProduct} from './dashboard.model';
+import {
+  DashboardSummary,
+  RecentSale,
+  SalesByDay,
+  StockAlert,
+  TopCustomer,
+  TopProduct
+} from '../../shared/models/dashboard/dashboard.model';
 
 @Injectable({
   providedIn: 'root'
