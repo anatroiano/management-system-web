@@ -1,11 +1,11 @@
 import {Injectable} from "@angular/core";
-import {environment} from "../../../enviroments/enviroment";
+import {environment} from "../../../environments/environment";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {ProductResponseDTO} from "../../shared/models/product/product-response.dto";
 import {Observable} from "rxjs";
 import {ProductRequestDTO} from "../../shared/models/product/product-request.dto";
 import {PageResponse} from "../../shared/models/page-response.model";
-import {successContext} from '../context/http-context';
+import {successContext} from '../../core/context/http-context';
 
 @Injectable({
   providedIn: 'root'

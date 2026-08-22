@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {SALE_ROUTES} from '../../shared/constants/sale-routes';
 
 @Injectable({
   providedIn: 'root'
@@ -12,21 +11,15 @@ export class SaleNavigationService {
   }
 
   goToList(): Promise<boolean> {
-    return this.router.navigate([
-      SALE_ROUTES.LIST
-    ]);
+    return this.router.navigate(['/sales']);
   }
 
   goToNew(): Promise<boolean> {
-    return this.router.navigate([
-      SALE_ROUTES.NEW
-    ]);
+    return this.router.navigate(['/sales/new']);
   }
 
   goToDetails(id: number | string): Promise<boolean> {
-    return this.router.navigate([
-      SALE_ROUTES.DETAILS(id)
-    ]);
+    return this.router.navigate(['/sales', id, 'view']);
   }
 
 }

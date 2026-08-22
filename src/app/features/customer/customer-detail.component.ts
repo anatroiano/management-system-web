@@ -3,7 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {CommonModule} from "@angular/common";
 import {CustomerNavigationService} from "./customer-navigation.service";
 import {NavbarService} from "../../core/services/navbar.service";
-import {CustomerService} from "../../core/services/customer.service";
+import {CustomerService} from "./customer.service";
 import {CustomerResponseDTO} from "../../shared/models/customer/customer-response.dto";
 import {formatDocument, formatPhone} from "../../shared/utils/format.util";
 

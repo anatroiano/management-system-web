@@ -9,11 +9,11 @@ import {StockMovementResponseDTO} from '../../shared/models/stock/stock-movement
 
 import {StockEntryRequestDTO} from '../../shared/models/stock/stock-entry-request.dto';
 import {StockExitRequestDTO} from '../../shared/models/stock/stock-exit-request.dto';
-import {environment} from '../../../enviroments/enviroment';
+import {environment} from '../../../environments/environment';
 import {CreateStockRequestDTO} from '../../shared/models/stock/crete-stock-request.dto';
 import {PageResponse} from '../../shared/models/page-response.model';
 import {StockDashboardDTO} from '../../shared/models/stock/stock-dashboard.dto';
-import {successContext} from '../context/http-context';
+import {successContext} from '../../core/context/http-context';
 
 @Injectable({
   providedIn: 'root'

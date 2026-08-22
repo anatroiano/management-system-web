@@ -5,8 +5,8 @@ import {StockResponseDTO} from '../../../shared/models/stock/stock-response.dto'
 import {StockEntryRequestDTO} from '../../../shared/models/stock/stock-entry-request.dto';
 import {StockExitRequestDTO} from '../../../shared/models/stock/stock-exit-request.dto';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {StockService} from '../../../core/services/stock.service';
-import {ProductService} from '../../../core/services/product.service';
+import {StockService} from '../stock.service';
+import {ProductService} from '../../product/product.service';
 import {ProductResponseDTO} from '../../../shared/models/product/product-response.dto';
 import {NgSelectModule} from '@ng-select/ng-select';
 

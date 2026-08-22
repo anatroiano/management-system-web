@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {STOCK_ROUTES} from '../../shared/constants/stock-routes';
 
 @Injectable({
   providedIn: 'root'
@@ -12,15 +11,11 @@ export class StockNavigationService {
   }
 
   goToList(): Promise<boolean> {
-    return this.router.navigate([
-      STOCK_ROUTES.LIST
-    ]);
+    return this.router.navigate(['/stocks']);
   }
 
   goToDetails(id: number | string): Promise<boolean> {
-    return this.router.navigate([
-      STOCK_ROUTES.DETAILS(id)
-    ]);
+    return this.router.navigate(['/stocks', id, 'view']);
   }
 
 }

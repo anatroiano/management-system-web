@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonModule, CurrencyPipe, DatePipe} from '@angular/common';
 import {RouterModule} from '@angular/router';
-import {SaleService} from '../../core/services/sale.service';
+import {SaleService} from './sale.service';
 import {SaleResponseDTO} from '../../shared/models/sale/sale-response.dto';
 import {NavbarService} from '../../core/services/navbar.service';
 import {FormsModule} from '@angular/forms';
@@ -59,7 +59,7 @@ export class SaleComponent implements OnInit {
   }
 
   loadSales(): void {
-    this.saleService.findAll(this.currentPage, this.pageSize, 'id,asc').subscribe({
+    this.saleService.findAll(this.currentPage, this.pageSize, 'id,desc').subscribe({
       next: (response: any) => {
         this.sales = response.content;
         this.totalPages = response.totalPages;

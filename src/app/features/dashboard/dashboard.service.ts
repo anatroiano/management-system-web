@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {environment} from '../../../enviroments/enviroment';
+import {environment} from '../../../environments/environment';
 import {
   DashboardSummary,
   RecentSale,
@@ -9,7 +9,7 @@ import {
   StockAlert,
   TopCustomer,
   TopProduct
-} from '../../features/dashboard/dashboard.model';
+} from '../../shared/models/dashboard/dashboard.model';
 
 @Injectable({
   providedIn: 'root'

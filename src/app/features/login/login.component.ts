@@ -51,11 +51,11 @@ export class LoginComponent {
       .subscribe({
         next: (response: any) => {
           this.tokenService.setToken(response.token);
-          this.router.navigate(['/products']);
+          this.router.navigate(['/dashboard']);
         },
 
         error: () => {
-          this.errorMessage = 'Email ou senha inválidos';
+          this.errorMessage = 'E-mail ou senha inválidos';
           this.loading = false;
         },
 
