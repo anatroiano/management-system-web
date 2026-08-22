@@ -101,7 +101,7 @@
                   <i class="bi bi-plus-lg"></i>
                 </button>
 
-                <button class="action-btn exit-btn" (click)="openExitModal(stock)">
+                <button class="action-btn exit-btn" (click)="openExitModal(stock)" *ngIf="stock.quantity > 0">
                   <i class="bi bi-box-arrow-right"></i>
                 </button>
 
