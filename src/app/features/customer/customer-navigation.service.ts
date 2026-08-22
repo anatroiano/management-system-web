@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {CUSTOMER_ROUTES} from '../../shared/constants/customer-routes';
 
 @Injectable({
   providedIn: 'root'
@@ -12,27 +11,19 @@ export class CustomerNavigationService {
   }
 
   goToList(): Promise<boolean> {
-    return this.router.navigate([
-      CUSTOMER_ROUTES.LIST
-    ]);
+    return this.router.navigate(['/customers']);
   }
 
   goToNew(): Promise<boolean> {
-    return this.router.navigate([
-      CUSTOMER_ROUTES.NEW
-    ]);
+    return this.router.navigate(['/customers/new']);
   }
 
   goToDetails(id: number | string): Promise<boolean> {
-    return this.router.navigate([
-      CUSTOMER_ROUTES.DETAILS(id)
-    ]);
+    return this.router.navigate(['/customers', id, 'view']);
   }
 
   goToEdit(id: number | string): Promise<boolean> {
-    return this.router.navigate([
-      CUSTOMER_ROUTES.EDIT(id)
-    ]);
+    return this.router.navigate(['/customers/edit', id]);
   }
 
 }

@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {PRODUCT_ROUTES} from '../../shared/constants/product-routes';
 
 @Injectable({
   providedIn: 'root'
@@ -12,27 +11,19 @@ export class ProductNavigationService {
   }
 
   goToList(): Promise<boolean> {
-    return this.router.navigate([
-      PRODUCT_ROUTES.LIST
-    ]);
+    return this.router.navigate(['/products']);
   }
 
   goToNew(): Promise<boolean> {
-    return this.router.navigate([
-      PRODUCT_ROUTES.NEW
-    ]);
+    return this.router.navigate(['/products/new']);
   }
 
   goToDetails(id: number | string): Promise<boolean> {
-    return this.router.navigate([
-      PRODUCT_ROUTES.DETAILS(id)
-    ]);
+    return this.router.navigate(['/products', id, 'view']);
   }
 
   goToEdit(id: number | string): Promise<boolean> {
-    return this.router.navigate([
-      PRODUCT_ROUTES.EDIT(id)
-    ]);
+    return this.router.navigate(['/products/edit', id]);
   }
 
 }
