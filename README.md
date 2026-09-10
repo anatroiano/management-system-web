@@ -12,7 +12,7 @@ O projeto permite visualizar e gerenciar as principais funcionalidades do sistem
 - Gerenciamento de clientes
 - Registro e acompanhamento de vendas
 - Controle de estoque
-- Dashboard com acompanhamento de vendas e estoque
+- Dashboard para monitoramento de vendas e estoque
 - Login de usuários
 
 ---
@@ -28,32 +28,58 @@ O projeto permite visualizar e gerenciar as principais funcionalidades do sistem
 - Angular Router
 - Angular HttpClient
 - Chart.js
+- Docker
+- Docker Compose
+- Nginx
 
 ---
 
-## ▶️ Como executar o projeto
+## 🐳 Como executar
 
 ### Pré-requisitos
 
-- Node.js
-- npm
-- Angular CLI
+* Docker
+* Docker Compose
 
-### Instalar dependências
+### Execução
+
+Para executar a aplicação:
 
 ```bash
-npm install
+docker compose up --build
 ```
 
-### Executar aplicação
+> Use `--build` na primeira execução e sempre que alterar o código-fonte ou o `Dockerfile`. Nas demais, utilize:
 
 ```bash
-ng serve
+docker compose up
 ```
 
 A aplicação estará disponível em:
 
-```txt
+```text
+http://localhost
+```
+
+> No ambiente de produção, o Nginx é responsável por servir a aplicação Angular e encaminhar as requisições para a API.
+
+### Ambiente de desenvolvimento
+
+Para executar o ambiente de desenvolvimento:
+
+```bash
+docker compose -f compose-dev.yaml up --build
+```
+
+> Use `--build` na primeira execução ou ao alterar o `Dockerfile-dev`. Nas demais, utilize:
+
+```bash
+docker compose -f compose-dev.yaml up
+```
+
+A aplicação estará disponível em:
+
+```text
 http://localhost:4200
 ```
 
