@@ -1,0 +1,15 @@
+services:
+  frontend:
+    image: management-system-web-dev
+    container_name: management-system-web-dev
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    ports:
+      - "4200:4200"
+    volumes:
+      - .:/app
+      - node-modules:/app/node_modules
+
+volumes:
+  node-modules:

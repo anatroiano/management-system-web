@@ -1,0 +1,15 @@
+services:
+  frontend:
+    image: management-system-web
+    container_name: management-system-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    networks:
+      - management-network
+
+networks:
+  management-network:
+    external: true
